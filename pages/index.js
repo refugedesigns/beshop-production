@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import { Button, Grid, Stack } from '@mui/material';
+import { Box, Button, Grid, Stack } from '@mui/material';
+import HeaderComponent from '@/components/header/Header';
+
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -15,22 +17,106 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        <Grid
-          container
-          height="100vh"
-          alignItems="center"
-          justifyContent="center"
-          direction="column"
-        >
-          <h1>Using Material UI with Next.js 13</h1>
-          <Stack direction="row" columnGap={1}>
-            <Button variant="text">Text</Button>
-            <Button className="" variant="contained">
-              Contained
-            </Button>
-            <Button className='text-black' variant="outlined">Outlined</Button>
-          </Stack>
-        </Grid>
+      <HeaderComponent />
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
+      <Box>Hello</Box>
     </>
   );
 }

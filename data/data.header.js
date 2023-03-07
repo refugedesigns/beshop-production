@@ -2,6 +2,9 @@ export const header = {
   logo: '/assets/img/header-logo.svg',
 };
 
+export const pages = ["Products", "Pricing", "Blog"];
+export const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 export const navItem = [
   {
     name: 'Home',
