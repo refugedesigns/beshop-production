@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { Box, Button, Grid, Stack } from '@mui/material';
 import HeaderComponent from '@/components/header/Header';
+import HeroArea from '@/components/hero-area/HeroArea';
 
 
 
@@ -18,6 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderComponent />
+      <HeroArea/>
       <Box>Hello</Box>
       <Box>Hello</Box>
       <Box>Hello</Box>

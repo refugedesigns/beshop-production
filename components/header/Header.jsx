@@ -41,7 +41,7 @@ export default function Header() {
   };
 
   return (
-    <AppBar className="shadow-none bg-transparent">
+    <AppBar className="shadow-none bg-transparent z-50">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
