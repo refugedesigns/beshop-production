@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultFonts = require('tailwindcss/defaultTheme');
 
 module.exports = {
   mode: "jit",
@@ -12,7 +13,13 @@ module.exports = {
   },
   important: '#__next',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        body: ['lato', ...defaultFonts.fontFamily.sans],
+        styling: ['Mrs Saint Delafield', ],
+        elegant: ['Tenor Sans', 'Monospace']
+      }
+    },
   },
   plugins: [],
 };
