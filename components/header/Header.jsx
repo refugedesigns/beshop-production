@@ -28,7 +28,7 @@ export default function Header() {
 
   const { backgroundColor } = useSpring({
     backgroundColor: scrollOffset > 10 ? "#FCECEB" : "transparent",
-    config: { duration: 500 },
+    config: { duration: 200 },
   });
 
   const handleOpenNavMenu = (event) => {
@@ -52,7 +52,7 @@ export default function Header() {
     }
 
     window.addEventListener("scroll", handleScroll);
-    console.log(scrollOffset);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
