@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import { Box, Button, Grid, Stack } from '@mui/material';
 import HeaderComponent from '@/components/header/Header';
 import HeroArea from '@/components/hero-area/HeroArea';
+import Layout from '@/components/layout/Layout';
+import Trending from '@/components/trending/Trending';
 
 
 
@@ -18,107 +20,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HeaderComponent />
-      <HeroArea/>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
-      <Box>Hello</Box>
+      <Layout>
+        <HeroArea/>
+        <Trending />
+        <Box>Hello</Box>
+        <Box>Hello</Box>
+      </Layout>
     </>
   );
 }

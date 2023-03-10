@@ -12,7 +12,7 @@ const HeroArea = () => {
         <Box className="">
           <Typography
             variant="h2"
-            className="font-styling text-[#d05278] pl-2 text-5xl md:text-6xl"
+            className="font-styling text-style-color pl-2 text-5xl md:text-6xl"
           >
             Professional
           </Typography>
