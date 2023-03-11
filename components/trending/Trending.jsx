@@ -3,11 +3,12 @@ import React from "react";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import TrendingButton from "./TrendingButton";
 import ProductList from "./ProductList";
+import PartnerLogos from "./PartnerLogos";
 
 const Trending = () => {
   return (
     <Box className="py-20">
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Stack spacing={3}>
           <Typography className="font-styling text-5xl -mb-4 text-style-color md:text-6xl" variant="h2" align="center">
             Cosmetics
@@ -28,8 +29,9 @@ const Trending = () => {
             <TrendingButton title="Skin care"/>
             <TrendingButton isLastChild title="Hair care"/>
         </Stack>
-        <ProductList />
       </Container>
+        <ProductList />
+        <PartnerLogos />
     </Box>
   );
 };
