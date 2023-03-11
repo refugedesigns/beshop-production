@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Slider from "react-slick";
-import Product from "../products/Product";
+import Product from "../../ui/products/Product";
 import NextArrow from "./NextArrow";
 import PreviousArrow from "./PreviousArrow";
 
@@ -55,7 +55,10 @@ const ProductList = () => {
   };
 
   return (
-    <Slider className="mt-10 flex justify-center items-center px-4 lg:px-10" {...settings}>
+    <Slider
+      className="mt-10 flex justify-center items-center px-4 lg:px-10"
+      {...settings}
+    >
       {Array(10)
         .fill(null)
         .map((_, index) => (

@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import { Box, Button, Grid, Stack } from '@mui/material';
+import { Box, Button, CardMedia, Grid, Stack } from "@mui/material";
 import HeaderComponent from '@/components/header/Header';
-import HeroArea from '@/components/hero-area/HeroArea';
+import HeroArea from '@/components/homepage/hero-area/HeroArea';
 import Layout from '@/components/layout/Layout';
-import Trending from '@/components/trending/Trending';
+import Trending from "@/components/homepage/trending/Trending";
+import { Discount } from '@/components/homepage/discount/Discount';
 
 
 
@@ -21,10 +22,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <HeroArea/>
-        <Trending />
-        <Box>Hello</Box>
-        <Box>Hello</Box>
+          <HeroArea />
+          <Trending />
+          <Discount />
       </Layout>
     </>
   );

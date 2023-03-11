@@ -4,15 +4,14 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import TrendingButton from "./TrendingButton";
 import ProductList from "./ProductList";
 import PartnerLogos from "./PartnerLogos";
+import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 
 const Trending = () => {
   return (
     <Box className="py-20">
       <Container maxWidth="xl">
         <Stack spacing={3}>
-          <Typography className="font-styling text-5xl -mb-4 text-style-color md:text-6xl" variant="h2" align="center">
-            Cosmetics
-          </Typography>
+          <StyledTitle title="Cosmetics" align="center" classes="-mb-4"/>
           <Typography className="font-elegant text-4xl md:text-5xl" variant="h2" align="center">
             Trending Products
           </Typography>
