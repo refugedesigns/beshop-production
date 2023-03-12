@@ -1,23 +1,21 @@
 import React from 'react'
 
-import { Card, CardMedia, Typography } from '@mui/material'
+import { Card, CardMedia, Typography, Box } from "@mui/material";
 
-const BenefitCard = ({cardImage, heading, except}) => {
+const BenefitCard = ({ cardImage, heading, except }) => {
   return (
-    <Card>
-        <CardMedia 
-        component="img"
-        height="150"
-        image={cardImage}
-        />
-        <Typography variant="h5" component="h2">
-          {heading}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {except}
-        </Typography>
+    <Card className='shadow-none'>
+      <Box>
+        <CardMedia component="img" image={cardImage} className="h-20 object-contain" />
+      </Box>
+      <Typography variant="h5" component="h2">
+        {heading}
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {except}
+      </Typography>
     </Card>
-  )
-}
+  );
+};
 
 export default BenefitCard
