@@ -14,6 +14,7 @@ module.exports = {
   },
   important: "#__next",
   theme: {
+
     extend: {
       fontFamily: {
         body: ["lato", ...defaultFonts.fontFamily.sans],

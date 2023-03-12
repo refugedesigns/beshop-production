@@ -10,8 +10,8 @@ export const Discount = () => {
       container
       className="bg-[url('/assets/img/discount-bg.jpg')] bg-cover bg-no-repeat bg-center h-[500px] md:h-[700px]"
     >
-      <Grid sm={6}></Grid>
-      <Grid sx={12} sm={6} className="pt-24 px-4 flex flex-col items-end md:items-start lg:max-w-lg">
+      <Grid item sm={6}></Grid>
+      <Grid item xs={12} sm={6} className="pt-24 px-4 flex flex-col items-end md:items-start lg:max-w-lg">
         <StyledTitle title="Discount" classes="" />
         <Box className="">
           <Typography
