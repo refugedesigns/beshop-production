@@ -20,6 +20,7 @@ module.exports = {
         body: ["lato", ...defaultFonts.fontFamily.sans],
         styling: ["Mrs Saint Delafield"],
         elegant: ["Tenor Sans", "Monospace"],
+        icon: ['icomoon']
       },
     },
     colors: {

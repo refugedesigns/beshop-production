@@ -8,6 +8,8 @@ import Layout from '@/components/layout/Layout';
 import Trending from "@/components/homepage/trending/Trending";
 import { Discount } from '@/components/homepage/discount/Discount';
 import Advantages from '@/components/homepage/advantages/Advantages';
+import Category from '@/components/homepage/category/Category';
+import Collection from '@/components/homepage/collection/Collection';
 
 
 
@@ -27,6 +29,8 @@ export default function Home() {
           <Trending />
           <Discount />
           <Advantages />
+          <Category />
+          <Collection />
       </Layout>
     </>
   );
