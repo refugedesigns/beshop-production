@@ -11,6 +11,7 @@ import Advantages from '@/components/homepage/advantages/Advantages';
 import Category from '@/components/homepage/category/Category';
 import Collection from '@/components/homepage/collection/Collection';
 import NewArrivals from '@/components/homepage/new-arrivals/NewArrivals';
+import InstaPhotos from '@/components/homepage/insta-photos/InstaPhotos';
 
 
 
@@ -33,6 +34,7 @@ export default function Home() {
           <Category />
           <Collection />
           <NewArrivals />
+          <InstaPhotos />
       </Layout>
     </>
   );

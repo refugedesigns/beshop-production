@@ -1,0 +1,1 @@
+// code a react component using Material UI 5 for component structure and tailwind for styling. the component should have 4 sections that are responsive - About, Categories, Useful Links and Contact
