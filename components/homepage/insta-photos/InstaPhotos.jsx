@@ -4,7 +4,7 @@ import PictureReel from "@/components/ui/picture-reel/PictureReel";
 
 const InstaPhotos = () => {
   return (
-    <Box container className="w-full h-full flex flex-wrap mt-10 sm:mt-28 xl:mt-32">
+    <Box  className="w-full h-full flex flex-wrap mt-10 sm:mt-28 xl:mt-32">
       <PictureReel imageUrl="/assets/img/insta-photo1.jpg" />
       <PictureReel imageUrl="/assets/img/insta-photo2.jpg" />
 
