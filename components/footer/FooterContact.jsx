@@ -11,7 +11,7 @@ const FooterContact = () => {
         Contact
       </Typography>
       <Stack direction="row" alignItems="start" justifyContent="start" spacing={2} className="pt-4">
-        <CiLocationOn className="h-12 w-12 md:h-8 md:w-8 text-gray-400" />
+        <CiLocationOn className="p-1 h-16 w-16 lg:h-8 lg:w-8 text-gray-400" />
         <Typography
           variant="p"
           component="address"
@@ -21,7 +21,7 @@ const FooterContact = () => {
         </Typography>
       </Stack>
       <Stack direction="row" alignItems="start" justifyContent="start" spacing={1}>
-        <AiOutlineMobile className="h-8 w-8 text-gray-400 pt-3 " />
+        <AiOutlineMobile className="h-8 w-8 text-gray-400 pt-2 " />
         <Stack>
           <Typography
             variant="p"
@@ -44,7 +44,7 @@ const FooterContact = () => {
         <Typography
           variant="p"
           component="address"
-          className="font-lato text-normal pt-2 text-gray-400"
+          className="font-lato text-normal pt-3 text-gray-400"
         >
           info@goshop.com
         </Typography>
