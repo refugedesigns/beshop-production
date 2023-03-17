@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link"
 import { useSpring, animated } from "@react-spring/web";
 import {
   AppBar,
@@ -20,6 +21,7 @@ import { BiSearch } from "react-icons/bi";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { pages, settings } from "@/data/data.header";
+
 
 export default function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -92,7 +94,9 @@ export default function Header() {
                     fontFamily: "lato",
                   }}
                 >
-                  {page}
+                  <Link className="no-underline text-black" href={page.link}>
+                  {page.title}
+                  </Link>
                 </Button>
               ))}
             </Box>
