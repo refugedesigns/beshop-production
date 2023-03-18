@@ -27,6 +27,7 @@ const Banner = ({ pageTitle, breadcrumbs }) => {
               </Link>
             ) : (
               <Typography
+              key={index}
                 className={`${
                   router.pathname.split("/")[1] ===
                   breadcrumb.title.toLowerCase()

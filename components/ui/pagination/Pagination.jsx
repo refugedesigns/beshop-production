@@ -3,6 +3,7 @@ import React from "react";
 import { Stack, Button, IconButton, Box } from "@mui/material";
 import usePagination from "@mui/material/usePagination";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 
 const Pagination = () => {
   const { items } = usePagination({
@@ -21,13 +22,16 @@ const Pagination = () => {
               className="border-solid border-[1px] border-gray-300 bg-gray-100 rounded-none h-14 w-10 cursor-pointer"
               {...item}
             >
-              <IoIosArrowBack />
+              <MdArrowBackIos />
             </IconButton>
           );
         }else if(type === 'next') {
           children = (
-            <IconButton className="border-solid border-[1px] border-gray-300 bg-gray-100 rounded-none h-14 w-10 cursor-pointer" {...item}>
-              <IoIosArrowForward />
+            <IconButton
+              className="border-solid border-[1px] border-gray-300 bg-gray-100 rounded-none h-14 w-10 cursor-pointer"
+              {...item}
+            >
+              <MdArrowForwardIos />
             </IconButton>
           );
         }else if(type === 'page') {

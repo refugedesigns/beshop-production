@@ -20,8 +20,8 @@ const ShopPage = () => {
         pageTitle="Shop"
         breadcrumbs={[{ link: "/", title: "Home" }, { title: "Shop" }]}
       />
-      <Grid container>
-        <Grid item>
+      <Grid container className="mt-20">
+        <Grid item className="w-full mx-4">
           <SearchBox />
           <CatListView />
           <PriceSlider />

@@ -1,16 +1,24 @@
 import React from 'react'
-import { Box, TextField } from '@mui/material'
+import { Box, TextField, InputAdornment } from "@mui/material";
+import { CiSearch } from "react-icons/ci";
 
 const SearchBox = () => {
   return (
-    <Box>
-        <TextField
+    <Box className="">
+      <TextField
         id="outlined-basic"
         label="Search"
-        variant="outlined"
-        />
+        fullWidth
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <CiSearch className='h-8 w-8' />
+            </InputAdornment>
+          ),
+        }}
+      />
     </Box>
-  )
-}
+  );
+};
 
 export default SearchBox

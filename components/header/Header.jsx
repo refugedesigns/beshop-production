@@ -83,9 +83,9 @@ export default function Header() {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <Button
-                  key={page}
+                  key={index}
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
