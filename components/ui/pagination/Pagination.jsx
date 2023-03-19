@@ -10,7 +10,7 @@ const Pagination = () => {
     count: 10,
   });
   return (
-    <Stack direction="row" spacing={1} className="items-center">
+    <Stack direction="row" spacing={1} className="items-center mt-14">
       {items.map(({ page, type, selected, ...item }, index) => {
         let children = null;
 

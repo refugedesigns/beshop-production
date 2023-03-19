@@ -7,10 +7,10 @@ const Banner = ({ pageTitle, breadcrumbs }) => {
   const router = useRouter();
   console.log(router.pathname);
   return (
-    <Box className="bg-[url('/assets/img/detail-main-bg-sm.jpg')] bg-center sm:bg-[url('/assets/img/detail-main-bg.jpg')] sm:bg-center min-h-[400px]">
+    <Box className="bg-[url('/assets/img/detail-main-bg-sm.jpg')] bg-center bg-cover sm:bg-[url('/assets/img/detail-main-bg.jpg')] sm:bg-center min-h-[400px]">
       <Container
         maxWidth="lg"
-        className="mt-48 mx-auto flex flex-col items-center"
+        className="mt-48 flex flex-col items-center"
       >
         <Typography variant="h2" className="font-elegant">
           {pageTitle}

@@ -9,7 +9,7 @@ const CatListView = () => {
         Categories
       </Typography>
       <Divider className='mt-2 bg-black h-[0.1rem]' />
-      <Box className="mt-4 space-y-4">
+      <Box className="mt-4 space-y-4 w-full">
         <CatListItem title="Make Up" number="37" />
         <CatListItem title="SPA" number="162" />
         <CatListItem title="Perfume" number="153" />

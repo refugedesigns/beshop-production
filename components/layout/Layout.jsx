@@ -5,12 +5,12 @@ import MainFooter from '../footer/MainFooter'
 
 const Layout = ({children}) => {
   return (
-    <Box className="flex flex-col w-full h-full">
-        <Header />
-        {children}
-        <MainFooter />
+    <Box className="flex flex-col w-full h-full overflow-x-hidden">
+      <Header />
+      {children}
+      <MainFooter />
     </Box>
-  )
+  );
 }
 
 export default Layout

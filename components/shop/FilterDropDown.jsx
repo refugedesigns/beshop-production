@@ -7,12 +7,13 @@ const FilterDropDown = () => {
         setValue(event.target.value)
     }
     return (
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
+        <FormControl className='w-full lg:w-min'>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={value}
                 onChange={handleChange}
+                size="small"
             >
                 <MenuItem value="expensive_to_cheap">From expensive to cheap</MenuItem>
                 <MenuItem value="cheap_to_expensive">From cheap to expensive</MenuItem>

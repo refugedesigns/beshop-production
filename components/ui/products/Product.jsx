@@ -3,10 +3,11 @@ import { CardMedia, Box, Typography, Stack, IconButton } from "@mui/material";
 import {RiSearch2Line} from "react-icons/ri";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
+import Image from "next/image";
 
 const Product = ({ title, salePrice, realPrice }) => {
   return (
-    <Box className="mx-auto lg:mx-3 hover:cursor-pointer relative">
+    <Box className="mx-auto lg:mx- hover:cursor-pointer relative">
       <Stack className="absolute z-30 top-0 right-0 font-body">
         <Typography
           className="p-1 px-5 bg-style-color text-white"
@@ -22,11 +23,9 @@ const Product = ({ title, salePrice, realPrice }) => {
         </Typography>
       </Stack>
       <Box className="relative group">
-        <CardMedia
-          component="img"
-          height="500"
-          image="/assets/img/product-img1.jpg"
-        />
+        <CardMedia className="flex-1">
+          <Image src="/assets/img/product-img1.jpg" height="0" width="0" sizes="100vw" className="w-full h-auto"  alt=""/>
+        </CardMedia>
         <Box className="hidden group-hover:block">
           <Stack
             justifyContent="center"
@@ -47,7 +46,10 @@ const Product = ({ title, salePrice, realPrice }) => {
         </Box>
       </Box>
       <Stack className="flex flex-col justify-center items-center space-y-2 mt-4">
-        <Typography className="font-elegant text-lg text-center md:text-2xl" variant="body">
+        <Typography
+          className="font-elegant text-lg text-center md:text-2xl"
+          variant="body"
+        >
           {title}
         </Typography>
         <Box className="space-x-2 font-body">

@@ -10,7 +10,7 @@ const HeroArea = () => {
       component="section"
       className='bg-[url("/assets/img/main-bg.jpg")] bg-cover bg-center flex flex-col h-[100vh] relative'
     >
-      <Container className="flex flex-col items-start mt-[200px] sm:mt-[240px] md:mt-[280px] lg:mt-[150px] xl:mt[200px]">
+      <Container className="flex flex-col items-start mt-[200px] sm:mt-[240px] md:mt-[280px] lg:mt-[150px] xl:mt-[200px]">
         <Box className="z-30">
           <StyledTitle title="Professional" classes="pl-2" />
           <Typography
