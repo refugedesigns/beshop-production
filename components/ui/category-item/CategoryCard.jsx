@@ -8,7 +8,7 @@ import LongArrow from '../long-arrow/LongArrow';
 
 const CategoryCard = ({ imageUrl, title }) => {
   return (
-    <Box className="m-4 relative hover:cursor-pointer group">
+    <Box className="relative hover:cursor-pointer group">
       <CardMedia
         component="img"
         alt={title}

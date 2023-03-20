@@ -66,7 +66,7 @@ const ShopPage = () => {
               {Array(20)
                 .fill(null)
                 .map((_, index) => (
-                  <Grid item key={index} sm={4} flexShrink className="w-full">
+                  <Grid item key={index} sm={4} flexShrink className="w-full mt-4">
                     <Product
                       title="Hydrogel Patches"
                       salePrice="249.95"
