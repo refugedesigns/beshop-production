@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, TextField, InputAdornment } from "@mui/material";
+import { Box, TextField, InputAdornment, IconButton } from "@mui/material";
 import { CiSearch } from "react-icons/ci";
 
 const SearchBox = () => {
@@ -9,10 +9,14 @@ const SearchBox = () => {
         id="outlined-basic"
         label="Search"
         fullWidth
+        size='small'
         InputProps={{
           endAdornment: (
-            <InputAdornment position="end">
-              <CiSearch className='h-8 w-8' />
+
+            <InputAdornment className='hover:cursor-pointer' position="end">
+              <IconButton>
+                <CiSearch className='h-6 w-6' />
+              </IconButton>
             </InputAdornment>
           ),
         }}
