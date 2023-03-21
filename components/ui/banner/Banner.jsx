@@ -10,7 +10,7 @@ const Banner = ({ pageTitle, breadcrumbs }) => {
     <Box className="bg-[url('/assets/img/detail-main-bg-sm.jpg')] bg-center bg-cover sm:bg-[url('/assets/img/detail-main-bg.jpg')] sm:bg-center min-h-[400px]">
       <Container
         maxWidth="lg"
-        className="mt-48 flex flex-col items-center"
+        className="pt-48 flex flex-col items-center"
       >
         <Typography variant="h2" className="font-elegant">
           {pageTitle}
@@ -29,7 +29,7 @@ const Banner = ({ pageTitle, breadcrumbs }) => {
               <Typography
               key={index}
                 className={`${
-                  router.pathname.split("/")[1] ===
+                  router.pathname.split("/")[1].split(" ")[0] ===
                   breadcrumb.title.toLowerCase()
                     ? "text-style-color"
                     : ""

@@ -2,16 +2,16 @@
   {
     "step": "Free Shipping",
     "title": "World wide",
-    "icon": "icon-shipping"
+    "icon": "/assets/img/icons/shipping.svg"
   },
   {
     "step": "Helpline",
     "title": "+1 345 99 71 345",
-    "icon": "icon-helpline"
+    "icon": "/assets/img/icons/helpline.svg"
   },
   {
     "step": "Customer Support",
     "title": "Finish!",
-    "icon": "icon-24"
+    "icon": "/assets/img/icons/24.svg"
   }
 ]
