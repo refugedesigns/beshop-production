@@ -7,7 +7,7 @@ import HeroArea from '@/components/homepage/hero-area/HeroArea';
 import Layout from '@/components/layout/Layout';
 import Trending from "@/components/homepage/trending/Trending";
 import { Discount } from '@/components/homepage/discount/Discount';
-import Advantages from '@/components/homepage/advantages/Advantages';
+import Advantages from '@/components/ui/advantages/Advantages';
 import Category from '@/components/homepage/category/Category';
 import Collection from '@/components/homepage/collection/Collection';
 import NewArrivals from '@/components/homepage/new-arrivals/NewArrivals';

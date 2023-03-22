@@ -1,10 +1,13 @@
 import React from "react";
-import { Box} from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import Layout from "@/components/layout/Layout";
 import Banner from "@/components/ui/banner/Banner";
 import Services from "@/components/ui/services/Services"
 
 import aboutBlockInfo from "@/data/aboutBlockInfo/aboutBlockInfo"
+import PromoSection from "@/components/about/PromoSection";
+import StatsSection from "@/components/ui/statistics/StatsSection";
+import WideCard from "@/components/ui/wide-card/WideCard";
 
 const AboutPage = () => {
   return (
@@ -23,6 +26,24 @@ const AboutPage = () => {
           />
         ))}
       </Box>
+      <PromoSection />
+      <StatsSection />
+      <WideCard
+        backgroundUrl={"bg-[url('/assets/img/discount-bg2.jpg')]"}
+        styledHeading="Success Story"
+        titleHeading={
+          <Typography
+            variant="h3"
+            className="font-elegant max-w-[16rem] text-right text-2xl mt-4 md:text-left md:text-4xl lg:text-5xl md:max-w-full"
+          >
+            GoShop Develops It&apos;s Own Brands
+          </Typography>
+        }
+        except="The GoShop network is being developed and improved, taking into account all consumers."
+        text="Forming the range of stores, we, above all, strive not only to meet the format of 'home shop', offering each customer the most basic household goods, but also to create a unique space of beauty and care. BeShope stores offer their customers the widest and highest quality selection of products from world-renowned manufacturers."
+        buttonText="Shop Now"
+        extraClasses="md:h-[800px]"
+      />
     </Layout>
   );
 };

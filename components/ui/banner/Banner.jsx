@@ -10,7 +10,7 @@ const Banner = ({ pageTitle, breadcrumbs }) => {
     <Box className="bg-[url('/assets/img/detail-main-bg-sm.jpg')] bg-center bg-cover sm:bg-[url('/assets/img/detail-main-bg.jpg')] sm:bg-center min-h-[400px]">
       <Container
         maxWidth="lg"
-        className="pt-48 flex flex-col items-center"
+        className="pt-40 flex flex-col items-center"
       >
         <Typography variant="h2" className="font-elegant">
           {pageTitle}
