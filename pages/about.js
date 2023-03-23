@@ -8,6 +8,10 @@ import aboutBlockInfo from "@/data/aboutBlockInfo/aboutBlockInfo"
 import PromoSection from "@/components/about/PromoSection";
 import StatsSection from "@/components/ui/statistics/StatsSection";
 import WideCard from "@/components/ui/wide-card/WideCard";
+import Advantages from "@/components/ui/advantages/Advantages";
+import TestimonialSection from "@/components/ui/testimonails/TestimonialSection";
+import SubscribeCard from "@/components/ui/subscribe/SubscribeCard";
+import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
 const AboutPage = () => {
   return (
@@ -44,6 +48,10 @@ const AboutPage = () => {
         buttonText="Shop Now"
         extraClasses="md:h-[800px]"
       />
+      <Advantages />
+      <TestimonialSection />
+      <SubscribeCard />
+      <InstaPhotos />
     </Layout>
   );
 };
