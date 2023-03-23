@@ -21,7 +21,7 @@ const CategoryCard = ({ imageUrl, title }) => {
             <Typography
               variant="h5"
               component="p"
-              className="text-center font-elegant text-md"
+              className="text-center font-elegant text-md whitespace-nowrap"
             >
               {title}
             </Typography>

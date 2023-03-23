@@ -4,7 +4,7 @@ import { Typography, Box, Stack } from '@mui/material'
 import { CgFacebook } from "react-icons/cg"
 import { BsTwitter, BsInstagram } from 'react-icons/bs'
 import { FaLinkedinIn } from'react-icons/fa'
-import SocialIcon from './SocialIcon'
+import SocialIcon from '../ui/social-icon/SocialIcon'
 
 const FooterSocial = () => {
   return (

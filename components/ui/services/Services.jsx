@@ -31,8 +31,14 @@ const Services = ({ title, excerpt, imageIcon }) => {
         </CardMedia>
       </Box>
       <Stack>
-        <Typography className="whitespace-nowrap">{title}</Typography>
-        <Typography className="whitespace-nowrap">{excerpt}</Typography>
+        {title && (
+          <Typography className="whitespace-nowrap font-elegant text-lg">
+            {title}
+          </Typography>
+        )}
+        <Typography className="whitespace-nowrap font-elegant text-gray-500">
+          {excerpt}
+        </Typography>
       </Stack>
     </Stack>
   );
