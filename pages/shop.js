@@ -33,7 +33,7 @@ const ShopPage = () => {
           </Grid>
           <Grid className="mt-10 sm:mt-0 sm:w-full" item container sm={9}>
             <Grid item container justifyContent="space-between" alignItems="center" className="space-y-4 w-full lg:space-y-0">
-              <Grid lg={4} columnSpacing={{lg: 4}} className="flex justify-between space-x-4 w-full lg:w-min lg:justify-start">
+              <Grid item lg={4} columnSpacing={{lg: 4}} className="flex justify-between space-x-4 w-full lg:w-min lg:justify-start">
                 <FilterCheckBox
                   label="Sale"
                   icon={

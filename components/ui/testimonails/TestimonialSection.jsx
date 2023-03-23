@@ -20,7 +20,7 @@ const TestimonialSection = () => {
     nextArrow: <NextArrow classes="absolute right-0 z-10" />
   };
   return (
-    <Container className="md:px-10 lg:px-40 mt-10">
+    <Container className="md:px-10 lg:px-40 mt-10 md:mt-20">
       <Box>
         <StyledTitle title="They Stay" classes="text-center" />
         <Typography variant="h3" className="font-elegant text-center text-4xl xs:text-5xl">Testimonials</Typography>

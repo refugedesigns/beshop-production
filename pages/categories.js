@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 
 import { Box, Grid } from "@mui/material";
 import Layout from "@/components/layout/Layout";
@@ -9,7 +9,7 @@ import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos"
 
 const CategoriesPage = () => {
   return (
-    <Layout>
+    <Fragment>
       <Banner
         pageTitle="Categories"
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "Categories" }]}
@@ -33,7 +33,7 @@ const CategoriesPage = () => {
         ))}
       </Grid>
       <InstaPhotos />
-    </Layout>
+    </Fragment>
   );
 };
 

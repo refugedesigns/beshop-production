@@ -7,7 +7,7 @@ const Layout = ({children}) => {
   return (
     <React.Fragment>
       <Header />
-      <Box className="flex-1 w-full  overflow-x-hidden overflow-y-hidden">
+      <Box className="flex-1 w-full overflow-x-hidden overflow-y-hidden">
         {children}
       </Box>
       <MainFooter />

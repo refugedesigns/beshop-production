@@ -6,7 +6,7 @@ const Services = ({ title, excerpt, imageIcon }) => {
     <Stack
       direction="row"
       spacing={3}
-      className="p-4 bg-[#faf9ff] border-solid border-[1px] border-[#eee]"
+      className=" py-6 px-3 lg:px-14 lg:py-8 bg-[#faf9ff] border-solid border-[1px] border-[#eee]"
     >
       <Box className="relative w-min">
         <CardMedia className="w-16 h-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
@@ -36,8 +36,15 @@ const Services = ({ title, excerpt, imageIcon }) => {
             {title}
           </Typography>
         )}
-        <Typography className="whitespace-nowrap font-elegant text-gray-500">
-          {excerpt}
+        <Typography component="h6" className="md:whitespace-nowrap font-elegant text-gray-500 text-sm lg:text-base">
+          {excerpt.split("\n")[0]}
+          {excerpt.split("\n")[1] ? (
+            <Typography className="md:whitespace-nowrap font-elegant text-gray-500 text-sm lg:text-base">
+              {excerpt.split("\n")[1]}
+            </Typography>
+          ) : (
+            ""
+          )}
         </Typography>
       </Stack>
     </Stack>

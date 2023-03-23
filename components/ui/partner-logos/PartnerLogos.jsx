@@ -1,6 +1,8 @@
 import React from "react";
 
 import { Container, CardMedia, Stack,Box } from "@mui/material";
+import Image from "next/image";
+
 
 const PartnerLogos = () => {
   return (
@@ -42,6 +44,9 @@ const PartnerLogos = () => {
         alt="logo"
         className="object-contain h-16 lg:h-20 w-36 p-1 mb-8"
       />
+      <CardMedia>
+        <Image src="" height="0" width="0" sizes="100vw" className="w-full h-auto" />
+      </CardMedia>
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import TrendingButton from "./TrendingButton";
 import ProductList from "./ProductList";
-import PartnerLogos from "./PartnerLogos";
+import PartnerLogos from "../../ui/partner-logos/PartnerLogos";
 import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 
 const Trending = () => {

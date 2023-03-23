@@ -1,6 +1,5 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { Box, Typography} from "@mui/material";
-import Layout from "@/components/layout/Layout";
 import Banner from "@/components/ui/banner/Banner";
 import Services from "@/components/ui/services/Services"
 
@@ -15,12 +14,12 @@ import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
 const AboutPage = () => {
   return (
-    <Layout>
+    <Fragment>
       <Banner
         pageTitle="About"
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "About" }]}
       />
-      <Box className="mt-10 space-y-4 mx-8 md:flex md:space-y-0 md:space-x-4 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:mx-auto md:mt-0 ">
+      <Box className="mt-10 space-y-4 mx-4 md:flex md:space-y-0 md:space-x-4 md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:mx-auto md:mt-0 ">
         {aboutBlockInfo?.map((info, index) => (
           <Services
             key={index}
@@ -52,7 +51,7 @@ const AboutPage = () => {
       <TestimonialSection />
       <SubscribeCard />
       <InstaPhotos />
-    </Layout>
+    </Fragment>
   );
 };
 
