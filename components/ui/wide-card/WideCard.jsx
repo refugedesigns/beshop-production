@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Grid, Typography, Box } from '@mui/material';
 import StyledTitle from '../styled-text/StyledTitle';
 import Button from '../button/Button';
 
-const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, buttonText, extraClasses}) => {
+const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, buttonText, extraClasses, form}) => {
   return (
     <Grid
       container
@@ -17,9 +17,7 @@ const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, but
         className="pt-24 px-4 flex flex-col items-end md:items-start lg:max-w-lg"
       >
         <StyledTitle title={styledHeading} />
-        <Box className="">
-          {titleHeading}
-        </Box>
+        <Box className="">{titleHeading}</Box>
         <Box className="">
           <Typography
             variant="h6"
@@ -27,9 +25,17 @@ const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, but
           >
             {except}
           </Typography>
-          {text && <Typography variant='body1' className='mt-8 font-elegant text-sm lg:text-gray-500 text-right md:text-left'>{text}</Typography>}
+          {text && (
+            <Typography
+              variant="body1"
+              className="mt-8 font-elegant text-sm lg:text-gray-500 text-right md:text-left"
+            >
+              {text}
+            </Typography>
+          )}
+          {form && <Fragment>{form}</Fragment>}
         </Box>
-        <Button title={buttonText} classes="mt-10" />
+        {buttonText && <Button title={buttonText} classes="mt-10" />}
       </Grid>
       <Grid></Grid>
     </Grid>

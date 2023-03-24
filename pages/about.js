@@ -37,7 +37,7 @@ const AboutPage = () => {
         titleHeading={
           <Typography
             variant="h3"
-            className="font-elegant max-w-[16rem] text-right text-2xl mt-4 md:text-left md:text-4xl lg:text-5xl md:max-w-full"
+            className="font-elegant max-w-[16rem] text-right text-2xl mt-4 md:text-left md:text-4xl lg:text-6xl md:max-w-full"
           >
             GoShop Develops It&apos;s Own Brands
           </Typography>
