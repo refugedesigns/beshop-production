@@ -12,7 +12,7 @@ import Image from "next/image";
 
 const SubscribeCard = () => {
   return (
-    <Box className="relative h-[600px] mx-auto bg-[#FCECEB] mt-20 sm:max-w-3xl lg:max-w-4xl sm:h-[240px] sm:flex sm:justify-end xl:max-w-6xl">
+    <Box className="relative h-[600px] mx-auto bg-[#FCECEB] mt-20 sm:max-w-3xl lg:max-w-4xl sm:h-[280px] sm:flex sm:justify-end xl:max-w-6xl">
       <CardMedia className="w-full h-full absolute bg-[url('/assets/img/subscribe-img-decor.png')] bg-auto bg-bottom sm:bg-left-bottom z-10">
         <Image
           src="/assets/img/subscribe-img.png"

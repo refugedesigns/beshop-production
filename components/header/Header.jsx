@@ -103,16 +103,16 @@ export default function Header() {
 
             <Box className="md: space-x-6" sx={{ flexGrow: 0 }}>
               <Hidden mdDown>
-                <IconButton LinkComponent="a">
+                <IconButton aria-label="faq" LinkComponent={Link} href="/faq">
                   <BiSearch />
                 </IconButton>
-                <IconButton LinkComponent="a">
+                <IconButton aria-label="profile" LinkComponent={Link}>
                   <AiOutlineUser />
                 </IconButton>
-                <IconButton LinkComponent="a">
+                <IconButton aria-label="wishlist" LinkComponent={Link}>
                   <AiOutlineHeart />
                 </IconButton>
-                <IconButton aria-label="cart" LinkComponent="a">
+                <IconButton aria-label="cart" LinkComponent={Link}>
                   <Badge color="secondary" badgeContent={4}>
                     <BsCart4 height={10} width={10} />
                   </Badge>

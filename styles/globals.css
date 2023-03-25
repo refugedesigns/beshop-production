@@ -21,7 +21,7 @@ margin: 0 8px;
         transform: translate(-50%, -50%);
         width: 524px;
         height: 450px;
-        background-image: url('/assets/img/subscribe-img-decor.png');
+        background-image: url('~/public/assets/img/subscribe-img-decor.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
