@@ -1,8 +1,11 @@
-import React from 'react'
+import Banner from '@/components/ui/banner/Banner'
+import React, { Fragment} from 'react'
 
 const ProfilePage = () => {
   return (
-    <div>profile</div>
+    <Fragment>
+        <Banner pageTitle="My Profile" breadcrumbs={[{title: "Home", link: "/"}, {title: "My Profile"}]} />
+    </Fragment>
   )
 }
 

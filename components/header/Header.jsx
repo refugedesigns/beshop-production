@@ -106,7 +106,7 @@ export default function Header() {
                 <IconButton aria-label="faq" LinkComponent={Link} href="/faq">
                   <BiSearch />
                 </IconButton>
-                <IconButton aria-label="profile" LinkComponent={Link}>
+                <IconButton aria-label="profile" LinkComponent={Link} href="/profile">
                   <AiOutlineUser />
                 </IconButton>
                 <IconButton aria-label="wishlist" LinkComponent={Link}>
