@@ -1,13 +1,15 @@
-import React from 'react'
-import { Box, Typography, Stack, Divider } from '@mui/material'
-import ProductSmall from '../ui/product-small/ProductSmall'
+import React from "react";
+import { Box, Typography, Stack, Divider } from "@mui/material";
+import ProductSmall from "../product-small/ProductSmall";
 
 const ViewedProducts = () => {
   return (
-    <Box className="mt-14">
-      <Typography variant="h5" className='font-elegant'>You have viewed</Typography>
+    <Box className="">
+      <Typography variant="h5" className="font-elegant">
+        You have viewed
+      </Typography>
       <Divider className="mt-2 bg-black h-[0.1rem]" />
-      <Stack className='mt-6 space-y-4'>
+      <Stack className="mt-6 space-y-4">
         <ProductSmall
           imageUrl="/assets/img/product-img1.jpg"
           title="Foundation Goshop"
@@ -26,6 +28,6 @@ const ViewedProducts = () => {
       </Stack>
     </Box>
   );
-}
+};
 
-export default ViewedProducts
+export default ViewedProducts;

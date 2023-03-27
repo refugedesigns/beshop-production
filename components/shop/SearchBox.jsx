@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 
 const SearchBox = () => {
   return (
-    <Box className="">
+    <Box>
       <TextField
         id="outlined-basic"
         label="Search"

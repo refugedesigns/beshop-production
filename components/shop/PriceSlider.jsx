@@ -3,7 +3,7 @@ import { Typography, Box, Divider, Slider } from '@mui/material'
 
 const PriceSlider = () => {
   return (
-    <Box className="mt-6">
+    <Box>
       <Typography variant="h5" component="h2" className="font-elegant">
         Price
       </Typography>

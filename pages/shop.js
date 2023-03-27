@@ -6,7 +6,7 @@ import Banner from "@/components/ui/banner/Banner";
 import SearchBox from "@/components/shop/SearchBox";
 import CatListView from "@/components/shop/CatListView";
 import PriceSlider from "@/components/shop/PriceSlider";
-import ViewedProducts from "@/components/shop/ViewedProducts";
+import ViewedProducts from "@/components/ui/viewed-products/ViewedProducts";
 import TopProducts from "@/components/shop/TopProducts";
 import FilterCheckBox from "@/components/shop/FilterCheckBox";
 import FilterDropDown from "@/components/shop/FilterDropDown";
@@ -24,7 +24,7 @@ const ShopPage = () => {
       />
       <Container maxWidth="xl">
         <Grid container className="mt-20" columnSpacing={2}>
-          <Grid item className="w-full" sm={3}>
+          <Grid item className="w-full space-y-6 md:space-y-12 lg:space-y-16" sm={3}>
             <SearchBox />
             <CatListView />
             <PriceSlider />

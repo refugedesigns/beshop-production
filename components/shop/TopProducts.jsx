@@ -5,7 +5,7 @@ import ProductSmall from "../ui/product-small/ProductSmall";
 
 const TopProducts = () => {
   return (
-    <Box className="mt-14">
+    <Box>
       <Typography variant="h5" className="font-elegant">Top Products</Typography>
       <Divider className="mt-2 bg-black h-[0.15rem]" />
       <Stack className="mt-6" spacing={2}>

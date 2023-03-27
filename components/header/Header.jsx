@@ -95,7 +95,7 @@ export default function Header() {
                   }}
                 >
                   <Link className="no-underline text-black" href={page.link}>
-                  {page.title}
+                    {page.title}
                   </Link>
                 </Button>
               ))}
@@ -106,14 +106,18 @@ export default function Header() {
                 <IconButton aria-label="faq" LinkComponent={Link} href="/faq">
                   <BiSearch />
                 </IconButton>
-                <IconButton aria-label="profile" LinkComponent={Link} href="/profile">
+                <IconButton
+                  aria-label="profile"
+                  LinkComponent={Link}
+                  href="/profile"
+                >
                   <AiOutlineUser />
                 </IconButton>
                 <IconButton aria-label="wishlist" LinkComponent={Link}>
                   <AiOutlineHeart />
                 </IconButton>
                 <IconButton aria-label="cart" LinkComponent={Link}>
-                  <Badge color="secondary" badgeContent={4}>
+                  <Badge color="primary" badgeContent={4}>
                     <BsCart4 height={10} width={10} />
                   </Badge>
                 </IconButton>

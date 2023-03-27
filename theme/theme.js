@@ -3,16 +3,20 @@ import { createTheme } from "@mui/material/styles";
 const theme = {
   palette: {
     primary: {
-      main: "#FCECEB",
+      light: "#FCECEB",
+      main: "#d05278",
+    },
+    secondary: {
+      main: "#faf9ff",
     },
   },
   breakpoints: {
     xs: "0px",
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
-    xxl: '1600px',
+    sm: "640px",
+    md: "768px",
+    lg: "1024px",
+    xl: "1280px",
+    xxl: "1600px",
   },
   typography: {
     fontFamily: '"Roboto", "Arial"',
