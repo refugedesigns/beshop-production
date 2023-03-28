@@ -14,7 +14,7 @@ const MainFooter = () => {
   return (
     <Box component="footer" className="bg-stone-800">
       <Stack maxWidth="lg" className="pt-10 mx-auto md:pt-20">
-        <Box className="space-y-5 flex flex-col items-center mb-10 md:flex-row md:justify-between md:space-y-0 md:space-x-5 md:mx-6">
+        <Box className="space-y-5 flex flex-col items-center mb-10 md:flex-row md:justify-between md:space-y-0 md:space-x-5 md:mx-6 md:items-center">
           <Box className="order-2">
             <FooterSocial />
           </Box>

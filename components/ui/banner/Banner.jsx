@@ -27,10 +27,13 @@ const Banner = ({ pageTitle, breadcrumbs }) => {
               </Link>
             ) : (
               <Typography
-              key={index}
+                key={index}
                 className={`${
                   router.pathname.split("/")[1].split(" ")[0] ===
                   breadcrumb.title.toLowerCase()
+                    ? "text-style-color"
+                    : router.pathname.split("/")[1] ===
+                      breadcrumb.title.toLowerCase().split(" ")[1]
                     ? "text-style-color"
                     : ""
                 }`}

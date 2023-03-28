@@ -68,19 +68,20 @@ export default function Header() {
             <Typography
               variant="h5"
               noWrap
-              component="a"
-              href=""
+              component={Link}
+              href="/"
               sx={{
                 mr: 2,
                 flexGrow: { xs: 1, md: 0 },
-                fontFamily: "lato",
-                fontWeight: 700,
+                fontFamily: "Mrs Saint Delafield",
+                fontWeight: 500,
                 letterSpacing: ".3rem",
-                color: "inherit",
                 textDecoration: "none",
+                fontSize: 32,
+                color: "black"
               }}
             >
-              LOGO
+              GoShop
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page, index) => (
