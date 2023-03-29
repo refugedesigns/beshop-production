@@ -114,7 +114,7 @@ export default function Header() {
                 >
                   <AiOutlineUser />
                 </IconButton>
-                <IconButton aria-label="wishlist" LinkComponent={Link}>
+                <IconButton aria-label="wishlist" href="/wishlist" LinkComponent={Link}>
                   <AiOutlineHeart />
                 </IconButton>
                 <IconButton aria-label="cart" LinkComponent={Link}>

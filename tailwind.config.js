@@ -38,6 +38,7 @@ module.exports = {
       current: "currentColor",
       white: "#ffffff",
       "style-color": "#d05278",
+      "custom-gray": '#faf9ff',
       black: "#000000",
       gray: colors.gray,
       slate: colors.slate,

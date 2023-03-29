@@ -69,7 +69,7 @@
     "category": "spa",
     "filterItems": ["makeup", "spa", "perfume", "hair"],
 
-    "isStocked": true,
+    "isStocked": false,
     "productNumber": "IN1203",
 
     "imageGallery": [
@@ -247,7 +247,7 @@
     "image": "/assets/img/product-img5.jpg",
     "category": "perfume",
     "filterItems": ["makeup", "spa", "perfume", "hair"],
-    "isStocked": true,
+    "isStocked": false,
     "productNumber": "IN1203",
     "imageGallery": [
       "/assets/img/product-img5.jpg",
