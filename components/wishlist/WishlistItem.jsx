@@ -1,17 +1,11 @@
 import React from "react";
 import {
-  Table,
-  TableBody,
   TableRow,
-  TableCell,
   CardMedia,
   Box,
   Typography,
   Button,
-  Stack,
-  tableRowClasses,
 } from "@mui/material";
-import { TableRowClasses } from "@mui/material";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import StyledTableCell from "../profile/StyledTableCell";
 import Image from "next/image";

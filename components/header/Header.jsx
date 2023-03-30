@@ -117,7 +117,7 @@ export default function Header() {
                 <IconButton aria-label="wishlist" href="/wishlist" LinkComponent={Link}>
                   <AiOutlineHeart />
                 </IconButton>
-                <IconButton aria-label="cart" LinkComponent={Link}>
+                <IconButton aria-label="cart" href="/cart" LinkComponent={Link}>
                   <Badge color="primary" badgeContent={4}>
                     <BsCart4 height={10} width={10} />
                   </Badge>

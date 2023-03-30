@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import { Box, CardMedia, Typography} from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import Banner from "@/components/ui/banner/Banner";
 import Services from "@/components/ui/services/Services"
 
@@ -11,14 +11,12 @@ import Advantages from "@/components/ui/advantages/Advantages";
 import TestimonialSection from "@/components/ui/testimonails/TestimonialSection";
 import SubscribeCard from "@/components/ui/subscribe/SubscribeCard";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
-import Image from "next/image";
+import PageDecor from "@/components/ui/page-decor/PageDecor";
 
 const AboutPage = () => {
   return (
     <Fragment>
-      <CardMedia className="absolute top-80 -z-10">
-        <Image src="/assets/img/promo-video__decor.jpg" width="0" height="0" sizes="100vw" alt="" className="w-full h-auto" />
-      </CardMedia>
+      <PageDecor />
       <Banner
         pageTitle="About"
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "About" }]}

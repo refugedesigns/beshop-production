@@ -1,16 +1,9 @@
-import React from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableContainer,
-  TableBody,
-} from "@mui/material";
+import React from 'react'
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import products from "@/data/product/product";
-import WishlistItem from "./WishlistItem";
+import CartItem from './CartItem'
 
-const AllWishlistItems = () => {
+const AllCartItems = () => {
   return (
     <TableContainer className="mt-10">
       <Table
@@ -31,31 +24,28 @@ const AllWishlistItems = () => {
               className="text-lg font-semibold font-elegant border border-solid border-black border-t-0 border-l-0 border-r-0"
               align="center"
             >
-              Status
+              Quantity
             </TableCell>
             <TableCell
               className="text-lg font-semibold font-elegant border border-solid border-black border-t-0 border-l-0 border-r-0"
               align="center"
             >
-              Add To Cart
+            Total
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {products.slice(0, 6).map((product) => (
-            <WishlistItem
+            <CartItem
               key={product.id}
-              productImage={product.image}
               productTitle={product.name}
-              productNumber={product.productNumber}
               productPrice={product.price}
-              productStatus={product.isStocked}
             />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  );
-};
+  )
+}
 
-export default AllWishlistItems;
+export default AllCartItems

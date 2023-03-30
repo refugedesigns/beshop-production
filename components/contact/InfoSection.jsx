@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from '@mui/material'
 import Assurance from './Assurance'
-import ContactSocial from './ContactSocial'
+import ContactSocial from "../ui/social/ContactSocial";
 
 const InfoSection = () => {
   return (
