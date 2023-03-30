@@ -14,13 +14,13 @@ const ProfilePage = () => {
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "My Profile" }]}
       />
       <Container className="my-20">
-        <Grid container spacing={{ md: 4 }} className="">
-          <Grid item lg={4} className="md:w-full order-2 lg:w-2/6 space-y-6 md:space-y-12 lg:space-y-16 mt-4 lg:mt-0">
+        <Grid container spacing={{ md: 4 }}>
+          <Grid item lg={3} className="md:w-full order-2 lg:w-2/6 space-y-6 md:space-y-12 lg:space-y-16 mt-4 lg:mt-0">
             <SubscribeSmall />
             <ViewedProducts />
             <DiscountSmall />
           </Grid>
-          <Grid item lg={8} className="w-full order-1 lg:order-2 lg:w-4/6">
+          <Grid item lg={9} className="w-full order-1 lg:order-2 lg:w-4/6">
             <ProfileTabs />
           </Grid>
         </Grid>

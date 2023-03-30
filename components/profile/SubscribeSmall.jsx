@@ -19,7 +19,7 @@ const SubscribeSmall = () => {
       <Typography variant="h2" className="font-elegant text-center text-3xl md:text-5xl">
         Stay In Touch
       </Typography>
-      <Box className="mt-8 space-y-4 md:w-[80%] mx-auto">
+      <Box className="mt-8 space-y-4 md:w-[90%] mx-auto">
         <TextField
           name="subscribe"
           id="subscribe"
@@ -39,7 +39,6 @@ const SubscribeSmall = () => {
           inputProps={{
             sx: {
               bgcolor: "white",
-              "&::placeholder": {},
             },
           }}
         />

@@ -4,6 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ProfileTabPanel from './ProfileTabPanel';
 import AllOrders from './AllOrders';
+import AllWishlistItems from '../wishlist/AllWishlistItems';
 
 
 function a11yProps(index) {
@@ -127,7 +128,7 @@ const ProfileTabs = () => {
          <AllOrders />
        </ProfileTabPanel>
        <ProfileTabPanel value={value} index={2}>
-         Item Three
+        <AllWishlistItems />
        </ProfileTabPanel>
      </Box>
    );
