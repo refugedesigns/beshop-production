@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const PageDecor = () => {
   return (
-    <CardMedia className="absolute top-40 -z-10">
+    <CardMedia className="absolute top-40 -z-20 hidden md:inline-block">
       <Image
         src="/assets/img/promo-video__decor.jpg"
         width="0"
