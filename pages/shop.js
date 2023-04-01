@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { Grid, Box, Container } from "@mui/material";
 import { RiCheckboxBlankFill } from "react-icons/ri";
 import Layout from "@/components/layout/Layout";
@@ -17,7 +17,7 @@ import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
 const ShopPage = () => {
   return (
-    <Layout>
+    <Fragment>
       <Banner
         pageTitle="Shop"
         breadcrumbs={[{ link: "/", title: "Home" }, { title: "Shop" }]}
@@ -85,7 +85,7 @@ const ShopPage = () => {
         <SubscribeCard />
       </Box>
       <InstaPhotos />
-    </Layout>
+    </Fragment>
   );
 };
 

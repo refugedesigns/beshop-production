@@ -12,6 +12,7 @@ import { CgFacebook } from "react-icons/cg";
 import { FaGooglePlusG } from "react-icons/fa";
 import { RiCheckboxBlankLine, RiCheckboxBlankFill } from "react-icons/ri";
 import Button from "../ui/button/Button";
+import InputField from "../ui/inpu-field/InputField";
 import Link from "next/link";
 
 const LoginForm = () => {
@@ -20,9 +21,6 @@ const LoginForm = () => {
       maxWidth="sm"
       component="section"
       className="bg-[url('/assets/img/login-form__bg.png')] bg-no-repeat bg-cover border border-solid border-[#eee] my-20 py-16 px-4 sm:px-12 z-10"
-       sx={{
-        
-       }}
     >
       <Typography variant="h3" className="text-center font-elegant text-3xl md:text-5xl">
         Log In With
@@ -39,7 +37,7 @@ const LoginForm = () => {
         component="form"
         className="flex flex-col items-start space-y-4 mt-6"
       >
-        <TextField
+        <InputField
           name="email"
           id="email"
           aria-label="email"
@@ -58,7 +56,7 @@ const LoginForm = () => {
             },
           }}
         />
-        <TextField
+        <InputField
           name="password"
           id="password"
           aria-label="password"

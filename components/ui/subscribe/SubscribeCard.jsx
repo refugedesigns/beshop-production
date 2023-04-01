@@ -34,17 +34,19 @@ const SubscribeCard = () => {
           <TextField
             id="outlined-basic"
             label=""
-            variant="outlined"
             type="email"
             className="z-30 sm:flex-1 lg:w-80"
             placeholder="Enter your email"
             sx={{
-              "& .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
-                backgroundColor: "white",
+              "& fieldset": {
                 border: "none",
                 borderRadius: 0,
-                zIndex: 40,
               },
+            }}
+            inputProps={{
+              sx:{
+                bgcolor: "white"
+              }
             }}
           />
           <Button title="Subscribe" classes="w-full sm:w-max" />
