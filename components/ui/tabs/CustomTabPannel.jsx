@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Box } from '@mui/material';
 
 
-const ProfileTabPanel = (props) => {
+const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -23,10 +23,10 @@ const ProfileTabPanel = (props) => {
   );
 }
 
-ProfileTabPanel.propTypes = {
+CustomTabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
 
-export default ProfileTabPanel;
+export default CustomTabPanel;

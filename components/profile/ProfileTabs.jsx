@@ -2,7 +2,8 @@ import React, { useState} from 'react'
 import { Box, Tab, Tabs } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import ProfileTabPanel from './ProfileTabPanel';
+import ProfileTabPanel from '../ui/tabs/CustomTabPannel';
+import CustomTab from '../ui/tabs/CustomTab';
 import AllOrders from './AllOrders';
 import AllWishlistItems from '../wishlist/AllWishlistItems';
 
@@ -39,84 +40,18 @@ const ProfileTabs = () => {
          orientation={matches ? "horizontal" : "vertical"}
          className=""
        >
-         <Tab
-           sx={{
-             backgroundColor: "#faf9ff",
-             border: "1px solid #eee",
-             textTransform: "capitalize",
-             fontSize: "1rem",
-             color: "#808080",
-             whiteSpace: "nowrap",
-             "&.Mui-selected": {
-               backgroundColor: "#d05278",
-               color: "white",
-               textTransform: "capitalize",
-               fontSize: "1rem",
-               border: "none",
-             },
-             px: 5,
-             minWidth: {
-               xs: "100%",
-               sm: "auto",
-             },
-           }}
+         <CustomTab
            label="My Info"
            {...a11yProps(0)}
          />
-         <Tab
+         <CustomTab
            Tab
-           sx={{
-             backgroundColor: "#faf9ff",
-             border: "1px solid #eee",
-             textTransform: "capitalize",
-             fontSize: "1rem",
-             color: "#808080",
-             whiteSpace: "nowrap",
-             "&.Mui-selected": {
-               backgroundColor: "#d05278",
-               color: "white",
-               textTransform: "capitalize",
-               fontSize: "1rem",
-               border: "none",
-             },
-             px: 5,
-             mx: {
-               sm: 2,
-             },
-             my: {
-               xs: 1,
-               sm: 0,
-             },
-             minWidth: {
-               xs: "100%",
-               sm: "auto",
-             },
-           }}
            label="My Orders"
+            className="mx-2"
            {...a11yProps(1)}
          />
-         <Tab
+         <CustomTab
            Tab
-           sx={{
-             backgroundColor: "#faf9ff",
-             border: "1px solid #eee",
-             textTransform: "capitalize",
-             fontSize: "1rem",
-             color: "#808080",
-             whiteSpace: "nowrap",
-             "&.Mui-selected": {
-               backgroundColor: "#d05278",
-               color: "white",
-               textTransform: "capitalize",
-               fontSize: "1rem",
-               border: "none",
-             },
-             px: 5,
-             minWidth: {
-               xs: "100%",
-               sm: "auto",
-             },
-           }}
            label="Wishlist"
            {...a11yProps(2)}
          />

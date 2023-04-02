@@ -5,9 +5,9 @@ import { BsTwitter, BsInstagram } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import SocialIcon from "../social-icon/SocialIcon";
 
-const ContactSocial = () => {
+const ContactSocial = ({classes}) => {
   return (
-    <Box>
+    <Box className={classes}>
       <Typography variant="body2" className="text-stone-500 mb-2">
         Find us here:
       </Typography>

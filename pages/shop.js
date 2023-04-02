@@ -1,7 +1,6 @@
 import React, {Fragment} from "react";
 import { Grid, Box, Container } from "@mui/material";
 import { RiCheckboxBlankFill } from "react-icons/ri";
-import Layout from "@/components/layout/Layout";
 import Banner from "@/components/ui/banner/Banner";
 import SearchBox from "@/components/shop/SearchBox";
 import CatListView from "@/components/shop/CatListView";
@@ -15,6 +14,8 @@ import Pagination from "@/components/ui/pagination/Pagination";
 import SubscribeCard from "@/components/ui/subscribe/SubscribeCard";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
+import products from "@/data/product/product"
+
 const ShopPage = () => {
   return (
     <Fragment>
@@ -22,7 +23,7 @@ const ShopPage = () => {
         pageTitle="Shop"
         breadcrumbs={[{ link: "/", title: "Home" }, { title: "Shop" }]}
       />
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Grid container className="mt-20" columnSpacing={2}>
           <Grid item className="w-full space-y-6 md:space-y-12 lg:space-y-16" sm={3}>
             <SearchBox />
@@ -58,19 +59,22 @@ const ShopPage = () => {
               </Grid>
             </Grid>
             <Grid
-              columnSpacing={{ sm: 2, md: 4 }}
+              columnSpacing={{ sm: 2, md:4 }}
               className="mt-4"
               item
               container
             >
-              {Array(20)
-                .fill(null)
-                .map((_, index) => (
-                  <Grid item key={index} sm={4} flexShrink className="w-full mt-4">
+              {products
+                .map((product, index) => (
+                  <Grid item key={product.id} sm={4} flexShrink className="w-full mt-4">
                     <Product
-                      title="Hydrogel Patches"
-                      salePrice="249.95"
-                      realPrice="200.95"
+                      title={product.name}
+                      salePrice={product.oldPrice}
+                      realPrice={product.price}
+                      productId={product.id}
+                      isSale={product.isSale}
+                      isNew={product.isNew}
+                      productImage={product.image}
                     />
                   </Grid>
                 ))}
