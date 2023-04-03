@@ -6,6 +6,8 @@ import ProductList from "./ProductList";
 import PartnerLogos from "../../ui/partner-logos/PartnerLogos";
 import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 
+import products from "@/data/product/product"
+
 const Trending = () => {
   return (
     <Box className="py-20">
@@ -29,7 +31,7 @@ const Trending = () => {
             <TrendingButton isLastChild title="Hair care"/>
         </Stack>
       </Container>
-        <ProductList />
+        <ProductList products={products} />
         <PartnerLogos />
     </Box>
   );

@@ -45,6 +45,9 @@ const CartItem = ({
               "& input[type=number]": {
                 MozAppearance: "textfield",
               },
+              "& fieldset": {
+                border: "none"
+              }
             }}
           />
           <IconButton className="bg-custom-gray border border-solid border-[#eee]">

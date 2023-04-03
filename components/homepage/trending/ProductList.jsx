@@ -8,7 +8,7 @@ import Product from "../../ui/products/Product";
 import NextArrow from "../../ui/arrows/NextArrow";
 import PreviousArrow from "../../ui/arrows/PreviousArrow";
 
-const ProductList = () => {
+const ProductList = ({products}) => {
   var settings = {
     infinite: true,
     speed: 500,
@@ -59,16 +59,16 @@ const ProductList = () => {
       className="mt-10 flex justify-center items-center px-4 lg:px-10"
       {...settings}
     >
-      {Array(10)
-        .fill(null)
-        .map((_, index) => (
-          <Product
-            title="Spray Balm With Oat Extract"
-            salePrice="$249.95"
-            realPrice="$200.95"
-            key={index}
-          />
-        ))}
+      {products?.map((product) => (
+        <Product
+          title={product.name}
+          salePrice={product.oldPrice}
+          realPrice={product.price}
+          key={product.id}
+          productImage={product.image}
+          classes="h-[300px] sm:h-[400px] lg:h-[500px]"
+        />
+      ))}
     </Slider>
   );
 };

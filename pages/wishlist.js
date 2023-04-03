@@ -8,6 +8,8 @@ import Button from '@/components/ui/button/Button'
 import ProductSlick from '@/components/ui/products-slick/ProductSlick'
 import InstaPhotos from '@/components/ui/insta-photos/InstaPhotos'
 
+import products from "@/data/product/product"
+
 const WishlistPage = () => {
   return (
     <Fragment>
@@ -24,6 +26,7 @@ const WishlistPage = () => {
             styleTitle="Cosmetics"
             titleHeading="You Have Viewed"
             excerpt="Nourish your skin with toxin-free produts. With the offers that you can't refuse"
+            products={products}
             />
         </Box>
         <Box component="section">

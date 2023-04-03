@@ -75,6 +75,7 @@ const ShopPage = () => {
                       isSale={product.isSale}
                       isNew={product.isNew}
                       productImage={product.image}
+                      classes="h-[500px] sm:h-[250px] lg:h-[350px]"
                     />
                   </Grid>
                 ))}

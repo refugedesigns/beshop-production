@@ -6,7 +6,7 @@ import { BsCart4 } from "react-icons/bs";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const Product = ({ title, salePrice, realPrice, productId, isNew, isSale, productImage }) => {
+const Product = ({ title, salePrice, realPrice, productId, isNew, isSale, productImage, classes }) => {
   const router = useRouter()
   return (
     <Box className="mx-auto lg:mx- hover:cursor-pointer relative ">
@@ -29,7 +29,7 @@ const Product = ({ title, salePrice, realPrice, productId, isNew, isSale, produc
           )}
         </Stack>
       <Box className="relative group">
-        <CardMedia className="flex-1 h-[350px]">
+        <CardMedia className={`flex-1 ${classes}`}>
           <Image
             src={productImage}
             height="0"

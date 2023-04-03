@@ -13,7 +13,7 @@ const InputField = ({...props}) => {
       }}
       inputProps={{
         sx: {
-          bgcolor: "white",
+          backgroundColor: "white",
         },
       }}
     />

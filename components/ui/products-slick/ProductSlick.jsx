@@ -5,7 +5,7 @@ import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 import ProductList from "@/components/homepage/trending/ProductList";
 import SubscribeCard from "@/components/ui/subscribe/SubscribeCard";
 
-const ProductSlick = ({styleTitle, titleHeading, excerpt}) => {
+const ProductSlick = ({styleTitle, titleHeading, excerpt, products}) => {
   return (
     <Box>
       <Container maxWidth="lg">
@@ -28,7 +28,7 @@ const ProductSlick = ({styleTitle, titleHeading, excerpt}) => {
           {excerpt}
         </Typography>
       </Container>
-      <ProductList />
+      <ProductList products={products} />
       <SubscribeCard />
     </Box>
   );

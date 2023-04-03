@@ -12,7 +12,7 @@
     "@badrap/bar-of-progress": "^0.2.2",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@mui/material": "^5.11.11",
+    "@mui/material": "^5.11.15",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "mapbox-gl": "^2.13.0",
@@ -27,9 +27,9 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
+    "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.3.1"
   },
   "nx": {
     "targets": {}

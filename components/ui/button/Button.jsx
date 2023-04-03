@@ -6,7 +6,7 @@ const Button = ({title, classes, ...props}) => {
     <MUIButton
       disableElevation
       variant="contained"
-      className={`rounded-none bg-black text-white flex justify-center w-[200px] z-20 ${classes}`}
+      className={`rounded-none bg-black flex justify-center w-[200px] z-20 ${classes}`}
      {...props}
     >
       {title}

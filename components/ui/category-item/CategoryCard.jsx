@@ -30,8 +30,11 @@ const CategoryCard = ({ imageUrl, title }) => {
             <Image
               src="/assets/img/top-categories-decor.png"
               alt="title background image"
-              fill
-              style={{ objectFit: "contain", zIndex: 20 }}
+              width="0"
+              height="0"
+              sizes="100vw"
+              className="w-full h-auto"
+              
             />
           </CardMedia>
         </Box>

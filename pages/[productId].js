@@ -6,9 +6,11 @@ import Banner from "@/components/ui/banner/Banner";
 import PageDecor from "@/components/ui/page-decor/PageDecor";
 import ProductDetailInfo from "@/components/product-detail/ProductDetailInfo";
 import ProductDetailReviews from "@/components/product-detail/ProductDetailReviews";
-import ReviewForm from "@/components/product-detail/ReviewForm";
+import ProductSlick from "@/components/ui/products-slick/ProductSlick";
 
 import products from "@/data/product/product";
+import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
+
 
 const ProdudctDetailPage = ({ product }) => {
   return (
@@ -22,28 +24,32 @@ const ProdudctDetailPage = ({ product }) => {
           { title: "Product" },
         ]}
       />
-        <Grid container>
-          <Grid item>
-            <ProductDetailSlick imageGallery={product.imageGallery} />
-          </Grid>
-          <Grid item>
-            <ProductDetailInfo
-              productNumber={product.productNumber}
-              colors={product.colors}
-              content={product.content}
-              oldPrice={product.oldPrice}
-              realPrice={product.price}
-              inStock={product.isStocked}
-              title={product.name}
-            />
-          </Grid>
-          <Grid item>
-            <ProductDetailReviews />
-          </Grid>
-          <Grid item>
-            <ReviewForm />
-          </Grid>
-        </Grid>
+      <Box className="mx-auto max-w-6xl mb-10 lg:mb-20">
+        <Box className="lg:flex lg:justify-between lg:space-x-6 mx-3">
+          <ProductDetailSlick isNew={product.isNew} isSale={product.isSale} imageGallery={product.imageGallery} />
+          <ProductDetailInfo
+            productNumber={product.productNumber}
+            colors={product.colors}
+            content={product.content}
+            oldPrice={product.oldPrice}
+            realPrice={product.price}
+            inStock={product.isStocked}
+            title={product.name}
+          />
+        </Box>
+
+        <ProductDetailReviews
+          description={product.description}
+          reviews={product.reviews}
+        />
+      </Box>
+        <ProductSlick
+          styleTitle="Cosmetics"
+          titleHeading="You Have Viewed"
+          excerpt="Nourish your skin with toxin-free produts. With the offers that you can't refuse"
+          products={products}
+        />
+        <InstaPhotos />
     </Fragment>
   );
 };
