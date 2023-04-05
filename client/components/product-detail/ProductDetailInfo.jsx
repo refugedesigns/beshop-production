@@ -20,6 +20,8 @@ const ProductDetailInfo = ({
         acc = false
         return acc
     }))
+    const [wishButtonHover, setWishButtonHover] = useState(false)
+
 
     const handleCheckColor = (event) => {
         setCheckedColors({
@@ -130,12 +132,14 @@ const ProductDetailInfo = ({
         <Button
           startIcon={<BsCart4 />}
           title="Cart"
-          classes="w-full font-semibold sm:w-max sm:px-14"
+          classes="w-full font-semibold sm:w-max sm:px-14 hover:opacity-80"
         />
         <Button
-          startIcon={<AiOutlineHeart className="text-black" />}
+          startIcon={<AiOutlineHeart className={wishButtonHover ? "text-white": 'text-black'} />}
           title="Wish"
-          classes="w-full text-black bg-custom-gray border border-solid border-[#eee] font-semibold sm:w-max sm:px-14"
+          classes="w-full text-black bg-custom-gray border border-solid border-[#eee] font-semibold sm:w-max sm:px-14 hover:text-white hover:bg-black"
+          onMouseOver={() => setWishButtonHover(true)}
+          onMouseOut={() => setWishButtonHover(false)}
         />
       </Stack>
     </Box>
