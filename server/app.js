@@ -9,12 +9,13 @@ const logger = require("morgan")
 const cors = require("cors")
 const helmet = require("helmet")
 const rateLimit = require("express-rate-limit")
-const xxsClean = require("xxs-clean")
+const xxsClean = require("xss-clean")
 const passport = require("passport")
 const { json, urlencoded} = express
 const {join} = path
 
-
+const notFoundMiddleware = require("./middlewares/not-found")
+const errorHandlerMiddleware = require("./middlewares/error-handler")
 
 const app = express();
 const server = http.createServer(app);
@@ -63,12 +64,12 @@ app.use(express.static(join(__dirname, "public")));
 //Swagger documentation
 //Add api routes here
 
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.get("/*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
-// app.use(notFound());
-// app.use(errorHandler());
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 //Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
