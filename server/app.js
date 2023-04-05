@@ -1,38 +1,38 @@
-require("express-async-errors")
-require("dotenv").config()
-const http = require("http")
-const express = require("express")
-const path = require("path")
-const cookieParser = require("cookie-parser")
-const cookieSession = require("cookie-session")
-const logger = require("morgan")
-const cors = require("cors")
-const helmet = require("helmet")
-const rateLimit = require("express-rate-limit")
-const xxsClean = require("xss-clean")
-const passport = require("passport")
-const { json, urlencoded} = express
-const {join} = path
+require("dotenv").config();
+require("express-async-errors");
+const http = require("http");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
+const logger = require("morgan");
+const cors = require("cors");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const xxsClean = require("xss-clean");
+const passport = require("passport");
+const { json, urlencoded } = express;
+const { join } = path;
 
-const notFoundMiddleware = require("./middlewares/not-found")
-const errorHandlerMiddleware = require("./middlewares/error-handler")
+const { errorHandlerMiddleware, notFoundMiddleware } = require("./middlewares")
+
+const apiRoutes = require("./routes/api");
 
 const app = express();
 const server = http.createServer(app);
 
 const apiLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  message:
-    "Too many requests from this IP, please try again after an hour",
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  message: "Too many requests from this IP, please try again after an hour",
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
 //Security settings
 app.use(helmet());
-app.use(xxsClean())
-app.use(apiLimiter)
+app.use(xxsClean());
+app.use(apiLimiter);
 app.use(
   cors({
     origin: "*",
@@ -40,8 +40,7 @@ app.use(
   })
 );
 
-
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "dev") {
   app.use(logger("dev"));
 }
 
@@ -58,15 +57,23 @@ app.use(passport.session());
 
 app.use(json());
 app.use(urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(join(__dirname, "public")));
+app.use(cookieParser(process.env.JWT_SECRET));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(join(__dirname, "public")));
+
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+  });
+}else {
+  app.get("/*", (req, res) => {
+    res.send("<h3>API is running</h3>")
+  })
+}
 
 //Swagger documentation
 //Add api routes here
-
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+app.use("/api/v1", apiRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

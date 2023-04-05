@@ -4,10 +4,11 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./bin/www"
+    "dev": "cross-env NODE_ENV=dev nodemon ./bin/www",
+    "start": "cross-env NODE_ENV=production node ./bin/www"
   },
   "keywords": [],
-  "author": "",
+  "author": "Erasmus Antwi",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
