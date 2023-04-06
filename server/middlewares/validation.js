@@ -17,10 +17,6 @@ const validateCreateProduct = [
   body("oldPrice")
     .isFloat({ min: 10, max: 2000 })
     .withMessage("Old price field must be a number"),
-  body("image")
-    .isString()
-    .isLength({ min: 10 })
-    .withMessage("Image field must be a string"),
   body("category")
     .isString()
     .isLength({ min: 2 })
@@ -31,13 +27,6 @@ const validateCreateProduct = [
     .withMessage("No value included in array")
     .custom((values) => values.every((item) => categories.includes(item)))
     .withMessage("Invalid values included in filter items"),
-  body("imageGallery")
-    .isArray({ min: 1 })
-    .withMessage("No value included in array")
-    .custom((values) =>
-      values.every((item) => typeof item === "string" && item !== "")
-    )
-    .withMessage("Invalid image paths!"),
   body("colors")
     .isArray({ min: 1 })
     .withMessage("No value included in array")
@@ -51,7 +40,6 @@ const validateCreateProduct = [
     .isString()
     .isLength({ min: 100 })
     .withMessage("Description length is too short"),
-
   (req, res, next) => {
     validationResult(req).throw();
     next();

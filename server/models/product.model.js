@@ -6,7 +6,7 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-    realPrice: {
+    price: {
       type: Number,
       required: true,
     },
@@ -22,7 +22,7 @@ const productSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    isNew: {
+    new: {
       type: Boolean,
       default: true,
     },

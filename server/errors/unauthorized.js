@@ -1,5 +1,5 @@
-import CustomAPIError from "./error-class";
-import {StatusCodes} from "http-status-codes"
+const CustomAPIError =require("./error-class");
+const {StatusCodes} =require("http-status-codes")
 
 class UnauthorizedError extends CustomAPIError {
     constructor(message) {
