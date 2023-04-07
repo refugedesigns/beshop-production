@@ -5,7 +5,7 @@ const categories = ["nail", "skin", "makeup", "spa", "perfume", "hair"]
 const validateCreateProduct = [
   body("name")
     .isString()
-    .isLength({ min: 10 })
+    .isLength({ min: 5 })
     .withMessage("Name field cannot be empty or less than 10 chars"),
   body("productNumber")
     .isString()

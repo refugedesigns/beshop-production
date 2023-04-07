@@ -59,6 +59,10 @@ const productSchema = new Schema(
     description: {
         type: String,
         required: true,
+    }, 
+    viewCount: {
+      type: Number,
+      default: 0,
     }
   },
   { timestamps: true }
