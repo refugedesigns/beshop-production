@@ -22,7 +22,7 @@ router
   .post(
     upload.fields([
       { name: "image", maxCount: 1 },
-      { name: "imageGallery", maxCount: 8 },
+      { name: "imageGallery", maxCount: 5 },
     ]),
     validateCreateProduct,
     createProduct
@@ -30,7 +30,13 @@ router
 router
   .route("/:id")
   .get(getProduct)
-  .patch(updateProduct)
+  .patch(
+    upload.fields([
+      { name: "image", maxCount: 1 },
+      { name: "imageGallery", maxCount: 5 },
+    ]),
+    updateProduct
+  )
   .delete(deleteProduct);
 
 module.exports = router;

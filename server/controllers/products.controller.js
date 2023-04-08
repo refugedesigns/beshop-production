@@ -88,10 +88,20 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
   res.status(StatusCodes.OK).json({ products, nbHits: totalProducts, numOfPages  });
 });
+
+
 const getProduct = async (req, res) => {
-  throw new BadRequestError("test error");
-  res.status(StatusCodes.OK).json({ msg: "Single product route" });
+  const { id: productId } = req.params;
+
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw new BadRequestError(`No product with id: ${productId}`);
+  }
+
+  res.status(StatusCodes.OK).json({ product });
 };
+
 const createProduct = asyncHandler(async (req, res) => {
   const {
     name,
@@ -112,36 +122,31 @@ const createProduct = asyncHandler(async (req, res) => {
   if (
     !req.files.image ||
     !req.files.imageGallery ||
-    req.files.image.length === 0 ||
-    req.files.imageGallery.length === 0
+    req.files.image?.length === 0 ||
+    req.files.imageGallery?.length === 0
   ) {
     throw new BadRequestError("Invalid value for image or imageGallery field");
   }
 
-  if (req.files.imageGallery.length > 5) {
+  if (req.files.imageGallery?.length > 5) {
     throw new BadRequestError("Max values for imageGallery field exceeded.");
   }
 
   const productImage = image[0];
   const productImageGallery = imageGallery;
-  if (
-    productImage.mimetype !== "image/jpeg" &&
-    productImage.mimetype !== "image/png" &&
-    productImage.mimetype !== "image/jpg"
-  ) {
+  if (!productImage.mimetype.startsWith("image")) {
     throw new BadRequestError(
-      "Image format not supported please check your value for image field"
+      "File format not supported, please provide an image"
     );
   }
 
-  const confirmGalleryImages = productImageGallery.every(
-    (image) =>
-      image.mimetype === "image/jpeg" ||
-      image.mimetype === "image/jpg" ||
-      image.mimetype === "image/png"
+  const confirmGalleryImages = productImageGallery.every((image) =>
+    image.mimetype.startsWith("image")
   );
   if (!confirmGalleryImages) {
-    throw new BadRequestError("Unsurpported field in imageGallery!");
+    throw new BadRequestError(
+      "Unsurpported value in imageGallery, please provide only images!"
+    );
   }
 
   const mainImage = await uploadBufferImage(productImage, name);
@@ -164,22 +169,112 @@ const createProduct = asyncHandler(async (req, res) => {
     content,
     category,
     filterItems,
-    new:isNew,
+    new: isNew,
     isSale,
     isStocked,
     productNumber,
     image: mainImage.secure_url,
-    imageGallery: galleryLinks
+    imageGallery: galleryLinks,
   });
 
   res.status(StatusCodes.CREATED).json({ product });
 });
-const updateProduct = async(req, res) => {
-    res.status(StatusCodes.OK).json({msg: "Update product route"})
-}
-const deleteProduct = async(req, res) => {
-    res.status(StatusCodes.OK).json({msg: "Delete product route"})
-}
+const updateProduct = asyncHandler(async (req, res) => {
+  console.log(req.body)
+  const {
+    name,
+    oldPrice,
+    price,
+    colors,
+    description,
+    content,
+    category,
+    filterItems,
+    isNew,
+    isSale,
+    isStocked,
+    productNumber,
+    image,
+    imageGallery,
+  } = req.body;
+  const { id: productId } = req.params;
+
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw new BadRequestError(`No product with id: ${productId}`);
+  }
+
+  let newImage;
+  let newImageGallery;
+
+  if (req.files?.image) {
+    if ((req.files?.image.length === 0)) {
+      throw new BadRequestError("No image provided for image field");
+    }
+    const productImage = req.files?.image[0];
+    newImage = await uploadBufferImage(productImage, name);
+    newImage = newImage.secure_url;
+  } else {
+    newImage = image;
+  }
+
+  if (req.files?.imageGallery) {
+    if (req.files?.imageGallery.length > 5) {
+      throw new BadRequestError("Max values for imageGallery field exceeded.");
+    }
+
+    if (req.files?.imageGallery.length === 0) {
+      throw new BadRequestError("No images provided for imageGallery field.");
+    }
+    newImageGallery = req.files?.imageGallery
+    const imageGalleryResult = await Promise.all(
+      newImageGallery.map((image) => {
+        return new Promise((resolve, reject) => {
+          const result = uploadBufferImage(image, name);
+          resolve(result);
+        });
+      })
+    );
+    newImageGallery = imageGalleryResult.map((image) => image.secure_url);
+  } else {
+    newImageGallery = imageGallery;
+  }
+
+  product.price = price;
+  product.name = name;
+  product.isStocked = isStocked;
+  product.isSale = isSale;
+  product.oldPrice = oldPrice;
+  product.colors = colors;
+  product.description = description;
+  product.content = content;
+  product.new = isNew;
+  product.category = category;
+  product.filterItems = filterItems;
+  product.productNumber = productNumber;
+  product.image = newImage;
+  product.imageGallery = newImageGallery;
+
+  const savedProduct = await product.save();
+
+  res.status(StatusCodes.OK).json({ product: savedProduct });
+});
+
+
+const deleteProduct = asyncHandler(async (req, res) => {
+  const { id: productId } = req.params;
+
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw new BadRequestError(`No product with id: ${productId}`);
+  }
+
+  await Product.deleteOne({ _id: productId});
+
+  res.status(StatusCodes.OK).json({ msg: "Success! Product removed." });
+});
 
 module.exports = {
     getAllProducts,
