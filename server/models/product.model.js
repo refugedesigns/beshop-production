@@ -68,5 +68,10 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
+productSchema.pre('deleteOne',async function(next) {
+  const productDoc = await this.model.findOne(this.getQuery())
+  console.log('deleting product ' + productDoc)
+  next()
+})
 
 module.exports = model('Product', productSchema)
