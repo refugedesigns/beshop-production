@@ -9,7 +9,7 @@ const {
   NotFoundError,
 } = require("../errors");
 
-const getAllProducts = asyncHandler(async (req, res) => {
+const getAllProducts = async (req, res) => {
   // filters -> new, isSale, isStocked, name, price, sort, numericFilters, category, filterItems, page 
 
   const { isNew, isSale, isStocked, search, category, filterItems, sort, fields, numericFilters } = req.query
@@ -87,7 +87,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   const numOfPages = Math.ceil(totalProducts / limit)
 
   res.status(StatusCodes.OK).json({ products, nbHits: totalProducts, numOfPages  });
-});
+};
 
 
 const getProduct = async (req, res) => {
@@ -102,7 +102,7 @@ const getProduct = async (req, res) => {
   res.status(StatusCodes.OK).json({ product });
 };
 
-const createProduct = asyncHandler(async (req, res) => {
+const createProduct = async (req, res) => {
   const {
     name,
     oldPrice,
@@ -178,8 +178,8 @@ const createProduct = asyncHandler(async (req, res) => {
   });
 
   res.status(StatusCodes.CREATED).json({ product });
-});
-const updateProduct = asyncHandler(async (req, res) => {
+};
+const updateProduct = async (req, res) => {
   console.log(req.body)
   const {
     name,
@@ -259,10 +259,10 @@ const updateProduct = asyncHandler(async (req, res) => {
   const savedProduct = await product.save();
 
   res.status(StatusCodes.OK).json({ product: savedProduct });
-});
+};
 
 
-const deleteProduct = asyncHandler(async (req, res) => {
+const deleteProduct = async (req, res) => {
   const { id: productId } = req.params;
 
   const product = await Product.findOne({ _id: productId });
@@ -274,7 +274,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   await Product.deleteOne({ _id: productId});
 
   res.status(StatusCodes.OK).json({ msg: "Success! Product removed." });
-});
+};
 
 module.exports = {
     getAllProducts,
