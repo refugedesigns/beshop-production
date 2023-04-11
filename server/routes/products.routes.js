@@ -7,7 +7,10 @@ const {
   updateProduct,
   deleteProduct,
 } = require("../controllers");
-const { validateCreateProduct } = require("../middlewares");
+const {
+  validateCreateProduct,
+  validateUpdateProduct,
+} = require("../middlewares");
 const storage = multer.memoryStorage();
 
 const upload = multer({
@@ -35,6 +38,7 @@ router
       { name: "image", maxCount: 1 },
       { name: "imageGallery", maxCount: 5 },
     ]),
+    validateUpdateProduct,
     updateProduct
   )
   .delete(deleteProduct);
