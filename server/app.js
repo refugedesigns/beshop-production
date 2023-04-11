@@ -9,6 +9,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const mongoSanitize = require("express-mongo-sanitize");
 const xxsClean = require("xss-clean");
 const passport = require("passport");
 const { v2: cloudinary } = require("cloudinary");
@@ -30,8 +31,8 @@ cloudinary.config({
 
 app.set("trust proxy", 1);
 const apiLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  windowMs: 60 * 15 * 1000, // 15 minutes
+  max: 10, // Limit each IP to 10 requests per `window` (here, per 15 minutes)
   message: "Too many requests from this IP, please try again after an hour",
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -40,7 +41,9 @@ const apiLimiter = rateLimit({
 //Security settings
 app.use(helmet());
 app.use(xxsClean());
+app.use(mongoSanitize())
 app.use(apiLimiter);
+
 app.use(
   cors({
     origin: "*",
@@ -56,7 +59,6 @@ app.use(
   cookieSession({
     name: "session",
     keys: [process.env.COOKIE_KEYS],
-    maxAge: 24 * 60 * 60 * 1000,
   })
 );
 
