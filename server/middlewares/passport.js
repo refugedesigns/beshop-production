@@ -1,6 +1,7 @@
+const crypto = require("crypto");
 const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
-const { User } = require("../models");
+const { User, Token } = require("../models");
 const {
   UnauthenticatedError,
   BadRequestError,
@@ -36,9 +37,9 @@ passport.use(
           role,
         });
 
-        newUser = newUser._doc 
+        newUser = newUser._doc;
 
-        delete newUser.password
+        delete newUser.password;
 
         return done(null, newUser);
       });
@@ -48,11 +49,12 @@ passport.use(
 
 passport.use(
   "local-login",
-  new LocalStrategy({ usernameField: "email" }, function (
+  new LocalStrategy({ usernameField: "email", passReqToCallback: true }, function (
+    req,
     email,
     password,
     done
-  ) { 
+  ) {
     process.nextTick(async () => {
       try {
         let user = await User.findOne({ email });
@@ -70,18 +72,43 @@ passport.use(
         user = user._doc;
 
         delete user.password;
+        delete user.resetPasswordToken;
 
+        let refreshToken;
+        const existingRefreshToken = await Token.findOne({
+          user: user._id,
+        });
+
+        if (existingRefreshToken) {
+          const { isValid } = existingRefreshToken;
+          if (!isValid) {
+            throw UnauthenticatedError("Invalid Credetials");
+          }
+          refreshToken = existingRefreshToken.refreshToken;
+          user.refreshToken = refreshToken;
+        } else {
+          refreshToken = crypto.randomBytes(50).toString("hex");
+          const userAgent = req.get("user-agent");
+          const ip = req.ip;
+          console.log(userAgent, ip);
+          await Token.create({
+            refreshToken,
+            ip,
+            userAgent,
+            user: user._id,
+          });
+          user.refreshToken = refreshToken;
+        }
         return done(null, user);
       } catch (error) {
-
-        done(error)
+        done(error);
       }
     });
   })
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  return done(null, user);
 });
 
 passport.deserializeUser((user, done) => {

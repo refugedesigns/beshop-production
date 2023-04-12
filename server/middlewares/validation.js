@@ -1,4 +1,4 @@
-const { check, body, validationResult } = require("express-validator");
+const { check, body, param, validationResult } = require("express-validator");
 
 const categories = ["nail", "skin", "makeup", "spa", "perfume", "hair"]
 
@@ -91,6 +91,14 @@ const validateUpdateProduct = [
   },
 ];
 
+const validateParams = [
+  param("id").isMongoId(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next();
+  }
+]
+
 const validateCreateUser = [
   body("firstName").isString().notEmpty(),
   body("lastName").isString().notEmpty(),
@@ -115,6 +123,7 @@ const validateLoginUser = [
 module.exports = {
     validateCreateProduct,
     validateUpdateProduct,
+    validateParams,
     validateCreateUser,
     validateLoginUser
 }

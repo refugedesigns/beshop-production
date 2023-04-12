@@ -10,6 +10,7 @@ const {
 const {
   validateCreateProduct,
   validateUpdateProduct,
+  validateParams,
 } = require("../middlewares");
 const storage = multer.memoryStorage();
 
@@ -32,15 +33,16 @@ router
   );
 router
   .route("/:id")
-  .get(getProduct)
+  .get(validateParams, getProduct)
   .patch(
     upload.fields([
       { name: "image", maxCount: 1 },
       { name: "imageGallery", maxCount: 5 },
     ]),
+    validateParams,
     validateUpdateProduct,
     updateProduct
   )
-  .delete(deleteProduct);
+  .delete(validateParams, deleteProduct);
 
 module.exports = router;

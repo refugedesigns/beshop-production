@@ -1,6 +1,5 @@
 const { Router } = require("express")
 const passport = require("passport");
-const asyncHandler = require("express-async-handler");
 const { validateCreateUser, validateLoginUser } = require("../middlewares");
 const { register, login } = require("../controllers");
 

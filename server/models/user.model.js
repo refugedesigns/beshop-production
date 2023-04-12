@@ -28,6 +28,7 @@ const userSchema = new Schema({
     },
     thirdPartyProvider: {
         type: String,
+        enum: ["N/A", 'google', 'facebook'],
         default: 'N/A'
     },
     role: {

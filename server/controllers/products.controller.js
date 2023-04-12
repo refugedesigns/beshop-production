@@ -1,6 +1,6 @@
 const { StatusCodes} = require("http-status-codes")
 const asyncHandler = require("express-async-handler");
-const uploadBufferImage = require("../utils/cloudinary");
+const { uploadBufferImage } = require("../utils");
 const { Product } = require("../models");
 const {
   BadRequestError,
@@ -9,100 +9,112 @@ const {
   NotFoundError,
 } = require("../errors");
 
-const getAllProducts = async (req, res) => {
-  // filters -> new, isSale, isStocked, name, price, sort, numericFilters, category, filterItems, page 
-  console.log(req.user)
-  const { isNew, isSale, isStocked, search, category, filterItems, sort, fields, numericFilters } = req.query
-  const queryObject = {}
+const getAllProducts = asyncHandler(async (req, res) => {
+  // filters -> new, isSale, isStocked, name, price, sort, numericFilters, category, filterItems, page
 
-  if(isNew) {
-    queryObject.new = isNew === "true" ? true : false
+  const {
+    isNew,
+    isSale,
+    isStocked,
+    search,
+    category,
+    filterItems,
+    sort,
+    fields,
+    numericFilters,
+  } = req.query;
+  const queryObject = {};
+  console.log(req.signedCookies);
+  if (isNew) {
+    queryObject.new = isNew === "true" ? true : false;
   }
 
-  if(isSale) {
-    queryObject.isSale = isSale === "true" ? true : false
+  if (isSale) {
+    queryObject.isSale = isSale === "true" ? true : false;
   }
-  if(isStocked) {
-    queryObject.isStocked = isStocked === "true" ? true : false
-  }
-
-  if(search) {
-    queryObject.name = {$regex: search, $options: 'i'}
+  if (isStocked) {
+    queryObject.isStocked = isStocked === "true" ? true : false;
   }
 
-  if(category) {
-    queryObject.category = category
+  if (search) {
+    queryObject.name = { $regex: search, $options: "i" };
   }
 
-  if(filterItems) {
-    const filterList = filterItems.split(",")
-    queryObject.filterItems =  { $all: filterList}
+  if (category) {
+    queryObject.category = category;
   }
 
-  if(numericFilters) {
+  if (filterItems) {
+    const filterList = filterItems.split(",");
+    queryObject.filterItems = { $all: filterList };
+  }
+
+  if (numericFilters) {
     const operatorMap = {
       ">": "$gt",
       "<": "$lt",
       ">=": "$gte",
       "<=": "$lte",
-      "=": "$eq"
-    }
+      "=": "$eq",
+    };
 
-    const regEx = /\b(<|>|>=|=|<=)\b/g
-    let filters = numericFilters.replace(regEx, (match) => `-${operatorMap[match]}-`)
+    const regEx = /\b(<|>|>=|=|<=)\b/g;
+    let filters = numericFilters.replace(
+      regEx,
+      (match) => `-${operatorMap[match]}-`
+    );
 
-    const options = ["price", "viewCount"]
-    filters = filters.split(",").forEach(item => {
-      const [field,operator,value] = item.split("-")
-      if(options.includes(field)) {
-        queryObject[field] = {[operator]: Number(value)}
+    const options = ["price", "viewCount"];
+    filters = filters.split(",").forEach((item) => {
+      const [field, operator, value] = item.split("-");
+      if (options.includes(field)) {
+        queryObject[field] = { [operator]: Number(value) };
       }
-    })
-  }
-  console.log(queryObject)
-
-  let result = Product.find(queryObject)
-  if(sort) {
-    const sortList = sort.split(",").join(" ")
-    result = result.sort(sortList)
-  }else {
-    result = result.sort('createdAt')
+    });
   }
 
-  if(fields) {
-    const fieldList = fields.split(",").join(" ")
-    result = result.select(fieldList)
+  let result = Product.find(queryObject);
+  if (sort) {
+    const sortList = sort.split(",").join(" ");
+    result = result.sort(sortList);
+  } else {
+    result = result.sort("createdAt");
   }
 
-  const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 10
-  const skip = (page - 1) * limit
+  if (fields) {
+    const fieldList = fields.split(",").join(" ");
+    result = result.select(fieldList);
+  }
 
-  result = result.skip(skip).limit(limit)
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
 
+  result = result.skip(skip).limit(limit);
 
-  const products = await result
+  const products = await result;
 
-  const totalProducts = products.length
-  const numOfPages = Math.ceil(totalProducts / limit)
+  const totalProducts = products.length;
+  const numOfPages = Math.ceil(totalProducts / limit);
 
-  res.status(StatusCodes.OK).json({ products, nbHits: totalProducts, numOfPages  });
-};
+  res
+    .status(StatusCodes.OK)
+    .json({ products, nbHits: totalProducts, numOfPages });
+});
 
-
-const getProduct = async (req, res) => {
+const getProduct = asyncHandler(async (req, res) => {
   const { id: productId } = req.params;
 
   const product = await Product.findOne({ _id: productId });
 
   if (!product) {
-    throw new BadRequestError(`No product with id: ${productId}`);
+    throw new NotFoundError(`No product with id: ${productId}`);
   }
 
   res.status(StatusCodes.OK).json({ product });
-};
+});
 
-const createProduct = async (req, res) => {
+const createProduct = asyncHandler(async (req, res) => {
   const {
     name,
     oldPrice,
@@ -178,9 +190,9 @@ const createProduct = async (req, res) => {
   });
 
   res.status(StatusCodes.CREATED).json({ product });
-};
-const updateProduct = async (req, res) => {
-  console.log(req.body)
+});
+const updateProduct = asyncHandler(async (req, res) => {
+  console.log(req.body);
   const {
     name,
     oldPrice,
@@ -209,7 +221,7 @@ const updateProduct = async (req, res) => {
   let newImageGallery;
 
   if (req.files?.image) {
-    if ((req.files?.image.length === 0)) {
+    if (req.files?.image.length === 0) {
       throw new BadRequestError("No image provided for image field");
     }
     const productImage = req.files?.image[0];
@@ -227,7 +239,7 @@ const updateProduct = async (req, res) => {
     if (req.files?.imageGallery.length === 0) {
       throw new BadRequestError("No images provided for imageGallery field.");
     }
-    newImageGallery = req.files?.imageGallery
+    newImageGallery = req.files?.imageGallery;
     const imageGalleryResult = await Promise.all(
       newImageGallery.map((image) => {
         return new Promise((resolve, reject) => {
@@ -259,10 +271,9 @@ const updateProduct = async (req, res) => {
   const savedProduct = await product.save();
 
   res.status(StatusCodes.OK).json({ product: savedProduct });
-};
+});
 
-
-const deleteProduct = async (req, res) => {
+const deleteProduct = asyncHandler(async (req, res) => {
   const { id: productId } = req.params;
 
   const product = await Product.findOne({ _id: productId });
@@ -271,10 +282,10 @@ const deleteProduct = async (req, res) => {
     throw new BadRequestError(`No product with id: ${productId}`);
   }
 
-  await Product.deleteOne({ _id: productId});
+  await Product.deleteOne({ _id: productId });
 
   res.status(StatusCodes.OK).json({ msg: "Success! Product removed." });
-};
+});
 
 module.exports = {
     getAllProducts,

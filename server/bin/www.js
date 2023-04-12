@@ -7,7 +7,7 @@ require("express-async-errors");
  */
 
 let app = require("../app").app;
-const connectDB = require("../utils/db");
+const { connectDB } = require("../utils");
 
 /**
  * Get port from environment and store in Express
