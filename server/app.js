@@ -1,5 +1,6 @@
 require("express-async-errors");
 require("dotenv").config();
+require("./middlewares/passport")
 const http = require("http");
 const express = require("express");
 const path = require("path");

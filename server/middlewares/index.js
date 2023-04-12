@@ -1,6 +1,6 @@
 const errorHandlerMiddleware = require("./error-handler")
 const notFoundMiddleware = require("./not-found")
-const { validateCreateProduct, validateUpdateProduct, validateCreateUser } = require("./validation")
+const { validateCreateProduct, validateUpdateProduct, validateCreateUser, validateLoginUser } = require("./validation")
 
 module.exports = {
     errorHandlerMiddleware,
@@ -8,4 +8,5 @@ module.exports = {
     validateCreateProduct,
     validateUpdateProduct,
     validateCreateUser,
+    validateLoginUser
 }

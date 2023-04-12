@@ -97,10 +97,24 @@ const validateCreateUser = [
   body("email").isEmail(),
   body("password").isString().notEmpty(),
   body("phoneNumber").isMobilePhone(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next();
+  },
+];
+
+const validateLoginUser = [
+  body("email").isEmail(),
+  body("password").isString().notEmpty(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next()
+  }
 ]
 
 module.exports = {
     validateCreateProduct,
     validateUpdateProduct,
     validateCreateUser,
+    validateLoginUser
 }
