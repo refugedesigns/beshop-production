@@ -11,7 +11,7 @@ const {
 
 const getAllProducts = async (req, res) => {
   // filters -> new, isSale, isStocked, name, price, sort, numericFilters, category, filterItems, page 
-
+  console.log(req.user)
   const { isNew, isSale, isStocked, search, category, filterItems, sort, fields, numericFilters } = req.query
   const queryObject = {}
 

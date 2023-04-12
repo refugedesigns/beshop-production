@@ -36,6 +36,9 @@ const userSchema = new Schema({
         enum: ['admin', 'manager', 'user'],
         default: 'user'
     },
+    profileImage: {
+        type: String,
+    },
     veficationToken: String,
     isVerified: {
         type: Boolean,

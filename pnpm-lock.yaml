@@ -4,9 +4,6 @@ dependencies:
   cross-env:
     specifier: ^7.0.3
     version: 7.0.3
-  express-mongo-sanitize:
-    specifier: ^2.2.0
-    version: 2.2.0
 
 packages:
 
@@ -25,11 +22,6 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-    dev: false
-
-  /express-mongo-sanitize@2.2.0:
-    resolution: {integrity: sha512-PZBs5nwhD6ek9ZuP+W2xmpvcrHwXZxD5GdieX2dsjPbAbH4azOkrHbycBud2QRU+YQF1CT+pki/lZGedHgo/dQ==}
-    engines: {node: '>=10'}
     dev: false
 
   /isexe@2.0.0:
