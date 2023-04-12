@@ -1,33 +1,33 @@
 const asyncHandler = require("express-async-handler");
-const passport = require("passport");
 const { StatusCodes } = require("http-status-codes");
+const createUserToken = require("../utils/createUserToken");
+const { attachAccessToken, attachRefreshToken } = require("../utils");
+const { UnauthenticatedError } = require("../errors");
 
 const register = asyncHandler(async (req, res) => {
   if (req.user) {
-    res
-      .status(StatusCodes.CREATED)
-      .json({
-        msg: "Success! Please check your email and verify your account.",
-      });
+    res.status(StatusCodes.CREATED).json({
+      msg: "Success! Please check your email and verify your account.",
+    });
   }
   res.send("Register route");
 });
 
-// const passportLocalLogin = asyncHandler((req, res, next) => {
-//   return passport.authenticate("local-login", function (err, user) {
-//     console.log("I am here");
-//     console.log(user);
-//     if (err) return next(err);
-//     next(user);
-//   })(req, res, next);
-// });
-
 const login = asyncHandler(async (req, res) => {
-  if(req.user) {
-    console.log(req.user)
-  }
+  if (req.user) {
+    const userToken = createUserToken(req.user);
 
-  res.status(StatusCodes.OK).json({ msg: "Signin successful" });
+    attachRefreshToken({
+      res,
+      user: userToken,
+      refreshToken: req.user.refreshToken,
+    });
+    attachAccessToken({ res, user: userToken });
+
+    delete req.user.refreshToken;
+
+    res.status(StatusCodes.OK).json({ user: req.user });
+  }
 });
 const logout = async (req, res) => {
   res.send("Logout route");
