@@ -22,7 +22,7 @@ const tokenSchema = new Schema({
     ref: "User",
     required: true,
   },
-});
+}, {timestamps: true});
 
 const Token = model("Token", tokenSchema);
 

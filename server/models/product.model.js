@@ -74,4 +74,6 @@ productSchema.pre('deleteOne',async function(next) {
   next()
 })
 
-module.exports = model('Product', productSchema)
+const Product = model('Product', productSchema)
+
+module.exports = Product

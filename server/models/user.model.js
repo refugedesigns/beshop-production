@@ -51,7 +51,7 @@ const userSchema = new Schema({
         default: ""
     },
     resetPasswordTokenExpiration: Date
-})
+}, {timestamps: true})
 
 userSchema.pre('save', async function() {
     if(!this.isModified('password')) return
@@ -65,6 +65,6 @@ userSchema.methods.comparePassword = async function(password) {
 }
 
 
-const User = model("User", userSchema)
+const User = model("User", userSchema);
 
-module.exports = User
+module.exports = User;

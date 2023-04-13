@@ -11,6 +11,7 @@ const {
   validateCreateProduct,
   validateUpdateProduct,
   validateParams,
+  authenticateUser
 } = require("../middlewares");
 const storage = multer.memoryStorage();
 
@@ -22,7 +23,7 @@ const router = Router();
 
 router
   .route("/")
-  .get(getAllProducts)
+  .get(authenticateUser, getAllProducts)
   .post(
     upload.fields([
       { name: "image", maxCount: 1 },

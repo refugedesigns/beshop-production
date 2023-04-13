@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
-const { User, Token } = require("../models");
+const User = require("../models/user.model")
+const Token = require("../models/token.model")
 const {
   UnauthenticatedError,
   BadRequestError,
