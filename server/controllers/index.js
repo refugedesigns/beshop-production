@@ -11,6 +11,13 @@ const { register,
     verifyEmail,
     forgotPassword,
     resetPassword, } = require("./auth.controller");
+const {
+  getAllUsers,
+  getSingleUser,
+  updateUserPassword,
+  updateUser,
+  showCurrentUser,
+} = require("./user.controller");
 
 
 module.exports = {
@@ -25,4 +32,9 @@ module.exports = {
   verifyEmail,
   forgotPassword,
   resetPassword,
+  getAllUsers,
+  getSingleUser,
+  updateUserPassword,
+  updateUser,
+  showCurrentUser,
 };

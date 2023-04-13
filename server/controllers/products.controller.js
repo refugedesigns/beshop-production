@@ -1,7 +1,7 @@
 const { StatusCodes} = require("http-status-codes")
 const asyncHandler = require("express-async-handler");
 const { uploadBufferImage } = require("../utils");
-const { Product } = require("../models");
+const Product  = require("../models/product.model");
 const {
   BadRequestError,
   UnauthorizedError,
@@ -24,7 +24,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
     numericFilters,
   } = req.query;
   const queryObject = {};
-  console.log(req.signedCookies);
+
+  console.log(req.user)
   if (isNew) {
     queryObject.new = isNew === "true" ? true : false;
   }

@@ -10,7 +10,6 @@ const register = asyncHandler(async (req, res) => {
       msg: "Success! Please check your email and verify your account.",
     });
   }
-  res.send("Register route");
 });
 
 const login = asyncHandler(async (req, res) => {
