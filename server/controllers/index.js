@@ -19,6 +19,19 @@ const {
   showCurrentUser,
 } = require("./user.controller");
 
+const { createReview,
+    getAllReviews,
+    updateReview,
+    deleteReview,
+    getSingleReview,
+    getSingleProductReview } = require("./reviews.controller");
+
+    const {  createOrder,
+    getAllOrders,
+    getSingleOrder,
+    updateOrder,
+    getSingleUserOrders } = require("./orders.controller");
+
 
 module.exports = {
   getAllProducts,
@@ -37,4 +50,15 @@ module.exports = {
   updateUserPassword,
   updateUser,
   showCurrentUser,
+  createReview,
+  getAllReviews,
+  updateReview,
+  deleteReview,
+  getSingleReview,
+  getSingleProductReview,
+  createOrder,
+  getAllOrders,
+  getSingleOrder,
+  updateOrder,
+  getSingleUserOrders,
 };
