@@ -1,4 +1,4 @@
-const { check, body, param, validationResult } = require("express-validator");
+const { body, param, query, validationResult } = require("express-validator");
 
 const categories = ["nail", "skin", "makeup", "spa", "perfume", "hair"]
 
