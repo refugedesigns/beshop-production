@@ -4,6 +4,9 @@ dependencies:
   bcrypt:
     specifier: ^5.1.0
     version: 5.1.0
+  beshop:
+    specifier: file:..
+    version: file:..
   cloudinary:
     specifier: ^1.35.0
     version: 1.35.0
@@ -43,6 +46,9 @@ dependencies:
   jsonwebtoken:
     specifier: ^9.0.0
     version: 9.0.0
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   mongoose:
     specifier: ^7.0.3
     version: 7.0.3
@@ -61,6 +67,9 @@ dependencies:
   passport-local:
     specifier: ^1.0.0
     version: 1.0.0
+  robohash-avatars:
+    specifier: ^1.0.1
+    version: 1.0.1
   streamifier:
     specifier: ^0.1.1
     version: 0.1.1
@@ -1576,6 +1585,10 @@ packages:
       glob: 7.2.3
     dev: false
 
+  /robohash-avatars@1.0.1:
+    resolution: {integrity: sha512-FcVsby4Fk8cc6tVfp3O1NfikigPyAD7JjZJBXjLOyDXJ0FPVUnSvDL6ecg1vJijiqdSZy68kxNnuS9kPNVQFwA==}
+    dev: false
+
   /safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
     dev: false
@@ -2010,4 +2023,10 @@ packages:
     dependencies:
       argparse: 1.0.10
       glob: 7.2.3
+    dev: false
+
+  file:..:
+    resolution: {directory: .., type: directory}
+    name: beshop
+    version: 1.0.0
     dev: false

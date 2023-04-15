@@ -40,6 +40,7 @@ const validateCreateProduct = [
     .isString()
     .isLength({ min: 100 })
     .withMessage("Description length is too short"),
+  body("shippingFees").isNumeric({min: 10, max: 40}),
   (req, res, next) => {
     validationResult(req).throw();
     next();
@@ -120,10 +121,23 @@ const validateLoginUser = [
   }
 ]
 
+const validateCreateReview = [
+  body("title").isString().notEmpty(),
+  body("rating").isNumeric({min: 1, max: 5}),
+  body("comment").isString().notEmpty(),
+  body("user").isMongoId(),
+  body("product").isMongoId(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next();
+  }
+]
+
 module.exports = {
     validateCreateProduct,
     validateUpdateProduct,
     validateParams,
     validateCreateUser,
-    validateLoginUser
+    validateLoginUser,
+    validateCreateReview
 }

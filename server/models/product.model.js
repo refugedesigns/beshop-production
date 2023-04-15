@@ -45,28 +45,43 @@ const productSchema = new Schema(
       enum: ["nail", "skin", "makeup", "spa", "perfume", "hair"],
     },
     imageGallery: {
-        type: [String],
-        required: true,
+      type: [String],
+      required: true,
     },
     colors: {
-        type: [String],
-        required: true,
+      type: [String],
+      required: true,
     },
     content: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
-        required: true,
-    }, 
+      type: String,
+      required: true,
+    },
     viewCount: {
       type: Number,
       default: 0,
-    }
+    },
+    shippingFees: {
+      type: Number,
+      required: true,
+    },
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true }, id: false }
 );
+
+productSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "product",
+  justOne: false,
+});
 
 productSchema.pre('deleteOne',async function(next) {
   const productDoc = await this.model.findOne(this.getQuery())

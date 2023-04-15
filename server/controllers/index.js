@@ -1,6 +1,6 @@
 const {
   getAllProducts,
-  getProduct,
+  getSingleProduct,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -19,23 +19,26 @@ const {
   showCurrentUser,
 } = require("./user.controller");
 
-const { createReview,
-    getAllReviews,
-    updateReview,
-    deleteReview,
-    getSingleReview,
-    getSingleProductReview } = require("./reviews.controller");
+const {
+  createReview,
+  getAllReviews,
+  updateReview,
+  deleteReview,
+  getSingleReview,
+  getSingleProductReviews,
+} = require("./reviews.controller");
 
-    const {  createOrder,
-    getAllOrders,
-    getSingleOrder,
-    updateOrder,
-    getSingleUserOrders } = require("./orders.controller");
-
+const {
+  createOrder,
+  getAllOrders,
+  getSingleOrder,
+  updateOrder,
+  getSingleUserOrders,
+} = require("./orders.controller");
 
 module.exports = {
   getAllProducts,
-  getProduct,
+  getSingleProduct,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -55,7 +58,7 @@ module.exports = {
   updateReview,
   deleteReview,
   getSingleReview,
-  getSingleProductReview,
+  getSingleProductReviews,
   createOrder,
   getAllOrders,
   getSingleOrder,

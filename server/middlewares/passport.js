@@ -3,6 +3,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
 const User = require("../models/user.model")
 const Token = require("../models/token.model")
+const robohashAvatars = require("robohash-avatars")
+const _ = require("lodash");
 const {
   UnauthenticatedError,
   BadRequestError,
@@ -29,6 +31,15 @@ passport.use(
             return done(new BadRequestError("Email already exists."));
           }
 
+          const robots =  ["Kittens", "Humans", "Robots", "Monsters", "DisembodiedHeads"]
+
+          const avatarUrl = robohashAvatars.generateAvatar({
+            background: robohashAvatars.BackgroundSets.RandomBackground1,
+            characters: robohashAvatars.CharacterSets[_.sample(robots)],
+            height: 400,
+            width: 400,
+          });
+
           let newUser = await User.create({
             firstName,
             lastName,
@@ -36,6 +47,7 @@ passport.use(
             password,
             phoneNumber,
             role,
+            profileImage: avatarUrl
           });
 
           newUser = newUser._doc;
