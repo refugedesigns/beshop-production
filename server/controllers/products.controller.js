@@ -103,10 +103,10 @@ const getAllProducts = asyncHandler(async (req, res) => {
     .json({ products, nbHits: totalProducts, numOfPages });
 });
 
-const getProduct = asyncHandler(async (req, res) => {
+const getSingleProduct = asyncHandler(async (req, res) => {
   const { id: productId } = req.params;
 
-  const product = await Product.findOne({ _id: productId });
+  const product = await Product.findOne({ _id: productId }).populate("reviews");
 
   if (!product) {
     throw new NotFoundError(`No product with id: ${productId}`);
@@ -129,6 +129,7 @@ const createProduct = asyncHandler(async (req, res) => {
     isSale,
     isStocked,
     productNumber,
+    shippingFees
   } = req.body;
   const { image, imageGallery } = req.files;
 
@@ -188,6 +189,7 @@ const createProduct = asyncHandler(async (req, res) => {
     productNumber,
     image: mainImage.secure_url,
     imageGallery: galleryLinks,
+    shippingFees
   });
 
   res.status(StatusCodes.CREATED).json({ product });
@@ -290,7 +292,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllProducts,
-    getProduct,
+    getSingleProduct,
     createProduct,
     updateProduct,
     deleteProduct

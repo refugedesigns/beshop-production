@@ -2,8 +2,8 @@ const { Router } = require("express")
 const productsRoutes = require("./products.routes")
 const authRoutes = require("./auth.routes")
 const userRoutes = require("./user.routes")
-const reviewRoutes = require("./review.routes")
-const orderRoutes = require("./order.routes")
+const reviewRoutes = require("./reviews.routes")
+const orderRoutes = require("./orders.routes")
 
 const api = Router();
 

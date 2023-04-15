@@ -1,24 +1,26 @@
 const { Router } = require("express");
+const { authenticateUser, validateCreateReview } = require('../middlewares')
 const {
   getAllReviews,
   createReview,
   updateReview,
   deleteReview,
-  getSingleProductReview,
+  getSingleProductReviews,
   getSingleReview,
-} = require("../controllers");
+} = require('../controllers')
 
 const router = Router();
 
-router.route("/").get(getAllReviews).post(createReview);
+router.route("/").get(getAllReviews).post(authenticateUser, validateCreateReview, createReview);;
 
-router.route("/getSingleProductReview").get(getSingleProductReview);
+
+router.route("/getSingleProductReview/:id").get(getSingleProductReviews);
 
 router
   .route("/:id")
-  .patch(updateReview)
-  .delete(deleteReview)
+  .patch(authenticateUser,updateReview)
+  .delete(authenticateUser, deleteReview)
   .get(getSingleReview);
 
 
-  module.exports = router;
+module.exports = router;

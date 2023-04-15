@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
@@ -44,6 +44,10 @@ const userSchema = new Schema({
     isVerified: {
         type: Boolean,
         default: false
+    },
+    wishlist: {
+        type: [Types.ObjectId],
+        ref: "Product"
     },
     verifiedDate: Date,
     resetPasswordToken: {

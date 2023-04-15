@@ -43,7 +43,7 @@ const apiLimiter = rateLimit({
 app.use(helmet());
 app.use(xxsClean());
 app.use(mongoSanitize())
-app.use(apiLimiter);
+// app.use(apiLimiter);
 
 app.use(
   cors({

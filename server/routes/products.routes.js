@@ -2,7 +2,7 @@ const { Router } = require("express");
 const multer = require("multer");
 const {
   getAllProducts,
-  getProduct,
+  getSingleProduct,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -23,7 +23,7 @@ const router = Router();
 
 router
   .route("/")
-  .get(authenticateUser, getAllProducts)
+  .get(getAllProducts)
   .post(
     upload.fields([
       { name: "image", maxCount: 1 },
@@ -34,7 +34,7 @@ router
   );
 router
   .route("/:id")
-  .get(validateParams, getProduct)
+  .get(validateParams, getSingleProduct)
   .patch(
     upload.fields([
       { name: "image", maxCount: 1 },

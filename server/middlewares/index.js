@@ -2,7 +2,7 @@ const errorHandlerMiddleware = require("./error-handler")
 const notFoundMiddleware = require("./not-found")
 const authenticateUser = require("./auth")
 const authorizePermissions = require("./authorizePermissions")
-const { validateCreateProduct, validateUpdateProduct, validateParams, validateCreateUser, validateLoginUser } = require("./validation")
+const { validateCreateProduct, validateUpdateProduct, validateParams, validateCreateUser, validateLoginUser, validateCreateReview } = require("./validation")
 
 module.exports = {
     errorHandlerMiddleware,
@@ -13,5 +13,6 @@ module.exports = {
     validateUpdateProduct,
     validateParams,
     validateCreateUser,
-    validateLoginUser
+    validateLoginUser,
+    validateCreateReview
 }
