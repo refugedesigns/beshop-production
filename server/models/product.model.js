@@ -64,10 +64,6 @@ const productSchema = new Schema(
       type: Number,
       default: 0,
     },
-    shippingFees: {
-      type: Number,
-      required: true,
-    },
     averageRating: {
       type: Number,
       default: 0,

@@ -1,19 +1,13 @@
 require("dotenv").config()
 const robohashAvatars = require("robohash-avatars")
 const _ = require("lodash")
+const { connectDB } = require("./utils");
+const Product = require("./models/product.model");
 
 const populateDB = async function () {
-  const robots = ["Kittens", "Humans", "Robots", "Monsters", "DisembodiedHeads"]
   try {
-    const avatarUrl = robohashAvatars.generateAvatar({
-      background: robohashAvatars.BackgroundSets.RandomBackground1,
-      characters: robohashAvatars.CharacterSets[_.sample(robots)],
-      height: 400,
-      width: 400
-    })
-
-    console.log(avatarUrl)
-    console.log(avatarUrl2)
+    connectDB(process.env.MONGO_URL)
+    await Product.updateMany({}, {$unset: {"shippingFees":""}})
     process.exit(0)
   } catch (error) {
     console.log(error)
