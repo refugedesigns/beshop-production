@@ -1,5 +1,5 @@
 const { Router } = require("express")
-const { getAllOrders, createOrder, getSingleUserOrders, getSingleOrder, updateOrder } = require("../controllers")
+const { getAllOrders, createOrder, getCurrentUserOrders, getSingleOrder, updateOrder } = require("../controllers")
 
 
 const router = Router()
@@ -7,7 +7,7 @@ const router = Router()
 
 router.route("/").get(getAllOrders).post(createOrder)
 
-router.route("/getSingleUserOrders").get(getSingleUserOrders)
+router.route("/getCurrentUserOrders").get(getCurrentUserOrders)
 
 router.route("/:id").get(getSingleOrder).patch(updateOrder)
 
