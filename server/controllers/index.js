@@ -33,7 +33,7 @@ const {
   getAllOrders,
   getSingleOrder,
   updateOrder,
-  getSingleUserOrders,
+  getCurrentUserOrders,
 } = require("./orders.controller");
 
 module.exports = {
@@ -63,5 +63,5 @@ module.exports = {
   getAllOrders,
   getSingleOrder,
   updateOrder,
-  getSingleUserOrders,
+  getCurrentUserOrders,
 };
