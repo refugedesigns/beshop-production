@@ -9,6 +9,9 @@ import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 import products from "@/data/product/product"
 
 const Trending = () => {
+  const handleProductCategory = (e) => {
+    
+  }
   return (
     <Box className="py-20">
       <Container maxWidth="xl">
