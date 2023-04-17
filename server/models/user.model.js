@@ -49,6 +49,10 @@ const userSchema = new Schema({
         type: [Types.ObjectId],
         ref: "Product"
     },
+    viewedProducts: {
+        type: [Types.ObjectId],
+        ref: "Product"
+    },
     verifiedDate: Date,
     resetPasswordToken: {
         type: String,

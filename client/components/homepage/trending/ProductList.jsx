@@ -2,13 +2,17 @@ import React from "react";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Slider from "react-slick";
 import Product from "../../ui/products/Product";
 import NextArrow from "../../ui/arrows/NextArrow";
 import PreviousArrow from "../../ui/arrows/PreviousArrow";
+import { Box, Skeleton } from "@mui/material";
 
-const ProductList = ({products}) => {
+const ProductList = ({ products, loading }) => {
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up("lg"));
   var settings = {
     infinite: true,
     speed: 500,
@@ -59,16 +63,41 @@ const ProductList = ({products}) => {
       className="mt-10 flex justify-center items-center px-4 lg:px-10"
       {...settings}
     >
-      {products?.map((product) => (
-        <Product
-          title={product.name}
-          salePrice={product.oldPrice}
-          realPrice={product.price}
-          key={product.id}
-          productImage={product.image}
-          classes="h-[300px] sm:h-[400px] lg:h-[500px]"
-        />
-      ))}
+      {loading
+        ? Array(8)
+            .fill(null)
+            .map((_, index) => (
+              <Box key={index} className="w-[400px] h-[400px] lg:h-[570px]">
+                <Skeleton
+                  variant="rectangular"
+                  height={"100%"}
+                  width={"100%"}
+                  className="w-full"
+                />
+                <Skeleton
+                  height={40}
+                  width={matches ? 300 : 200}
+                  className="mx-auto"
+                />
+                <Skeleton
+                  height={30}
+                  width={100}
+                  className="mx-auto"
+                />
+              </Box>
+            ))
+        : products?.map((product) => (
+            <Product
+              title={product.name}
+              salePrice={product.oldPrice}
+              realPrice={product.price}
+              key={product._id}
+              productImage={product.image}
+              productId={product._id}
+              isNew={product.new}
+              isSale={product.isSale}
+            />
+          ))}
     </Slider>
   );
 };
