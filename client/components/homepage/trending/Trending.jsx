@@ -6,12 +6,12 @@ import ProductList from "./ProductList";
 import PartnerLogos from "../../ui/partner-logos/PartnerLogos";
 import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 
-import products from "@/data/product/product"
+import TrendingTabs from "./TrendingTabs";
 
-const Trending = () => {
+const Trending = ({products}) => {
   return (
     <Box className="py-20">
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className="mb-8">
         <Stack spacing={3}>
           <StyledTitle title="Cosmetics" align="center" classes="-mb-4"/>
           <Typography className="font-elegant text-4xl md:text-5xl" variant="h2" align="center">
@@ -22,16 +22,8 @@ const Trending = () => {
             that you can&#39;t refuse.
           </Typography>
         </Stack>
-        <Stack direction={{xs: 'column', md: 'row'}} spacing={{md: 4}} className="mt-4 flex flex-col md:flex-row justify-center items-center">
-            <TrendingButton title="Make Up"/>
-            <TrendingButton title="SPA"/>
-            <TrendingButton title="Perfume" />
-            <TrendingButton title="Nails"/>
-            <TrendingButton title="Skin care"/>
-            <TrendingButton isLastChild title="Hair care"/>
-        </Stack>
       </Container>
-        <ProductList products={products} />
+      <TrendingTabs products={products} />
         <PartnerLogos />
     </Box>
   );

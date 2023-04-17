@@ -19,7 +19,7 @@ function a11yProps(index) {
 const ProductDetailReviews = ({ description, reviews }) => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -41,7 +41,7 @@ const ProductDetailReviews = ({ description, reviews }) => {
         <CustomTab label="Description" {...a11yProps(0)} />
         <CustomTab
           label="Reviews"
-          className="sm:mx-2 mt-2 sm:mt-0"
+          className="md:mx-2 mt-2 md:mt-0"
           {...a11yProps(1)}
         />
       </Tabs>

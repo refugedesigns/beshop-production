@@ -18,7 +18,8 @@ import InstaPhotos from '@/components/ui/insta-photos/InstaPhotos';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home({makeupProducts}) {
+
   return (
     <>
       <Head>
@@ -29,7 +30,7 @@ export default function Home() {
       </Head>
       <Fragment>
           <HeroArea />
-          <Trending />
+          <Trending products={makeupProducts} />
           <Discount />
           <Advantages />
           <Category />
@@ -39,4 +40,17 @@ export default function Home() {
       </Fragment>
     </>
   );
+}
+
+
+export async function getStaticProps(context) {
+  const response = await fetch("http:localhost:8000/api/v1/products?filterItems=makeup&limit=20");
+  const makeupProducts = await response.json();
+
+  return {
+    props: {
+      makeupProducts: makeupProducts.products,
+      revalidate: 300
+    },
+  };
 }

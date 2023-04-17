@@ -8,11 +8,14 @@ import ProductDetailInfo from "@/components/product-detail/ProductDetailInfo";
 import ProductDetailReviews from "@/components/product-detail/ProductDetailReviews";
 import ProductSlick from "@/components/ui/products-slick/ProductSlick";
 
-import products from "@/data/product/product";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
-
+import products from "@/data/product/product";
 
 const ProdudctDetailPage = ({ product }) => {
+  if (!product) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Fragment>
       <PageDecor />
@@ -26,7 +29,11 @@ const ProdudctDetailPage = ({ product }) => {
       />
       <Box className="mx-auto max-w-6xl mb-10 lg:mb-20">
         <Box className="lg:flex lg:justify-between lg:space-x-6 mx-3">
-          <ProductDetailSlick isNew={product.isNew} isSale={product.isSale} imageGallery={product.imageGallery} />
+          <ProductDetailSlick
+            isNew={product.isNew}
+            isSale={product.isSale}
+            imageGallery={product.imageGallery}
+          />
           <ProductDetailInfo
             productNumber={product.productNumber}
             colors={product.colors}
@@ -40,27 +47,53 @@ const ProdudctDetailPage = ({ product }) => {
 
         <ProductDetailReviews
           description={product.description}
-          reviews={product.reviews}
+          reviews={product?.reviews}
         />
       </Box>
-        <ProductSlick
-          styleTitle="Cosmetics"
-          titleHeading="You Have Viewed"
-          excerpt="Nourish your skin with toxin-free produts. With the offers that you can't refuse"
-          products={products}
-        />
-        <InstaPhotos />
+      <ProductSlick
+        styleTitle="Cosmetics"
+        titleHeading="You Have Viewed"
+        excerpt="Nourish your skin with toxin-free produts. With the offers that you can't refuse"
+        products={products}
+      />
+      <InstaPhotos />
     </Fragment>
   );
 };
 
-export async function getServerSideProps(context) {
-  console.log(context.params.productId);
-  const product = products.find(
-    (product) => product.id === context.params.productId
+export async function getStaticProps(context) {
+  const { params } = context;
+
+  const response = await fetch(
+    `http://localhost:8000/api/v1/products/${params.productId}`
   );
+  const product = await response.json();
+
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: { product },
+    props: {
+      product: product.product,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  const response = await fetch(
+    "http:localhost:8000/api/v1/products?filterItems=makeup&limit=20"
+  );
+  const products = await response.json();
+
+  const ids = products.products.map((product) => product._id);
+  const params = ids.map((id) => ({ params: { productId: id.toString() } }));
+ 
+  return {
+    paths: params,
+    fallback: true,
   };
 }
 

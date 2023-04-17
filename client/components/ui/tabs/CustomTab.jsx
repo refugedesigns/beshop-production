@@ -21,7 +21,7 @@ const CustomTab = ({label, ...props}) => {
         px: 5,
         minWidth: {
           xs: "100%",
-          sm: "auto",
+          md: "auto",
         },
       }}
       label={label}

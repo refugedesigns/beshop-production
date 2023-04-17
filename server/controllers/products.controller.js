@@ -25,7 +25,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   } = req.query;
   const queryObject = {};
 
-  console.log(req.user)
+  console.log(req.query)
   if (isNew) {
     queryObject.new = isNew === "true" ? true : false;
   }
@@ -47,7 +47,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
   if (filterItems) {
     const filterList = filterItems.split(",");
-    queryObject.filterItems = { $all: filterList };
+    queryObject.filterItems = { $in: filterList };
   }
 
   if (numericFilters) {
