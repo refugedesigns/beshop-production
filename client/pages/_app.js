@@ -8,6 +8,13 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import Layout from "@/components/layout/Layout";
 import theme from '@/theme/theme';
 
+import { store } from "@/store/store";
+import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+
+let persistor = persistStore(store);
+
 const progress = new ProgressBar({
   size: 4,
   color: "#DC143C",
@@ -24,9 +31,13 @@ export default function App({ Component, pageProps }) {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </PersistGate>
+        </Provider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

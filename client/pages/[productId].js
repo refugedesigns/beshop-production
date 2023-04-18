@@ -42,6 +42,9 @@ const ProdudctDetailPage = ({ product }) => {
             realPrice={product.price}
             inStock={product.isStocked}
             title={product.name}
+            productId={product._id}
+            imageUrl={product.image}
+            productName={product.name}
           />
         </Box>
 

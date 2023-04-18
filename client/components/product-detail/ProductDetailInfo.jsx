@@ -1,11 +1,22 @@
-import React, { useState } from "react";
-import { Box, Divider, Typography, Stack, Checkbox, IconButton, TextField } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Divider,
+  Typography,
+  Stack,
+  Checkbox,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import { RiCheckboxBlankFill } from "react-icons/ri";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { BsCart4 } from "react-icons/bs";
 import { AiOutlineHeart, AiFillCheckSquare } from "react-icons/ai";
 import ContactSocial from "../ui/social/ContactSocial";
 import Button from "../ui/button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "@/store/cartSlice";
+import { selectCartItems } from "@/store/cartSlice";
 
 const ProductDetailInfo = ({
   title,
@@ -15,20 +26,71 @@ const ProductDetailInfo = ({
   realPrice,
   content,
   colors,
+  productId,
+  imageUrl,
+  productName,
 }) => {
-    const [checkedColors, setCheckedColors] = useState(colors?.reduce((acc, val) =>{
-        acc = false
-        return acc
-    }))
-    const [wishButtonHover, setWishButtonHover] = useState(false)
+  const [checkedColors, setCheckedColors] = useState(
+    colors?.reduce((acc, val) => {
+      return acc;
+    }, {})
+  );
+  const [wishButtonHover, setWishButtonHover] = useState(false);
+  const [itemColors, setItemColors] = useState([]);
+  const [amount, setAmount] = useState(0);
+  const dispatch = useDispatch();
 
+  console.log(checkedColors);
 
-    const handleCheckColor = (event) => {
-        setCheckedColors({
-            ...state,
-            [event.target.value]: event.target.checked
-        })
+  const colorsArray = Object.entries(checkedColors).map(([key, val], index) => {
+    return val === true && key;
+  });
+
+  console.log(colorsArray);
+
+  const handleIncreasAmount = () => {
+    setAmount((prevAmt) => prevAmt + 1);
+  };
+
+  const handleDecreasAmount = () => {
+    if (amount === 0) return;
+    setAmount((prevAmt) => prevAmt - 1);
+  };
+
+  const handleCheckColor = (event) => {
+    setCheckedColors((state) => {
+      return {
+        ...state,
+        [event.target.value]: event.target.checked,
+      };
+    });
+    console.log(checkedColors);
+  };
+
+  const handleAddToCart = () => {
+    if (inStock) {
+      if (
+        colorsArray.length === 0 ||
+        colorsArray.every((color) => color === false)
+      ) {
+        return;
+      }
+
+      if (amount === 0) {
+        return;
+      }
+      const newCartItem = {
+        id: productId,
+        name: productName,
+        image: imageUrl,
+        price: Number(realPrice),
+        colors: colorsArray.map((color) => color !== false),
+        amount: Number(amount),
+      };
+
+      dispatch(addToCart(newCartItem));
     }
+  };
   return (
     <Box className="my-10 lg:my-20 lg:w-1/2" component="section">
       <Typography variant="h3" className="font-elegant text-4xl">
@@ -72,7 +134,10 @@ const ProductDetailInfo = ({
         <ContactSocial />
       </Box>
       <Divider />
-      <Stack direction={{sm: 'row'}} className="mt-12 sm:justify-between sm:align-start">
+      <Stack
+        direction={{ sm: "row" }}
+        className="mt-12 sm:justify-between sm:align-start"
+      >
         <Box>
           <Typography variant="body1" className="pl-2">
             Color:
@@ -83,6 +148,7 @@ const ProductDetailInfo = ({
                 <Checkbox
                   value={color}
                   key={index}
+                  onChange={handleCheckColor}
                   icon={
                     <RiCheckboxBlankFill color={color} className="w-8 h-8" />
                   }
@@ -100,7 +166,10 @@ const ProductDetailInfo = ({
             Quantity:
           </Typography>
           <Box className="mt-1">
-            <IconButton className="bg-custom-gray border border-solid border-[#eee] rounded-none">
+            <IconButton
+              onClick={handleDecreasAmount}
+              className="bg-custom-gray border border-solid border-[#eee] rounded-none"
+            >
               <IoIosArrowBack className="text-gray-400" />
             </IconButton>
             <TextField
@@ -109,7 +178,7 @@ const ProductDetailInfo = ({
               aria-label="Quantity"
               size="small"
               className="w-16"
-              value="12"
+              value={amount}
               sx={{
                 "& fieldset": {
                   borderRadius: 0,
@@ -122,20 +191,31 @@ const ProductDetailInfo = ({
                 },
               }}
             />
-            <IconButton className="bg-custom-gray border border-solid border-[#eee] rounded-none">
+            <IconButton
+              onClick={handleIncreasAmount}
+              className="bg-custom-gray border border-solid border-[#eee] rounded-none"
+            >
               <IoIosArrowForward className="text-gray-400" />
             </IconButton>
           </Box>
         </Box>
       </Stack>
-      <Stack direction={{sm: "row"}} className="space-y-2 sm:space-y-0 sm:space-x-4 sm:mt-8">
+      <Stack
+        direction={{ sm: "row" }}
+        className="space-y-2 sm:space-y-0 sm:space-x-4 sm:mt-8"
+      >
         <Button
+          onClick={handleAddToCart}
           startIcon={<BsCart4 />}
           title="Cart"
-          classes="w-full font-semibold sm:w-max sm:px-14 hover:opacity-80"
+          classes="w-full font-semibold sm:w-max sm:px-14 hover:opacity-80 disabled:text-white"
         />
         <Button
-          startIcon={<AiOutlineHeart className={wishButtonHover ? "text-white": 'text-black'} />}
+          startIcon={
+            <AiOutlineHeart
+              className={wishButtonHover ? "text-white" : "text-black"}
+            />
+          }
           title="Wish"
           classes="w-full text-black bg-custom-gray border border-solid border-[#eee] font-semibold sm:w-max sm:px-14 hover:text-white hover:bg-black"
           onMouseOver={() => setWishButtonHover(true)}
