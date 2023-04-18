@@ -51,11 +51,11 @@ const ProductDetailReviews = ({ description, reviews }) => {
       <ReviewsTabPannel className="my-16" value={value} index={1}>
         <Box className="lg:flex">
           <Box className="space-y-5 lg:w-2/3">
-            {reviews.map((review, index) => (
+            {reviews?.map((review, index) => (
               <ReviewCard
                 key={index}
-                profileImage={review.author.image}
-                username={review.author.name}
+                profileImage={review.author?.image}
+                username={review.author?.name}
                 date={review.reviewDate}
                 rating={review.rating}
                 text={review.content}

@@ -13,6 +13,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.15",
+    "@reduxjs/toolkit": "^1.9.4",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "mapbox-gl": "^2.13.0",
@@ -22,8 +23,10 @@
     "react-icons": "^4.8.0",
     "react-map-gl": "^7.0.21",
     "react-player": "^2.12.0",
+    "react-redux": "^8.0.5",
     "react-slick": "^0.29.0",
     "react-spring": "^9.7.1",
+    "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

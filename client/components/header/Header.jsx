@@ -21,12 +21,18 @@ import { BiSearch } from "react-icons/bi";
 import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { pages, settings } from "@/data/data.header";
+import { useSelector } from "react-redux";
+import { selectTotalItems } from "@/store/cartSlice";
 
 
 export default function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [scrollOffset, setScrollOffset] = React.useState(0);
+
+  const totalCartItems = useSelector(selectTotalItems)
+
+  console.log(totalCartItems)
 
   const { backgroundColor } = useSpring({
     backgroundColor: scrollOffset > 10 ? "#FCECEB" : "transparent",
@@ -118,7 +124,7 @@ export default function Header() {
                   <AiOutlineHeart />
                 </IconButton>
                 <IconButton aria-label="cart" href="/cart" LinkComponent={Link}>
-                  <Badge color="primary" badgeContent={4}>
+                  <Badge color="primary" badgeContent={totalCartItems}>
                     <BsCart4 height={10} width={10} />
                   </Badge>
                 </IconButton>
