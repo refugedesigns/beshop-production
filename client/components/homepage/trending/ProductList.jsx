@@ -96,6 +96,8 @@ const ProductList = ({ products, loading }) => {
               productId={product._id}
               isNew={product.new}
               isSale={product.isSale}
+              colors={product.colors}
+              inStock={product.isStocked}
             />
           ))}
     </Slider>

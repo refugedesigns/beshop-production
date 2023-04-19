@@ -32,8 +32,6 @@ export default function Header() {
 
   const totalCartItems = useSelector(selectTotalItems)
 
-  console.log(totalCartItems)
-
   const { backgroundColor } = useSpring({
     backgroundColor: scrollOffset > 10 ? "#FCECEB" : "transparent",
     config: { duration: 200 },

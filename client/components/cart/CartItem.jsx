@@ -71,7 +71,7 @@ const CartItem = ({
         className="border border-b border-solid border-l-0 border-[#eee] h-32 text-base font-semibold"
         align="center"
       >
-        <IconButton onClick={() => dispatch(deleteFromCart())}>
+        <IconButton onClick={() => dispatch(deleteFromCart({id: productId}))}>
           <BsFillTrashFill className="text-red-500" />
         </IconButton>
       </StyledTableCell>

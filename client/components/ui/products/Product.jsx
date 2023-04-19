@@ -1,33 +1,107 @@
-import React from "react";
+import React, {useRef, useEffect} from "react";
 import { CardMedia, Box, Typography, Stack, IconButton } from "@mui/material";
 import {RiSearch2Line} from "react-icons/ri";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  addToCart,
+  selectCartItems,
+  selectTotalItems,
+} from "@/store/cartSlice";
 
-const Product = ({ title, salePrice, realPrice, productId, isNew, isSale, productImage, classes }) => {
-  const router = useRouter()
+const Product = ({
+  title,
+  salePrice,
+  realPrice,
+  productId,
+  isNew,
+  isSale,
+  productImage,
+  classes,
+  colors,
+  inStock,
+}) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const currentNumOfItems = useRef()
+  const numOfCartItems = useSelector(selectTotalItems);
+  
+
+  useEffect(() => {
+    currentNumOfItems.current = numOfCartItems
+  }, [numOfCartItems])
+
+  const defaultColor = colors[0];
+
+  const handleAddToCart = async () => {
+    if (!inStock) {
+      toast.error("This product is out of stock", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+    const item = {
+      id: productId,
+      image: productImage,
+      price: realPrice,
+      colors: [defaultColor],
+      name: title,
+      amount: 1,
+    }; 
+
+    await new Promise((resolve, reject) => {
+      dispatch(addToCart(item));
+      resolve()
+    });
+
+    console.log(currentNumOfItems.current)
+      const message =
+        currentNumOfItems.current === 1
+          ? "You added a product to your cart"
+          : `You added ${currentNumOfItems.current} products to your cart`;
+
+    toast.success(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
   return (
     <Box className="mx-auto lg:mx- hover:cursor-pointer relative ">
-        <Stack className="absolute z-30 top-0 right-0 font-body">
-          {isNew && (
-            <Typography
-              className="p-1 px-5 bg-style-color text-white"
-              variant="body"
-            >
-              New
-            </Typography>
-          )}
-          {isSale && (
-            <Typography
-              className="p-1 px-5 bg-emerald-500 text-white"
-              variant="body"
-            >
-              Sale
-            </Typography>
-          )}
-        </Stack>
+      <Stack className="absolute z-30 top-0 right-0 font-body">
+        {isNew && (
+          <Typography
+            className="p-1 px-5 bg-style-color text-white"
+            variant="body"
+          >
+            New
+          </Typography>
+        )}
+        {isSale && (
+          <Typography
+            className="p-1 px-5 bg-emerald-500 text-white"
+            variant="body"
+          >
+            Sale
+          </Typography>
+        )}
+      </Stack>
       <Box className="relative group">
         <CardMedia className={`flex-1 ${classes}`}>
           <Image
@@ -50,7 +124,11 @@ const Product = ({ title, salePrice, realPrice, productId, isNew, isSale, produc
             <IconButton size="large" className="z-50 bg-white">
               <AiOutlineHeart />
             </IconButton>
-            <IconButton size="large" className="z-50 bg-style-color text-white">
+            <IconButton
+              onClick={handleAddToCart}
+              size="large"
+              className="z-50 bg-style-color text-white"
+            >
               <BsCart4 />
             </IconButton>
           </Stack>

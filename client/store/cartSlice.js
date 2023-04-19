@@ -58,7 +58,7 @@ const cartSlice = createSlice({
         },
         deleteFromCart: (state, action) => {
             const existingCartItem = state.items.find((item) => item.id === action.payload.id)
-            state.items.filter((item) => item.id !== action.payload.id)
+            state.items = state.items.filter((item) => item.id !== action.payload.id)
             const subtotals = state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0);
             state.totalPrice = subtotals + state.shippingFees; 
             state.totalItems = state.totalItems - existingCartItem.amount 
