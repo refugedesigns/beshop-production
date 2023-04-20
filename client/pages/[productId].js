@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Container, Box, Grid } from "@mui/material";
 
 import ProductDetailSlick from "@/components/product-detail/ProductDetailSlick";
@@ -15,6 +15,25 @@ const ProdudctDetailPage = ({ product }) => {
   if (!product) {
     return <p>Loading...</p>;
   }
+
+  useEffect(() => {
+    const handleProductViewsCount = () => {
+        const existingProducts = localStorage.getItem('viewedProducts')
+        if(existingProducts && existingProducts.length > 0) {
+          const existingProduct = existingProducts.find( id => id === product._id)
+          if(!existingProduct) {
+            existingProducts.push( product._id)
+            localStorage.setItem('viewedProducts', existingProducts)
+            // Make call to backend to update product view count
+          }
+        } else {
+          localStorage.setItem('viewedProducts', [product._id])
+          // Make call to backend to update product view count
+        }
+    }
+
+    handleProductViewsCount()
+  }, [])
 
   return (
     <Fragment>

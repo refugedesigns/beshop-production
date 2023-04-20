@@ -194,6 +194,8 @@ const createProduct = asyncHandler(async (req, res) => {
 
   res.status(StatusCodes.CREATED).json({ product });
 });
+
+
 const updateProduct = asyncHandler(async (req, res) => {
   console.log(req.body);
   const {
@@ -276,13 +278,29 @@ const updateProduct = asyncHandler(async (req, res) => {
   res.status(StatusCodes.OK).json({ product: savedProduct });
 });
 
+const addViewCount = asyncHandler(async(req, res) => {
+  const { productId } = req.body 
+
+  const product = await Product.findOne({_id: productId})
+
+  if(!product) {
+    throw new NotFoundError(`No product with id: ${productId}`);
+  }
+
+  product.viewCount += 1
+
+  await product.save();
+
+  res.status(StatusCodes.OK).json({msg: "View count updated successfully"})
+})
+
 const deleteProduct = asyncHandler(async (req, res) => {
   const { id: productId } = req.params;
 
   const product = await Product.findOne({ _id: productId });
 
   if (!product) {
-    throw new BadRequestError(`No product with id: ${productId}`);
+    throw new NotFoundError(`No product with id: ${productId}`);
   }
 
   await Product.deleteOne({ _id: productId });
@@ -295,5 +313,6 @@ module.exports = {
     getSingleProduct,
     createProduct,
     updateProduct,
+    addViewCount,
     deleteProduct
 }
