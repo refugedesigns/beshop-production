@@ -44,13 +44,13 @@ export default function Home({makeupProducts}) {
 
 
 export async function getStaticProps(context) {
-  const response = await fetch("http:localhost:8000/api/v1/products?filterItems=makeup&limit=20");
+  const response = await fetch("http://localhost:8000/api/v1/products?filterItems=makeup&limit=20");
   const makeupProducts = await response.json();
 
   return {
     props: {
       makeupProducts: makeupProducts.products,
-      revalidate: 300
+      revalidate: 3000
     },
   };
 }

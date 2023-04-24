@@ -55,6 +55,9 @@ dependencies:
   react-toastify:
     specifier: ^9.1.2
     version: 9.1.2(react-dom@18.2.0)(react@18.2.0)
+  redux-logger:
+    specifier: ^3.0.6
+    version: 3.0.6
   redux-persist:
     specifier: ^6.0.0
     version: 6.0.0(react@18.2.0)(redux@4.2.1)
@@ -3475,6 +3478,10 @@ packages:
     engines: {node: '>=0.10'}
     dev: false
 
+  /deep-diff@0.3.8:
+    resolution: {integrity: sha512-yVn6RZmHiGnxRKR9sJb3iVV2XTF1Ghh2DiWRZ3dMnGc43yUdWWF/kX6lQyk3+P84iprfWKU/8zFTrlkvtFm1ug==}
+    dev: false
+
   /deep-equal@2.2.0:
     resolution: {integrity: sha512-RdpzE0Hv4lhowpIUKKMJfeH6C1pXdtT1/it80ubgWqwI3qpuxUBpC1S4hnHg+zjnuOoDkzUtUCEEkG+XG5l3Mw==}
     dependencies:
@@ -6870,6 +6877,12 @@ packages:
       esprima: 4.0.1
       source-map: 0.6.1
       tslib: 2.5.0
+    dev: false
+
+  /redux-logger@3.0.6:
+    resolution: {integrity: sha512-JoCIok7bg/XpqA1JqCqXFypuqBbQzGQySrhFzewB7ThcnysTO30l4VCst86AuB9T9tuT03MAA56Jw2PNhRSNCg==}
+    dependencies:
+      deep-diff: 0.3.8
     dev: false
 
   /redux-persist@6.0.0(react@18.2.0)(redux@4.2.1):

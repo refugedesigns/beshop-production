@@ -26,6 +26,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   const queryObject = {};
 
   console.log(req.query)
+
   if (isNew) {
     queryObject.new = isNew === "true" ? true : false;
   }
@@ -97,6 +98,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
   const totalProducts = products.length;
   const numOfPages = Math.ceil(totalProducts / limit);
+
+  console.log(totalProducts)
 
   res
     .status(StatusCodes.OK)
