@@ -35,7 +35,7 @@ const Product = ({
     currentNumOfItems.current = numOfCartItems
   }, [numOfCartItems])
 
-  const defaultColor = colors[0];
+  const defaultColor = colors ? colors[0] : undefined
 
   const handleAddToCart = async () => {
     if (!inStock) {

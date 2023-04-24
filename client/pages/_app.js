@@ -13,6 +13,8 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
+import { extendedApiSlice as userExtendedApiSlice } from '@/store/userSlice';
+
 let persistor = persistStore(store);
 
 const progress = new ProgressBar({
@@ -26,17 +28,19 @@ Router.events.on("routeChangeStart", progress.start);
 Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
+store.dispatch(userExtendedApiSlice.endpoints.getCurrentUser.initiate())
+
 export default function App({ Component, pageProps }) {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </PersistGate>
+            <PersistGate loading={null} persistor={persistor}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </PersistGate>
         </Provider>
       </ThemeProvider>
     </StyledEngineProvider>
