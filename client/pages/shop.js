@@ -18,36 +18,37 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllProducts,
   useFetchProductsByFilterQuery,
-  useLazyFetchProductsByFilterQuery
 } from "@/store/productsSlice";
 
 import products from "@/data/product/product";
 
 let ShopPage = () => {
   const dispatch = useDispatch();
-  const [queryFilter, setQueryFilter] = useState("?limit=20");
+  const [queryFilter, setQueryFilter] = useState("?limit=20&sort=price");
+
   const [checkedNewProduct, setCheckedNewProducts] = useState(false);
   const [checkedSaleProduct, setCheckedSaleProducts] = useState(false);
-  const { data, isLoading, isError, isSuccess, refetch } = useFetchProductsByFilterQuery(
-    queryFilter,
-    { refetchOnMountOrArgChange: true }
-  );
-  const [getFilteredProducts, {data: filteredData, }] = useLazyFetchProductsByFilterQuery(queryFilter)
-  const currentProducts = useRef();
+  const { data, isLoading, isError, isSuccess, refetch } =
+    useFetchProductsByFilterQuery(queryFilter, {refetchOnMountOrArgChange: true,});
 
-  const memoizedProducts = useMemo(() => {
+  const memoizedProducts = useMemo(() => data, [data])
 
-  }, [products])
-
-
-  const handleFetchNewProducts = async() => {
+  if (isSuccess) {
+    console.log(data)
     
+  }
+
+  useEffect(() => {
+
+  }, [memoizedProducts])
+
+  const handleFetchNewProducts = async () => {
     if (checkedNewProduct) {
       setCheckedNewProducts(false);
       setQueryFilter((prevFilter) => {
         if (prevFilter.includes("&isNew=true")) {
           prevFilter = prevFilter.replace("&isNew=true", "");
-        }else if(prevFilter.includes("&isNew=false")) {
+        } else if (prevFilter.includes("&isNew=false")) {
           prevFilter = prevFilter.replace("&isNew=false", "");
         }
         console.log(prevFilter);
@@ -56,20 +57,23 @@ let ShopPage = () => {
     } else {
       setCheckedNewProducts(true);
       setQueryFilter((prevFilter) => {
-        if(prevFilter.includes("&isNew=true")) {
+        if (prevFilter.includes("&isNew=true")) {
           prevFilter = prevFilter.replace("&isNew=true", "");
-        } else if(prevFilter.includes("&isNew=false")) {
+        } else if (prevFilter.includes("&isNew=false")) {
           prevFilter = prevFilter.replace("&isNew=false", "");
         }
         prevFilter = prevFilter + "&isNew=true";
-      
+
         console.log(prevFilter);
         return prevFilter;
-      })
+      });
     }
-  };
-  console.log(data)
 
+  };
+
+  useEffect(() => {
+    console.log(queryFilter);
+  }, [queryFilter]);
 
   const handleFetchSaleProducts = () => {
     if (checkedSaleProduct) {
@@ -90,9 +94,9 @@ let ShopPage = () => {
           prevFilter = prevFilter.replace("&isSale=true", "");
         } else if (prevFilter.includes("&isSale=false")) {
           prevFilter = prevFilter.replace("&isSale=false", "");
-        } 
+        }
         prevFilter = prevFilter + "&isSale=true";
-      
+
         console.log(prevFilter);
         return prevFilter;
       });
@@ -112,7 +116,7 @@ let ShopPage = () => {
             sm={3}
           >
             <SearchBox />
-            <CatListView />
+            <CatListView setQueryFilter={setQueryFilter} />
             <PriceSlider />
             <ViewedProducts />
             <TopProducts />
@@ -155,7 +159,7 @@ let ShopPage = () => {
                 />
               </Grid>
               <Grid item lg={4} className="flex justify-end w-full lg:w-min">
-                <FilterDropDown />
+                <FilterDropDown setQueryFilter={setQueryFilter} />
               </Grid>
             </Grid>
             <Grid

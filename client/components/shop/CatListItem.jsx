@@ -1,9 +1,9 @@
 import React from "react";
 import { Typography, Divider, Box, Stack } from "@mui/material";
 
-const CatListItem = ({ title, number }) => {
+const CatListItem = ({ title, number, ...props }) => {
   return (
-    <Box className="group">
+    <Box {...props} className="group">
       <Stack direction="row" spacing={1} alignItems="end" className="group-hover:text-style-color group-hover:cursor-pointer">
         <Typography variant="h6" component="p" className="text-sm">
           {title}
