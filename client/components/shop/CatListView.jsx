@@ -1,6 +1,6 @@
-import React from 'react'
-import { Box, Divider, Typography } from "@mui/material"
-import CatListItem from './CatListItem';
+import React, { useState, useEffect, useMemo } from "react";
+import { Box, Divider, Typography } from "@mui/material";
+import CatListItem from "./CatListItem";
 
 const catList = [
   { title: "Make Up", number: 37 },
@@ -11,48 +11,70 @@ const catList = [
   { title: "Hair care", number: 54 },
 ];
 
-const CatListView = ({ setQueryFilter }) => {
+const CatListView = ({ queryFilter, setQueryFilter }) => {
+  const [filterItems, setFilterItems] = useState([]);
+  const filters = useMemo(() => filterItems, [filterItems])
+
+  useEffect(() => {
+    console.log(filters)
+    if(filters.length === 0 && queryFilter.includes("&filterItems")) {
+      const removeFilter = queryFilter
+        .split("&")
+        .filter((item) => !item.includes("filterItems"))
+        .join("&");
+          queryFilter = removeFilter
+          setQueryFilter(queryFilter)
+    } else if(queryFilter?.includes("&filterItems=") && filters.length > 1) {
+        const editFilter = queryFilter.split("&")
+        const remainingFilters = editFilter.filter(item => !item.includes('filterItems'))
+        const newFilter = `filterItems=${filters.join(",")}`
+        queryFilter = [...remainingFilters, newFilter].join("&")
+        console.log(queryFilter);
+        setQueryFilter(queryFilter);
+      }else if(filters.length > 1) {
+        queryFilter = queryFilter + `&filterItems=${filters.join(",")}`
+        console.log(queryFilter);
+        setQueryFilter(queryFilter);
+      }else if( filters.length === 1 && queryFilter.includes("&filterItems")) {
+        console.log(queryFilter)
+        const editFilter = queryFilter.split("&");
+        const remainingFilters = editFilter.filter(
+          (item) => !item.includes("filterItems")
+        );
+        const newFilter = `filterItems=${filters[0]}`;
+        queryFilter = [...remainingFilters, newFilter].join("&")
+        console.log(queryFilter);
+        setQueryFilter(queryFilter);
+      }else if(filters.length === 1 && !queryFilter.includes("&filterItems")){
+        queryFilter = queryFilter + `&filterItems=${filters[0]}`
+        setQueryFilter(queryFilter)
+      }
+  }, [filters])
+
+
   const handleCartListItemClick = (title) => {
-    console.log(title);
-    let filterItems = [];
+
     if (title === "Make Up") {
       title = title.replace(" ", "").toLowerCase();
-      console.log(title);
     } else if (title === "Nails") {
       title = title.split(" ")[0].toLowerCase().replace("s", "");
-      console.log(title);
     } else {
       title = title.split(" ")[0].toLowerCase();
-      console.log(title);
     }
+
+    setFilterItems((prevItems) => {
+      const existingItemIndex = prevItems?.findIndex((item) => item === title);
+      const existingItem = prevItems[existingItemIndex];
+      if (existingItem) {
+        console.log(existingItem)
+        prevItems = prevItems.filter(item => item !== title);
+        return prevItems
+      }
+      prevItems = [...prevItems, title]
+      return prevItems
+    });
 
     
-    console.log(title)
-    console.log(filterItems)
-    const existingCategory = filterItems.find(item => item === title)
-    console.log(existingCategory);
-
-    if (existingCategory) {
-      filterItems = filterItems.filter((item) => item !== existingCategory);
-      console.log(filterItems)
-    } else {
-      filterItems.push(title);
-    }
-    console.log(filterItems);
-    setQueryFilter((prevFilter) => {
-      if(filterItems.length === 0) {
-        return
-      }
-      if(prevFilter.includes("&filterItems=")) {
-        console.log(prevFilter);
-        console.log(prevFilter.split("&").filter(item => item.includes("&filterItems=")))
-        prevFilter = prevFilter.split("&").filter(item => !item.includes("&filterItems=")).join("&")
-        // prevFilter = prevFilter.replace("&filterItems=")
-        console.log(prevFilter)
-      }
-      prevFilter = prevFilter + `&filterItems=${filterItems.join("")}`;
-      return prevFilter;
-    });
   };
   return (
     <Box>
@@ -74,4 +96,4 @@ const CatListView = ({ setQueryFilter }) => {
   );
 };
 
-export default CatListView
+export default CatListView;

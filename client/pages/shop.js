@@ -116,7 +116,7 @@ let ShopPage = () => {
             sm={3}
           >
             <SearchBox />
-            <CatListView setQueryFilter={setQueryFilter} />
+            <CatListView setQueryFilter={setQueryFilter} queryFilter={queryFilter} />
             <PriceSlider />
             <ViewedProducts />
             <TopProducts />
