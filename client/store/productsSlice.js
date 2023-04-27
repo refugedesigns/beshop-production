@@ -13,12 +13,13 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     addProducts: (state, action) => {
+      console.log("Adding products to Products State");
       productsAdapter.setAll(state, action.payload);
     },
   },
 });
 
-export const { addProducts } = productsSlice.actions
+export const { addProducts } = productsSlice.actions;
 
 export const productsExtendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -26,9 +27,17 @@ export const productsExtendedApiSlice = apiSlice.injectEndpoints({
       query: (searchFilters) => {
         console.log(searchFilters);
 
-        return { 
-          url: `/products${searchFilters}` 
+        return {
+          url: "/products",
+          params: { ...searchFilters },
         };
+      },
+      keepUnusedDataFor: 1,
+      async onQueryStarted({}, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          const patchResult = dispatch(addProducts(data));
+        } catch {}
       },
       transformResponse: (res) => {
         const { products } = res;
@@ -47,7 +56,10 @@ export const productsExtendedApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useFetchProductsByFilterQuery, useLazyFetchProductsByFilterQuery } = productsExtendedApiSlice;
+export const {
+  useFetchProductsByFilterQuery,
+  useLazyFetchProductsByFilterQuery,
+} = productsExtendedApiSlice;
 
 export const selectProductsResult = (state) => state.productsState;
 

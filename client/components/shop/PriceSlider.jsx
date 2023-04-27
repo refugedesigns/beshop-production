@@ -1,7 +1,16 @@
 import React from 'react'
+import { useDebouncedCallback } from 'use-debounce';
 import { Typography, Box, Divider, Slider } from '@mui/material'
 
-const PriceSlider = () => {
+const PriceSlider = ({queryFilter, setQueryFilter}) => {
+
+  const debouncedPrice = useDebouncedCallback((value) => {
+    const newFilter = {...queryFilter}
+    newFilter.numericFilters = `price>${value}`
+    console.log(newFilter)
+    setQueryFilter(newFilter)
+  }, 1000)
+
   return (
     <Box>
       <Typography variant="h5" component="h2" className="font-elegant">
@@ -13,10 +22,10 @@ const PriceSlider = () => {
         aria-labelledby="discrete-slider-custom"
         step={10}
         marks
-        min={0}
-        max={100}
+        min={90}
+        max={200}
         defaultValue={50}
-        onChange={(event) => console.log(event.target.value)}
+        onChange={(event) => debouncedPrice(event.target.value)}
         className="text-style-color"
       />
     </Box>

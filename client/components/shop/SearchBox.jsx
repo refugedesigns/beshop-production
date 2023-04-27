@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect, useRef} from 'react'
+import { useDebouncedCallback } from "use-debounce"
 import { Box, TextField, InputAdornment, IconButton } from "@mui/material";
 import { CiSearch } from "react-icons/ci";
 
-const SearchBox = () => {
+const SearchBox = ({queryFilter, setQueryFilter}) => {
+  const [searchTerm, setSearchTerm] = useState("")
+  
+  const debouncedSearchTerm = useDebouncedCallback((value) => {
+    setSearchTerm(value)
+  }, 2000)
+
+  useEffect(() => {
+      const newFilter = {...queryFilter}
+      newFilter.search = searchTerm
+      setQueryFilter(newFilter)
+  }, [searchTerm])
+
   return (
     <Box>
       <TextField
         id="outlined-basic"
-        label="Search"
         fullWidth
         size='small'
+        value={searchTerm}
+        onChange={(e) => debouncedSearchTerm(e.target.value)}
+        placeholder='search products'
         InputProps={{
           endAdornment: (
 

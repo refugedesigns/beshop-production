@@ -1,31 +1,19 @@
 import { FormControl, Select, MenuItem } from '@mui/material'
 import React from 'react'
 
-const FilterDropDown = ({ setQueryFilter }) => {
+const FilterDropDown = ({ queryFilter, setQueryFilter }) => {
   const [value, setValue] = React.useState("cheap_to_expensive");
   const handleChange = (event) => {
     setValue(event.target.value);
     console.log(event.target.value);
     if(event.target.value === "cheap_to_expensive" && value !== "cheap_to_expensive") {
-      setQueryFilter(prevFilter => {
-        if(prevFilter.includes("&sort=price")) {
-          return prevFilter
-        }else if(prevFilter.includes("&sort=-price")) {
-          prevFilter = prevFilter.replace("&sort=-price", "&sort=price");
-        }else {
-          prevFilter = prevFilter + "&sort=price";
-        }
-        return prevFilter
-      })
+      const newFilter = {...queryFilter}
+      newFilter.sort = "price"
+      setQueryFilter(newFilter)
     }else if(event.target.value === "expensive_to_cheap" && value !== "expensive_to_cheap") {
-      setQueryFilter(prevFilter => {
-        if(prevFilter.includes("&sort=price")) {
-          prevFilter = prevFilter.replace("&sort=price","&sort=-price")
-        }else {
-          prevFilter = prevFilter + "&sort=-price"
-        }
-        return prevFilter
-      })
+      const newFilter = {...queryFilter}
+      newFilter.sort = "-price"
+      setQueryFilter(newFilter)
     }
     
   };
