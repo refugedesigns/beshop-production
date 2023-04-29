@@ -13,9 +13,10 @@ import {
 import products from "@/data/product/product";
 import CartItem from "./CartItem";
 import { selectCartItems } from '@/store/cartSlice';
+import StyledTableCell from "../profile/StyledTableCell";
 
 const AllCartItems = () => {
-  const cartItems = useSelector(selectCartItems)
+  const cartItems = useSelector(selectCartItems);
   return (
     <TableContainer className="mt-10">
       <Table
@@ -65,7 +66,11 @@ const AllCartItems = () => {
               />
             ))
           ) : (
-            <Typography variant='h5' className='text-center'>No items in your cart</Typography>
+            <TableRow>
+              <StyledTableCell>
+                <Typography variant='h5'>No items in your cart</Typography>
+              </StyledTableCell>
+            </TableRow>
           )}
         </TableBody>
       </Table>
