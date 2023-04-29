@@ -96,10 +96,11 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
   const products = await result;
 
-  const totalProducts = products.length;
+  const totalProducts = await Product.countDocuments(queryObject)
   const numOfPages = Math.ceil(totalProducts / limit);
 
   console.log(totalProducts)
+
 
   res
     .status(StatusCodes.OK)

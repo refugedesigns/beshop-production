@@ -6,38 +6,51 @@ const productsAdapter = createEntityAdapter({
   selectId: (product) => product._id,
 });
 
-const initialState = productsAdapter.getInitialState();
+const initialState = {
+  numOfPages: 0,
+  nbHits: 0,
+  ...productsAdapter.getInitialState(),
+};
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
     addProducts: (state, action) => {
-      productsAdapter.setAll(state, action.payload);
+      console.log("Adding products to Products State");
+      state.nbHits = action.payload.nbHits;
+      state.numOfPages = action.payload.numOfPages;
+      productsAdapter.setAll(state, action.payload.products);
     },
   },
 });
 
-export const { addProducts } = productsSlice.actions
+export const { addProducts } = productsSlice.actions;
 
 export const productsExtendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchProductsByFilter: builder.query({
       query: (searchFilters) => {
-        console.log(searchFilters);
 
-        return { 
-          url: `/products${searchFilters}` 
+        return {
+          url: "/products",
+          params: { ...searchFilters },
         };
       },
-      transformResponse: (res) => {
-        const { products } = res;
-        return products;
+      keepUnusedDataFor: 1,
+      async onQueryStarted({}, { dispatch, queryFulfilled }) {
+        console.log("Starting to fetch products")
+        try {
+          const { data } = await queryFulfilled;
+
+          const patchResult = dispatch(addProducts(data));
+        } catch {}
       },
       providesTags: (result, error, arg) => {
+        console.log(result)
         return [
           { type: "Product", id: "LIST" },
-          ...result?.map((product) => ({
+          ...result?.products?.map((product) => ({
             type: "Product",
             id: product._id,
           })),
@@ -47,9 +60,12 @@ export const productsExtendedApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useFetchProductsByFilterQuery, useLazyFetchProductsByFilterQuery } = productsExtendedApiSlice;
+export const {
+  useFetchProductsByFilterQuery,
+  useLazyFetchProductsByFilterQuery,
+} = productsExtendedApiSlice;
 
-export const selectProductsResult = (state) => state.productsState;
+export const selectProductsResult = (state) => state.productsState
 
 const selectProductsData = createSelector(
   selectProductsResult,
@@ -63,5 +79,10 @@ export const {
 } = productsAdapter.getSelectors(
   (state) => selectProductsData(state) ?? initialState
 );
+
+export const selectNumOfPages = state => state.productsState.numOfPages
+
+export const selectnbHits = state => state.productsState.nbHits
+
 
 export default productsSlice.reducer;

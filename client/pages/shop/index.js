@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { Grid, Box, Container } from "@mui/material";
+import { Grid, Box, Container, Typography } from "@mui/material";
 import { RiCheckboxBlankFill } from "react-icons/ri";
 import Banner from "@/components/ui/banner/Banner";
 import SearchBox from "@/components/shop/SearchBox";
@@ -14,61 +14,107 @@ import Pagination from "@/components/ui/pagination/Pagination";
 import SubscribeCard from "@/components/ui/subscribe/SubscribeCard";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
+import { ThreeDots } from "react-loader-spinner";
+
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllProducts,
   useFetchProductsByFilterQuery,
+  selectNumOfPages
 } from "@/store/productsSlice";
 
-import products from "@/data/product/product";
-
-let ShopPage = () => {
-  const dispatch = useDispatch();
-  const [queryFilter, setQueryFilter] = useState("?limit=20&sort=price");
-
+const ShopPage = () => {
+  const [queryFilter, setQueryFilter] = useState({
+    limit: 9,
+    sort: "price",
+    page: 1,
+  });
+  const products = useSelector(selectAllProducts);
+  const numOfPages = useSelector(selectNumOfPages)
   const [checkedNewProduct, setCheckedNewProducts] = useState(false);
   const [checkedSaleProduct, setCheckedSaleProducts] = useState(false);
-  const { data, isLoading, isError, isSuccess, refetch } =
-    useFetchProductsByFilterQuery(queryFilter, {refetchOnMountOrArgChange: true,});
+  const { data, isLoading, isError, isSuccess, isFetching } = useFetchProductsByFilterQuery(
+    queryFilter,
+    { refetchOnMountOrArgChange: true }
+  );
 
-  const memoizedProducts = useMemo(() => data, [data])
+  let content;
 
-  if (isSuccess) {
-    console.log(data)
-    
+  if (isFetching) {
+    content = (
+      <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
+        <ThreeDots
+          height="80"
+          width="160"
+          radius="9"
+          color="#4fa94d"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
+      </Box>
+    );
+  }else if(isError) {
+    content = <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
+      <Typography variant="h3">Unable to fetch products please try again</Typography>
+    </Box>
+  }else if(isSuccess && data.products.length > 0) {
+    content = products?.map((product, index) => (
+                <Grid
+                  item
+                  key={product._id}
+                  sm={4}
+                  flexShrink
+                  className="w-full mt-4"
+                >
+                  <Product
+                    title={product.name}
+                    salePrice={product.oldPrice}
+                    realPrice={product.price}
+                    productId={product._id}
+                    isSale={product.isSale}
+                    isNew={product.new}
+                    productImage={product.image}
+                    inStock={product.isStocked}
+                    colors={product.colors}
+                    classes="h-[500px] sm:h-[250px] lg:h-[350px]"
+                  />
+                </Grid>
+              ))
+  
+  }else if(data.products.length === 0) {
+    content = <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
+      <Typography variant="h4">No products available with the provided search queries</Typography>
+    </Box>
   }
-
-  useEffect(() => {
-
-  }, [memoizedProducts])
 
   const handleFetchNewProducts = async () => {
     if (checkedNewProduct) {
       setCheckedNewProducts(false);
       setQueryFilter((prevFilter) => {
-        if (prevFilter.includes("&isNew=true")) {
-          prevFilter = prevFilter.replace("&isNew=true", "");
-        } else if (prevFilter.includes("&isNew=false")) {
-          prevFilter = prevFilter.replace("&isNew=false", "");
+        let newFilter = {};
+        if (prevFilter.isNew) {
+          newFilter = { ...prevFilter };
+          delete newFilter.isNew;
         }
-        console.log(prevFilter);
-        return prevFilter;
+        console.log(newFilter);
+        return newFilter;
       });
     } else {
       setCheckedNewProducts(true);
       setQueryFilter((prevFilter) => {
-        if (prevFilter.includes("&isNew=true")) {
-          prevFilter = prevFilter.replace("&isNew=true", "");
-        } else if (prevFilter.includes("&isNew=false")) {
-          prevFilter = prevFilter.replace("&isNew=false", "");
+        let newFilter = {};
+        if (!prevFilter.isNew) {
+          newFilter = {
+            ...prevFilter,
+            isNew: true,
+          };
         }
-        prevFilter = prevFilter + "&isNew=true";
-
-        console.log(prevFilter);
-        return prevFilter;
+        console.log(newFilter);
+        return newFilter;
       });
     }
-
   };
 
   useEffect(() => {
@@ -79,26 +125,26 @@ let ShopPage = () => {
     if (checkedSaleProduct) {
       setCheckedSaleProducts(false);
       setQueryFilter((prevFilter) => {
-        if (prevFilter.includes("&isSale=true")) {
-          prevFilter = prevFilter.replace("&isSale=true", "");
-        } else if (prevFilter.includes("&isSale=false")) {
-          prevFilter = prevFilter.replace("&isSale=false", "");
+        let newFilter = {};
+        if (prevFilter.isSale) {
+          newFilter = { ...prevFilter };
+          delete newFilter.isSale;
         }
-        console.log(prevFilter);
-        return prevFilter;
+        console.log(newFilter);
+        return newFilter;
       });
     } else {
       setCheckedSaleProducts(true);
       setQueryFilter((prevFilter) => {
-        if (prevFilter.includes("&isSale=true")) {
-          prevFilter = prevFilter.replace("&isSale=true", "");
-        } else if (prevFilter.includes("&isSale=false")) {
-          prevFilter = prevFilter.replace("&isSale=false", "");
+        let newFilter = {};
+        if (!prevFilter.isSale) {
+          newFilter = {
+            ...prevFilter,
+            isSale: true,
+          };
         }
-        prevFilter = prevFilter + "&isSale=true";
-
-        console.log(prevFilter);
-        return prevFilter;
+        console.log(newFilter);
+        return newFilter;
       });
     }
   };
@@ -115,19 +161,28 @@ let ShopPage = () => {
             className="w-full space-y-6 md:space-y-12 lg:space-y-16"
             sm={3}
           >
-            <SearchBox />
-            <CatListView setQueryFilter={setQueryFilter} queryFilter={queryFilter} />
-            <PriceSlider />
+            <SearchBox
+              queryFilter={queryFilter}
+              setQueryFilter={setQueryFilter}
+            />
+            <CatListView
+              setQueryFilter={setQueryFilter}
+              queryFilter={queryFilter}
+            />
+            <PriceSlider
+              setQueryFilter={setQueryFilter}
+              queryFilter={queryFilter}
+            />
             <ViewedProducts />
             <TopProducts />
           </Grid>
-          <Grid className="mt-10 sm:mt-0 sm:w-full" item container sm={9}>
+          <Grid className="mt-10 sm:mt-0 sm:w-full h-max" item container sm={9}>
             <Grid
               item
               container
               justifyContent="space-between"
               alignItems="center"
-              className="space-y-4 w-full lg:space-y-0"
+              className="space-y-4 w-full lg:space-y-0 h-min"
             >
               <Grid
                 item
@@ -159,39 +214,33 @@ let ShopPage = () => {
                 />
               </Grid>
               <Grid item lg={4} className="flex justify-end w-full lg:w-min">
-                <FilterDropDown setQueryFilter={setQueryFilter} />
+                <FilterDropDown
+                  queryFilter={queryFilter}
+                  setQueryFilter={setQueryFilter}
+                />
               </Grid>
             </Grid>
             <Grid
               columnSpacing={{ sm: 2, md: 4 }}
-              className="mt-4"
+              className="mt-4 flex-1 h-full"
+
               item
               container
             >
-              {/* {products?.map((product, index) => (
+              
+              {content}
+              {numOfPages > 1 && !isFetching && (
                 <Grid
                   item
-                  key={product.id}
-                  sm={4}
-                  flexShrink
-                  className="w-full mt-4"
+                  justifyContent="center"
+                  className="w-full flex h-min"
                 >
-                  <Product
-                    title={product.name}
-                    salePrice={product.oldPrice}
-                    realPrice={product.price}
-                    productId={product.id}
-                    isSale={product.isSale}
-                    isNew={product.isNew}
-                    productImage={product.image}
-                    colors={products.colors}
-                    classes="h-[500px] sm:h-[250px] lg:h-[350px]"
+                  <Pagination
+                    queryFilter={queryFilter}
+                    setQueryFilter={setQueryFilter}
                   />
                 </Grid>
-              ))} */}
-              <Grid item justifyContent="center" className="w-full flex">
-                <Pagination />
-              </Grid>
+              )}
             </Grid>
           </Grid>
         </Grid>
@@ -204,6 +253,5 @@ let ShopPage = () => {
   );
 };
 
-ShopPage = React.memo(ShopPage)
 
 export default ShopPage;

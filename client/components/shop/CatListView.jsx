@@ -16,39 +16,17 @@ const CatListView = ({ queryFilter, setQueryFilter }) => {
   const filters = useMemo(() => filterItems, [filterItems])
 
   useEffect(() => {
-    console.log(filters)
-    if(filters.length === 0 && queryFilter.includes("&filterItems")) {
-      const removeFilter = queryFilter
-        .split("&")
-        .filter((item) => !item.includes("filterItems"))
-        .join("&");
-          queryFilter = removeFilter
-          setQueryFilter(queryFilter)
-    } else if(queryFilter?.includes("&filterItems=") && filters.length > 1) {
-        const editFilter = queryFilter.split("&")
-        const remainingFilters = editFilter.filter(item => !item.includes('filterItems'))
-        const newFilter = `filterItems=${filters.join(",")}`
-        queryFilter = [...remainingFilters, newFilter].join("&")
-        console.log(queryFilter);
-        setQueryFilter(queryFilter);
-      }else if(filters.length > 1) {
-        queryFilter = queryFilter + `&filterItems=${filters.join(",")}`
-        console.log(queryFilter);
-        setQueryFilter(queryFilter);
-      }else if( filters.length === 1 && queryFilter.includes("&filterItems")) {
-        console.log(queryFilter)
-        const editFilter = queryFilter.split("&");
-        const remainingFilters = editFilter.filter(
-          (item) => !item.includes("filterItems")
-        );
-        const newFilter = `filterItems=${filters[0]}`;
-        queryFilter = [...remainingFilters, newFilter].join("&")
-        console.log(queryFilter);
-        setQueryFilter(queryFilter);
-      }else if(filters.length === 1 && !queryFilter.includes("&filterItems")){
-        queryFilter = queryFilter + `&filterItems=${filters[0]}`
-        setQueryFilter(queryFilter)
+    if(filters.length === 0) {
+      if(queryFilter.filterItems) {
+        const newFilter = {...queryFilter}
+        delete newFilter.filterItems
+        setQueryFilter(newFilter)
       }
+    }else {
+      const newFilter = {...queryFilter}
+      newFilter.filterItems = filters.join(",")
+      setQueryFilter(newFilter)
+    }
   }, [filters])
 
 

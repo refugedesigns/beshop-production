@@ -35,8 +35,6 @@ const Product = ({
     currentNumOfItems.current = numOfCartItems
   }, [numOfCartItems])
 
-  const defaultColor = colors ? colors[0] : undefined
-
   const handleAddToCart = async () => {
     if (!inStock) {
       toast.error("This product is out of stock", {
@@ -55,7 +53,7 @@ const Product = ({
       id: productId,
       image: productImage,
       price: realPrice,
-      colors: [defaultColor],
+      colors: [colors[0]],
       name: title,
       amount: 1,
     }; 
@@ -65,7 +63,6 @@ const Product = ({
       resolve()
     });
 
-    console.log(currentNumOfItems.current)
       const message =
         currentNumOfItems.current === 1
           ? "You added a product to your cart"

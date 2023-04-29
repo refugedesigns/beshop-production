@@ -21,6 +21,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
+    "react-loader-spinner": "^5.3.4",
     "react-map-gl": "^7.0.21",
     "react-player": "^2.12.0",
     "react-redux": "^8.0.5",
@@ -29,7 +30,8 @@
     "react-toastify": "^9.1.2",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "use-debounce": "^9.0.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
