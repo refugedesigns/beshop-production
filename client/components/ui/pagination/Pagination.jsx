@@ -24,7 +24,7 @@ let PaginationComp = ({ queryFilter, setQueryFilter }) => {
   const { items } = usePagination({
     count: numOfPages,
     onChange: handlePageChange,
-    page
+    page: queryFilter.page
   });
 
   return (

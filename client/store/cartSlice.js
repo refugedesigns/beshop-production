@@ -6,6 +6,7 @@ const initialState = {
     discount: 0,
     totalPrice: 0,
     totalItems: 0,
+    subtotal: 0,
     items: []
 }
 
@@ -18,16 +19,10 @@ const cartSlice = createSlice({
             if(existingCartItem) {
                 existingCartItem.amount = existingCartItem.amount + Number(action.payload.amount)
                 const calculateSubtotal = Number(existingCartItem.amount * existingCartItem.price * ((100 - state.discount)/100))
-                console.log(calculateSubtotal, existingCartItem.amount, existingCartItem.price)
                 existingCartItem.subtotal = calculateSubtotal
-                const subtotals = state.items.map(item => {
-                    console.log(item.subtotal);
-                    return item.subtotal;
-                }).reduce((sum, item) => sum + item, 0)
-                console.log(subtotals)
-                console.log(state.shippingFees)
+                const subtotals = state.items.map(item => item.subtotal).reduce((sum, item) => sum + item, 0)
+                state.subtotal = Number(subtotals.toFixed(2));
                 let calculateTotalPrice = subtotals + state.shippingFees
-                console.log(calculateTotalPrice)
                 state.totalPrice = Number(calculateTotalPrice.toFixed(2))
                 state.totalItems = state.items.map(item => item.amount).reduce((sum, item) => sum + item, 0)        
             }else {
@@ -45,9 +40,9 @@ const cartSlice = createSlice({
                 const calculateSubtotalPrice = state.items
                   .map((item) => item.subtotal)
                   .reduce((sum, item) => sum + item, 0);
+                  state.subtotal = Number(calculateSubtotalPrice.toFixed(2));
                 const calculateTotalPrice =
                   calculateSubtotalPrice + state.shippingFees;
-                console.log(calculateSubtotalPrice);
                 state.totalPrice = Number(calculateTotalPrice.toFixed(2))
                 
             }
@@ -58,11 +53,13 @@ const cartSlice = createSlice({
             if(existingCartItem.amount === 1) {
                 state.items = state.items.filter(item => item.id !== action.payload.id)
                 const subtotals = Number(state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0));
+                state.subtotal = Number(subtotals.toFixed(2));
                 state.totalPrice = subtotals !== 0 ? (subtotals + state.shippingFees).toFixed(2) : 0; 
             }else {
                 existingCartItem.amount--
                 existingCartItem.subtotal = Number(existingCartItem.amount * existingCartItem.price * ((100 - state.discount)/100)).toFixed(2)
                 const subtotals = Number(state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0));
+                state.subtotal = Number(subtotals.toFixed(2));
                 state.totalPrice = Number(subtotals + state.shippingFees).toFixed(2); 
             }
         },
@@ -70,6 +67,7 @@ const cartSlice = createSlice({
             state.items = []
             state.totalPrice = 0
             state.totalItems = 0
+            state.subtotal = 0
         },
         deleteFromCart: (state, action) => {
             const existingCartItem = state.items.find((item) => item.id === action.payload.id)
@@ -77,6 +75,7 @@ const cartSlice = createSlice({
             const subtotals = state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0);
             state.totalPrice = subtotals + state.shippingFees; 
             state.totalItems = state.totalItems - existingCartItem.amount 
+            state.subtotal = Number(subtotals.toFixed(2))
         },
         addDiscount: (state, action) => {
             state.discount = action.payload.discount
@@ -95,6 +94,10 @@ export const selectTotalItems = state => state.cartReducer.totalItems
 export const selectTotalPrice = state => state.cartReducer.totalPrice
 
 export const selectShippingFees = state => state.cartReducer.shippingFees
+
+export const selectDiscount = state => state.cartReducer.discount
+
+export const selectSubtotal = state => state.cartReducer.subtotal
 
 export const selectCartItems = state => state.cartReducer.items
 

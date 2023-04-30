@@ -47,9 +47,11 @@ export async function getStaticProps(context) {
   const response = await fetch("http://localhost:8000/api/v1/products?filterItems=makeup&limit=20");
   const makeupProducts = await response.json();
 
+  const products = makeupProducts.products.map(product => ({...product, link: `/${product._id}`}))
+
   return {
     props: {
-      makeupProducts: makeupProducts.products,
+      makeupProducts: products,
       revalidate: 3000
     },
   };
