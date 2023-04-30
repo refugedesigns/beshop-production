@@ -17,6 +17,7 @@ import Button from "../ui/button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "@/store/cartSlice";
 import { selectCartItems } from "@/store/cartSlice";
+import { toast } from "react-toastify";
 
 const ProductDetailInfo = ({
   title,
@@ -73,10 +74,30 @@ const ProductDetailInfo = ({
         colorsArray.length === 0 ||
         colorsArray.every((color) => color === false)
       ) {
+        toast.error("Please choose a color", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         return;
       }
 
       if (amount === 0) {
+        toast.error("Please select quantity", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         return;
       }
       const newCartItem = {

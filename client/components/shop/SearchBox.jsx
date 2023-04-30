@@ -10,6 +10,7 @@ const SearchBox = ({queryFilter, setQueryFilter}) => {
   useEffect(() => {
       const newFilter = {...queryFilter}
       newFilter.search = searchTermValue
+      newFilter.page = 1
       setQueryFilter(newFilter)
   }, [searchTermValue])
 

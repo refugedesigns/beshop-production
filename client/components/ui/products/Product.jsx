@@ -24,6 +24,7 @@ const Product = ({
   classes,
   colors,
   inStock,
+  link
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -130,7 +131,7 @@ const Product = ({
             </IconButton>
           </Stack>
           <RiSearch2Line
-            onClick={() => router.push(`/${productId}`)}
+            onClick={() => router.push(link)}
             className="h-20 w-20 z-50 text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           />
           <Box className="z-20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  min-w-full min-h-full bg-gray-300 bg-opacity-40" />

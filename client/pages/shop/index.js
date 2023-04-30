@@ -79,6 +79,7 @@ const ShopPage = () => {
                     inStock={product.isStocked}
                     colors={product.colors}
                     classes="h-[500px] sm:h-[250px] lg:h-[350px]"
+                    link={`/shop/${product._id}`}
                   />
                 </Grid>
               ))
@@ -95,10 +96,9 @@ const ShopPage = () => {
       setQueryFilter((prevFilter) => {
         let newFilter = {};
         if (prevFilter.isNew) {
-          newFilter = { ...prevFilter };
+          newFilter = { ...prevFilter, page: 1 };
           delete newFilter.isNew;
         }
-        console.log(newFilter);
         return newFilter;
       });
     } else {
@@ -109,9 +109,9 @@ const ShopPage = () => {
           newFilter = {
             ...prevFilter,
             isNew: true,
+            page: 1
           };
         }
-        console.log(newFilter);
         return newFilter;
       });
     }
@@ -119,6 +119,7 @@ const ShopPage = () => {
 
   useEffect(() => {
     console.log(queryFilter);
+    window.scrollTo({top: 100, behavior: 'smooth'})
   }, [queryFilter]);
 
   const handleFetchSaleProducts = () => {
@@ -127,10 +128,9 @@ const ShopPage = () => {
       setQueryFilter((prevFilter) => {
         let newFilter = {};
         if (prevFilter.isSale) {
-          newFilter = { ...prevFilter };
+          newFilter = { ...prevFilter, page: 1 };
           delete newFilter.isSale;
         }
-        console.log(newFilter);
         return newFilter;
       });
     } else {
@@ -141,6 +141,7 @@ const ShopPage = () => {
           newFilter = {
             ...prevFilter,
             isSale: true,
+            page: 1
           };
         }
         console.log(newFilter);

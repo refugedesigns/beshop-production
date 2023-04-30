@@ -7,6 +7,7 @@ const PriceSlider = ({queryFilter, setQueryFilter}) => {
   const debouncedPrice = useDebouncedCallback((value) => {
     const newFilter = {...queryFilter}
     newFilter.numericFilters = `price>${value}`
+    newFilter.page = 1
     console.log(newFilter)
     setQueryFilter(newFilter)
   }, 1000)

@@ -20,11 +20,13 @@ const CatListView = ({ queryFilter, setQueryFilter }) => {
       if(queryFilter.filterItems) {
         const newFilter = {...queryFilter}
         delete newFilter.filterItems
+        newFilter.page = 1
         setQueryFilter(newFilter)
       }
     }else {
       const newFilter = {...queryFilter}
       newFilter.filterItems = filters.join(",")
+      newFilter.page = 1
       setQueryFilter(newFilter)
     }
   }, [filters])
