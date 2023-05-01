@@ -1,14 +1,18 @@
 import React from 'react'
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { CardMedia, Box, Typography } from "@mui/material";
-import { HiOutlineArrowLongRight } from "react-icons/hi2";
-import LongArrow from '../long-arrow/LongArrow';
 
 
-const CategoryCard = ({ imageUrl, title }) => {
+const CategoryCard = ({ imageUrl, title, categoryId }) => {
+  const router = useRouter()
+
+  const handleCategoryRoute = () => {
+    router.push("/shop?categoryId=" + categoryId)
+  }
   return (
-    <Box className="relative hover:cursor-pointer group">
+    <Box onClick={handleCategoryRoute} className="relative hover:cursor-pointer group">
       <CardMedia
         component="img"
         alt={title}

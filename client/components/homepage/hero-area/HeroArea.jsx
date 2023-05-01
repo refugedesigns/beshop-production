@@ -1,10 +1,12 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 import { Box, Container, Typography, CardMedia } from "@mui/material";
 import Button from "../../ui/button/Button"
 import StyledTitle from "@/components/ui/styled-text/StyledTitle";
 
 const HeroArea = () => {
+  const router = useRouter()
   return (
     <Box
       component="section"
@@ -30,7 +32,7 @@ const HeroArea = () => {
           </Box>
         </Box>
         <Box className="mt-6 pl-3 md:mt-12">
-          <Button title="Shop Now" />
+          <Button onClick={() => router.push("/shop")} title="Shop Now" />
         </Box>
       </Container>
       <CardMedia

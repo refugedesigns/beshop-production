@@ -1,10 +1,14 @@
 import React from 'react'
 
+
 import { Container, Typography, Box, Grid } from '@mui/material';
 import CategoryCard from '@/components/ui/category-item/CategoryCard';
 import StyledTitle from '@/components/ui/styled-text/StyledTitle';
 
+import category from '@/data/category/category'
+
 const Category = () => {
+
   return (
     <Box className="mt-20 mb-10">
       <Container className="flex flex-col items-center">
@@ -28,24 +32,15 @@ const Category = () => {
         </Typography>
       </Container>
       <Grid container columnSpacing={{ sm: 3 }} className="mt-6">
-        <Grid item xs={12} sm={4} m={{ xs: 2, sm: 0 }}>
-          <CategoryCard
-            imageUrl="/assets/img/top-categories-img1.jpg"
-            title="SPA"
-          />
-        </Grid>
-        <Grid item xs={12} sm={4} m={{ xs: 2, sm: 0 }}>
-          <CategoryCard
-            imageUrl="/assets/img/top-categories-img2.jpg"
-            title="Nails"
-          />
-        </Grid>
-        <Grid item xs={12} sm={4} m={{ xs: 2, sm: 0 }}>
-          <CategoryCard
-            imageUrl="/assets/img/top-categories-img3.jpg"
-            title="Perfume"
-          />
-        </Grid>
+        {category.slice(0, 3).map((category, index) => (
+          <Grid key={index} item xs={12} sm={4} m={{ xs: 2, sm: 0 }}>
+            <CategoryCard
+              imageUrl={category.image}
+              title={category.name}
+              categoryId={category.categoryId}
+            />
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );

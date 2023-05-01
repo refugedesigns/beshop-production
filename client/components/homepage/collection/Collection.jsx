@@ -1,8 +1,13 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Box, Grid } from "@mui/material";
 import PromotionCard from "@/components/ui/promotion/PromotionCard";
 
 const Collection = () => {
+  const router = useRouter()
+  const handleButtonClick = () => {
+    router.push("/shop")
+  }
   return (
     <Box>
       <Grid container className="">
@@ -24,6 +29,7 @@ const Collection = () => {
               button
               classes="md:bg-[url('/assets/img/info-item-bg1.jpg')] bg-cover bg-center p-2 md:h-full md:p-6 md:pt-24 lg:pl-12 xl:pt-40 xl:pl-24"
               styledClasses="text-[2.5rem]"
+              handleButtonClick={handleButtonClick}
             />
           </Grid>
         </Grid>

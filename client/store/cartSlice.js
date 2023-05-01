@@ -18,15 +18,15 @@ const cartSlice = createSlice({
             const existingCartItem= state.items.find((item) => item.id === action.payload.id)
             if(existingCartItem) {
                 existingCartItem.amount = existingCartItem.amount + Number(action.payload.amount)
-                const calculateSubtotal = Number(existingCartItem.amount * existingCartItem.price * ((100 - state.discount)/100))
+                const calculateSubtotal = Number(existingCartItem.amount * existingCartItem.price)
                 existingCartItem.subtotal = calculateSubtotal
                 const subtotals = state.items.map(item => item.subtotal).reduce((sum, item) => sum + item, 0)
-                state.subtotal = Number(subtotals.toFixed(2));
-                let calculateTotalPrice = subtotals + state.shippingFees
+                state.subtotal = Number(subtotals.toFixed(2)) * ((100 - state.discount) / 100);
+                let calculateTotalPrice = state.subtotal + state.shippingFees
                 state.totalPrice = Number(calculateTotalPrice.toFixed(2))
                 state.totalItems = state.items.map(item => item.amount).reduce((sum, item) => sum + item, 0)        
             }else {
-                const subtotal = Number(action.payload.price) * ((100 - state.discount)/100)
+                const subtotal = Number(action.payload.price)
                 state.items.push({
                     id: action.payload.id,
                     name: action.payload.name,
@@ -40,9 +40,8 @@ const cartSlice = createSlice({
                 const calculateSubtotalPrice = state.items
                   .map((item) => item.subtotal)
                   .reduce((sum, item) => sum + item, 0);
-                  state.subtotal = Number(calculateSubtotalPrice.toFixed(2));
-                const calculateTotalPrice =
-                  calculateSubtotalPrice + state.shippingFees;
+                  state.subtotal =Number(calculateSubtotalPrice.toFixed(2)) *((100 - state.discount) / 100);
+                const calculateTotalPrice = state.subtotal + state.shippingFees;
                 state.totalPrice = Number(calculateTotalPrice.toFixed(2))
                 
             }
@@ -53,14 +52,16 @@ const cartSlice = createSlice({
             if(existingCartItem.amount === 1) {
                 state.items = state.items.filter(item => item.id !== action.payload.id)
                 const subtotals = Number(state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0));
-                state.subtotal = Number(subtotals.toFixed(2));
-                state.totalPrice = subtotals !== 0 ? (subtotals + state.shippingFees).toFixed(2) : 0; 
+                state.subtotal = Number(subtotals.toFixed(2)) * ((100 - state.discount) / 100);
+                const totalPrice = state.subtotal + state.shippingFees
+                state.totalPrice = Number(totalPrice.toFixed(2))
             }else {
                 existingCartItem.amount--
                 existingCartItem.subtotal = Number(existingCartItem.amount * existingCartItem.price * ((100 - state.discount)/100)).toFixed(2)
                 const subtotals = Number(state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0));
-                state.subtotal = Number(subtotals.toFixed(2));
-                state.totalPrice = Number(subtotals + state.shippingFees).toFixed(2); 
+                state.subtotal = Number(subtotals.toFixed(2)) * ((100 - state.discount) / 100);
+                const totalPrice = state.subtotal + state.shippingFees; 
+                state.totalPrice = Number(totalPrice.toFixed(2))
             }
         },
         clearCartItems: (state) => {
@@ -73,15 +74,30 @@ const cartSlice = createSlice({
             const existingCartItem = state.items.find((item) => item.id === action.payload.id)
             state.items = state.items.filter((item) => item.id !== action.payload.id)
             const subtotals = state.items.map((item) => item.subtotal).reduce((sum, item) => sum + item, 0);
-            state.totalPrice = subtotals + state.shippingFees; 
             state.totalItems = state.totalItems - existingCartItem.amount 
-            state.subtotal = Number(subtotals.toFixed(2))
+            state.subtotal = Number(subtotals.toFixed(2)) * ((100 - state.discount) / 100);
+            state.totalPrice = state.subtotal + state.shippingFees; 
         },
         addDiscount: (state, action) => {
+            if(state.discount > 0) {
+                return
+            }
             state.discount = action.payload.discount
+            const discountedSubtotal = state.subtotal * ((100 - state.discount) / 100);
+            state.subtotal = Number(discountedSubtotal.toFixed(2))
+            const total =state.subtotal + state.shippingFees
+            state.totalPrice = Number(total.toFixed(2))
+
         },
         resetDiscount: (state) => {
+            if(state.discount == 0) {
+                return
+            }
             state.discount = 0
+            const discountedSubtotal = state.subtotal * ((100 - state.discount) / 100);
+            state.subtotal = Number(discountedSubtotal.toFixed(2));
+            const total = state.subtotal + state.shippingFees;
+            state.totalPrice = Number(total.toFixed(2));
         }
     }
 })
