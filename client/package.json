@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^1.9.4",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
+    "formik": "^2.2.9",
     "mapbox-gl": "^2.13.0",
     "next": "13.2.3",
     "react": "18.2.0",
@@ -31,7 +32,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
-    "use-debounce": "^9.0.4"
+    "use-debounce": "^9.0.4",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

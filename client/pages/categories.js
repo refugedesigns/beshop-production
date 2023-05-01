@@ -28,7 +28,7 @@ const CategoriesPage = () => {
             flexShrink
             className="w-full"
           >
-            <CategoryCard title={category.name} imageUrl={category.image} />
+            <CategoryCard title={category.name} imageUrl={category.image} categoryId={category.categoryId} />
           </Grid>
         ))}
       </Grid>

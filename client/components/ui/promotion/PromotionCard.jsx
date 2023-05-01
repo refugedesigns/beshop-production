@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 import { Box, CardMedia, Typography } from "@mui/material";
 import { HiOutlineVideoCamera } from "react-icons/hi";
@@ -22,8 +22,10 @@ const PromotionCard = ({
   isVideo,
   styledClasses,
   classes,
+  handleButtonClick,
 }) => {
   const [playing, setPlaying] = useState(false);
+  const router = useRouter()
   return (
     <React.Fragment>
       {isText && (
@@ -46,9 +48,9 @@ const PromotionCard = ({
               {shortText}
             </Typography>
           </Box>
-          {button && <Button title="Shop Now" />}
+          {button && <Button onClick={handleButtonClick} title="Shop Now" />}
           {isAbout && (
-            <Box className="flex justify-center lg:justify-start items-center space-x-3 hover:cursor-pointer">
+            <Box onClick={() => router.push("/about")} className="flex justify-center lg:justify-start items-center space-x-3 hover:cursor-pointer">
               <HiOutlineVideoCamera className="h-6 w-6 text-gray-700" />
               <Typography
                 variant="body1"

@@ -1,11 +1,42 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
-import { Box, Container, Typography, Grid } from "@mui/material";
-import Button from "@/components/ui/button/Button";
-import StyledTitle from "@/components/ui/styled-text/StyledTitle";
+import { addDiscount, selectDiscount } from "@/store/cartSlice";
+
+import {Typography} from "@mui/material";
 import WideCard from "@/components/ui/wide-card/WideCard";
 
 export const Discount = () => {
+  const currentDiscount = useSelector(selectDiscount)
+  const dispatch = useDispatch()
+
+  const handleAddDiscount = () => {
+    if(currentDiscount > 0) {
+      toast.error("Discount already added!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    }
+    dispatch(addDiscount({discount: 50}))
+    toast.success("50% discount added to all purchases!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  }
   return (
     <WideCard
       backgroundUrl={"bg-[url('/assets/img/discount-bg.jpg')]"}
@@ -18,6 +49,7 @@ export const Discount = () => {
           Get Your <span className="text-style-color">50% </span>off
         </Typography>
       }
+      handleButtonClick={handleAddDiscount}
       buttonText="Get Now!"
       except=" Nourish your skin with toxin-free cosmetic products. With the offers
             that you can&lsquo;t refuse."

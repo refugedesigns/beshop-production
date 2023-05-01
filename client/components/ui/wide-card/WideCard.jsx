@@ -3,7 +3,7 @@ import { Grid, Typography, Box } from '@mui/material';
 import StyledTitle from '../styled-text/StyledTitle';
 import Button from '../button/Button';
 
-const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, buttonText, extraClasses, form}) => {
+const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, buttonText, extraClasses, form, handleButtonClick}) => {
   return (
     <Grid
       container
@@ -35,7 +35,7 @@ const WideCard = ({styledHeading, titleHeading, backgroundUrl, except, text, but
           )}
           {form && <Fragment>{form}</Fragment>}
         </Box>
-        {buttonText && <Button title={buttonText} classes="mt-10" />}
+        {buttonText && <Button onClick={handleButtonClick} title={buttonText} classes="mt-10" />}
       </Grid>
       <Grid></Grid>
     </Grid>

@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import { useRouter } from "next/router";
 import { Box, Typography} from "@mui/material";
 import Banner from "@/components/ui/banner/Banner";
 import Services from "@/components/ui/services/Services"
@@ -14,6 +15,11 @@ import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 import PageDecor from "@/components/ui/page-decor/PageDecor";
 
 const AboutPage = () => {
+  const router = useRouter()
+
+  const handleShopRoute = () => {
+    router.push("/shop")
+  }
   return (
     <Fragment>
       <PageDecor />
@@ -48,6 +54,7 @@ const AboutPage = () => {
         text="Forming the range of stores, we, above all, strive not only to meet the format of 'home shop', offering each customer the most basic household goods, but also to create a unique space of beauty and care. BeShope stores offer their customers the widest and highest quality selection of products from world-renowned manufacturers."
         buttonText="Shop Now"
         extraClasses="md:h-[800px]"
+        handleButtonClick={handleShopRoute}
       />
       <Advantages />
       <TestimonialSection />

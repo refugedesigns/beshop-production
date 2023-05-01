@@ -27,7 +27,7 @@ const productsSlice = createSlice({
 
 export const { addProducts } = productsSlice.actions;
 
-export const productsExtendedApiSlice = apiSlice.injectEndpoints({
+export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchProductsByFilter: builder.query({
       query: (searchFilters) => {
@@ -63,7 +63,7 @@ export const productsExtendedApiSlice = apiSlice.injectEndpoints({
 export const {
   useFetchProductsByFilterQuery,
   useLazyFetchProductsByFilterQuery,
-} = productsExtendedApiSlice;
+} = productsApiSlice;
 
 export const selectProductsResult = (state) => state.productsState
 

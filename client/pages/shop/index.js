@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { Grid, Box, Container, Typography } from "@mui/material";
 import { RiCheckboxBlankFill } from "react-icons/ri";
 import Banner from "@/components/ui/banner/Banner";
@@ -16,7 +17,7 @@ import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
 import { ThreeDots } from "react-loader-spinner";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import {
   selectAllProducts,
   useFetchProductsByFilterQuery,
@@ -29,14 +30,16 @@ const ShopPage = () => {
     sort: "price",
     page: 1,
   });
+  const router = useRouter();
   const products = useSelector(selectAllProducts);
-  const numOfPages = useSelector(selectNumOfPages)
+  const numOfPages = useSelector(selectNumOfPages);
+  const [isFirstRender, setIsFirstRender] = useState(true)
   const [checkedNewProduct, setCheckedNewProducts] = useState(false);
   const [checkedSaleProduct, setCheckedSaleProducts] = useState(false);
-  const { data, isLoading, isError, isSuccess, isFetching } = useFetchProductsByFilterQuery(
-    queryFilter,
-    { refetchOnMountOrArgChange: true }
-  );
+  const { data, isLoading, isError, isSuccess, isFetching } =
+    useFetchProductsByFilterQuery(queryFilter, {
+      refetchOnMountOrArgChange: true,
+    });
 
   let content;
 
@@ -55,39 +58,40 @@ const ShopPage = () => {
         />
       </Box>
     );
-  }else if(isError) {
-    content = <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
-      <Typography variant="h3">Unable to fetch products please try again</Typography>
-    </Box>
-  }else if(isSuccess && data.products.length > 0) {
+  } else if (isError) {
+    content = (
+      <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
+        <Typography variant="h3">
+          Unable to fetch products please try again
+        </Typography>
+      </Box>
+    );
+  } else if (isSuccess && data.products.length > 0) {
     content = products?.map((product, index) => (
-                <Grid
-                  item
-                  key={product._id}
-                  sm={4}
-                  flexShrink
-                  className="w-full mt-4"
-                >
-                  <Product
-                    title={product.name}
-                    salePrice={product.oldPrice}
-                    realPrice={product.price}
-                    productId={product._id}
-                    isSale={product.isSale}
-                    isNew={product.new}
-                    productImage={product.image}
-                    inStock={product.isStocked}
-                    colors={product.colors}
-                    classes="h-[500px] sm:h-[250px] lg:h-[350px]"
-                    link={`/shop/${product._id}`}
-                  />
-                </Grid>
-              ))
-  
-  }else if(data.products.length === 0) {
-    content = <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
-      <Typography variant="h4">No products available with the provided search queries</Typography>
-    </Box>
+      <Grid item key={product._id} sm={4} flexShrink className="w-full mt-4">
+        <Product
+          title={product.name}
+          salePrice={product.oldPrice}
+          realPrice={product.price}
+          productId={product._id}
+          isSale={product.isSale}
+          isNew={product.new}
+          productImage={product.image}
+          inStock={product.isStocked}
+          colors={product.colors}
+          classes="h-[500px] sm:h-[250px] lg:h-[350px]"
+          link={`/shop/${product._id}`}
+        />
+      </Grid>
+    ));
+  } else if (data.products.length === 0) {
+    content = (
+      <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
+        <Typography variant="h4">
+          No products available with the provided search queries
+        </Typography>
+      </Box>
+    );
   }
 
   const handleFetchNewProducts = async () => {
@@ -109,7 +113,7 @@ const ShopPage = () => {
           newFilter = {
             ...prevFilter,
             isNew: true,
-            page: 1
+            page: 1,
           };
         }
         return newFilter;
@@ -119,7 +123,18 @@ const ShopPage = () => {
 
   useEffect(() => {
     console.log(queryFilter);
-    window.scrollTo({top: 100, behavior: 'smooth'})
+    window.scrollTo({ top: 100, behavior: "smooth" });
+    console.log(router.query);
+    if(isFirstRender) {
+      setIsFirstRender(false)
+    }
+    if (router.query.categoryId && isFirstRender) {
+      const newFilter = {
+        ...queryFilter,
+        filterItems: router.query.categoryId,
+      };
+      setQueryFilter(newFilter);
+    }
   }, [queryFilter]);
 
   const handleFetchSaleProducts = () => {
@@ -141,7 +156,7 @@ const ShopPage = () => {
           newFilter = {
             ...prevFilter,
             isSale: true,
-            page: 1
+            page: 1,
           };
         }
         console.log(newFilter);
@@ -224,11 +239,9 @@ const ShopPage = () => {
             <Grid
               columnSpacing={{ sm: 2, md: 4 }}
               className="mt-4 flex-1 h-full"
-
               item
               container
             >
-              
               {content}
               {numOfPages > 1 && !isFetching && (
                 <Grid
