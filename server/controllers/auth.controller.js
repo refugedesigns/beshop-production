@@ -1,8 +1,9 @@
 const asyncHandler = require("express-async-handler");
+const User = require("../models/user.model")
 const { StatusCodes } = require("http-status-codes");
 const createUserToken = require("../utils/createUserToken");
 const { attachAccessToken, attachRefreshToken } = require("../utils");
-const { UnauthenticatedError } = require("../errors");
+const { UnauthenticatedError, NotFoundError } = require("../errors");
 
 const register = asyncHandler(async (req, res) => {
   if (req.user) {
@@ -31,8 +32,25 @@ const login = asyncHandler(async (req, res) => {
 const logout = async (req, res) => {
   res.send("Logout route");
 };
+
 const verifyEmail = async (req, res) => {
-  res.send("Verify email route");
+  const {verificationToken, email} = req.body;
+  const user = await User.findOne({ email });
+  if(!user) {
+    throw new UnauthenticatedError("Verification Failed")
+  }
+
+  if(user.verificationToken !== verificationToken) {
+    throw new UnauthenticatedError("Verification Failed")
+  }
+
+  user.isVerified = true;
+  user.verifiedDate = Date.now();
+  user.verificationToken = ""
+
+  await user.save();
+
+  res.status(StatusCodes.OK).json({msg: "Email verified successfully!"});
 };
 const forgotPassword = async (req, res) => {
   res.send("Forgot password route");
