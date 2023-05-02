@@ -5,6 +5,7 @@ const User = require("../models/user.model")
 const Token = require("../models/token.model")
 const robohashAvatars = require("robohash-avatars")
 const _ = require("lodash");
+const crypto = require("crypto");
 const {
   UnauthenticatedError,
   BadRequestError,
@@ -40,6 +41,8 @@ passport.use(
             width: 400,
           });
 
+          const verificationToken = crypto.randomBytes(40).toString("hex")
+          
           let newUser = await User.create({
             firstName,
             lastName,
@@ -47,7 +50,8 @@ passport.use(
             password,
             phoneNumber,
             role,
-            profileImage: avatarUrl
+            profileImage: avatarUrl,
+            verificationToken
           });
 
           newUser = newUser._doc;
