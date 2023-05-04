@@ -40,7 +40,7 @@ const userSchema = new Schema({
     profileImage: {
         type: String,
     },
-    veficationToken: String,
+    verificationToken: String,
     isVerified: {
         type: Boolean,
         default: false

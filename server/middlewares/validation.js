@@ -133,11 +133,21 @@ const validateCreateReview = [
   }
 ]
 
+const validateVerifyEmail = [
+  body("email").isEmail(),
+  body("verificationToken").isString().notEmpty(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next()
+  }
+]
+
 module.exports = {
     validateCreateProduct,
     validateUpdateProduct,
     validateParams,
     validateCreateUser,
     validateLoginUser,
-    validateCreateReview
+    validateCreateReview,
+    validateVerifyEmail
 }

@@ -5,7 +5,6 @@ const User = require("../models/user.model")
 const Token = require("../models/token.model")
 const robohashAvatars = require("robohash-avatars")
 const _ = require("lodash");
-const crypto = require("crypto");
 const {
   UnauthenticatedError,
   BadRequestError,
@@ -84,6 +83,10 @@ passport.use(
 
           if (!passwordMatch) {
             return done(new UnauthenticatedError("Invalid Credentials"));
+          }
+
+          if(!user.isVerified) {
+            return done(new UnauthenticatedError("Please verify your email"));
           }
 
           user = user._doc;
