@@ -105,16 +105,16 @@ const cartSlice = createSlice({
 
 export const { addToCart, removeFromCart, clearCartItems, deleteFromCart, addDiscount, resetDiscount } = cartSlice.actions 
 
-export const selectTotalItems = state => state.cartReducer.totalItems
+export const selectTotalItems = state => state.cart.totalItems
 
-export const selectTotalPrice = state => state.cartReducer.totalPrice
+export const selectTotalPrice = state => state.cart.totalPrice
 
-export const selectShippingFees = state => state.cartReducer.shippingFees
+export const selectShippingFees = state => state.cart.shippingFees
 
-export const selectDiscount = state => state.cartReducer.discount
+export const selectDiscount = state => state.cart.discount
 
-export const selectSubtotal = state => state.cartReducer.subtotal
+export const selectSubtotal = state => state.cart.subtotal
 
-export const selectCartItems = state => state.cartReducer.items
+export const selectCartItems = state => state.cart.items
 
 export default cartSlice.reducer

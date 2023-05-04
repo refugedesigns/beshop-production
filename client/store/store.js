@@ -5,13 +5,15 @@ import { persistReducer } from "redux-persist"
 import logger from "redux-logger"
 import cartReducer from "./cartSlice"
 import productsReducer from "./productsSlice"
+import userReducer from "./userSlice"
 import { apiSlice } from "./apiSlice";
 
 
 const rootReducer = combineReducers({
-    cartReducer,
+    cart: cartReducer,
     [apiSlice.reducerPath]: apiSlice.reducer ,
-    productsState: productsReducer
+    products: productsReducer,
+    user: userReducer 
 })
 
 

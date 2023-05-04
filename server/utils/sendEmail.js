@@ -5,21 +5,21 @@ const SibApi = require("sib-api-v3-sdk")
 SibApi.ApiClient.instance.authentications['api-key'].apiKey = process.env.SIB_API_KEY
 
 
-const sendEmail = async(subject, url, user, templateId) => {
-    return await new SibApi.TransactionalEmailsApi().sendTransacEmail({
-        "sender": {"email": "tinkhealth@gmail.com", "name": "tinkhealth"},
-        "subject": "Please verify your email address to continue",
-        "templateId": 1,
+const sendEmail = async({subject, url, user, templateId}) => {
+    return new SibApi.TransactionalEmailsApi().sendTransacEmail({
+        "sender": {"email": "tinkhealth@gmail.com", "name": "GoShop"},
+        "subject": subject,
+        "templateId": templateId,
         "params": {
             "name": "Erasmus Antwi",
-            "url": "https://cryptocrewuniversity.com"
+            "url": url 
         },
         messageVersions: [
             {
                 "to": [
                     {
-                        "email": "refugedesigns17@gmail.com",
-                        "name": "Erasmus Antwi",
+                        "email": user.email,
+                        "name": user.firstName,
                     }
                 ]
             }

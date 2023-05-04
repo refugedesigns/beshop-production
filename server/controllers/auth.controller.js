@@ -2,11 +2,20 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/user.model")
 const { StatusCodes } = require("http-status-codes");
 const createUserToken = require("../utils/createUserToken");
+const sendVerificationEmail = require("../utils/sendVerificationEmail");
 const { attachAccessToken, attachRefreshToken } = require("../utils");
 const { UnauthenticatedError, NotFoundError } = require("../errors");
 
 const register = asyncHandler(async (req, res) => {
   if (req.user) {
+    // const protocol = req.headers.get('x-forwarded-proto')
+    // const host = req.headers.get('x-forwarded-host')
+    // const origin = `${protocol}://${host}`
+    // console.log(`protocol: ${protocol}`)
+    // console.log(`host: ${host}`)
+    console.log(req.headers)
+    const origin = "http://localhost:3000"
+    await sendVerificationEmail({origin, user: req.user})
     res.status(StatusCodes.CREATED).json({
       msg: "Success! Please check your email and verify your account.",
     });

@@ -124,18 +124,18 @@ const ShopPage = () => {
   useEffect(() => {
     console.log(queryFilter);
     window.scrollTo({ top: 100, behavior: "smooth" });
-    console.log(router.query);
     if(isFirstRender) {
       setIsFirstRender(false)
     }
     if (router.query.categoryId && isFirstRender) {
+      console.log(isFirstRender)
       const newFilter = {
         ...queryFilter,
         filterItems: router.query.categoryId,
       };
       setQueryFilter(newFilter);
     }
-  }, [queryFilter]);
+  }, []);
 
   const handleFetchSaleProducts = () => {
     if (checkedSaleProduct) {

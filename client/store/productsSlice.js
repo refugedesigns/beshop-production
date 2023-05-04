@@ -47,7 +47,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         } catch {}
       },
       providesTags: (result, error, arg) => {
-        console.log(result)
+  
         return [
           { type: "Product", id: "LIST" },
           ...result?.products?.map((product) => ({
@@ -65,7 +65,7 @@ export const {
   useLazyFetchProductsByFilterQuery,
 } = productsApiSlice;
 
-export const selectProductsResult = (state) => state.productsState
+export const selectProductsResult = (state) => state.products
 
 const selectProductsData = createSelector(
   selectProductsResult,
@@ -80,9 +80,9 @@ export const {
   (state) => selectProductsData(state) ?? initialState
 );
 
-export const selectNumOfPages = state => state.productsState.numOfPages
+export const selectNumOfPages = state => state.products.numOfPages
 
-export const selectnbHits = state => state.productsState.nbHits
+export const selectnbHits = state => state.products.nbHits
 
 
 export default productsSlice.reducer;
