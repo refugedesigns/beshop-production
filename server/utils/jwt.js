@@ -12,13 +12,14 @@ const isValidToken = (token) => {
 
 const attachAccessToken = ({ res, user }) => {
   const accessToken = createJWT({ payload: { user } });
-
+  console.log(accessToken);
   // TODO: Expires in should be 1 day but for texting it will be 10sec
-  const oneDay = 1000 * 60;
+  //86400 1000 * 60 * 60 * 24
+  const oneDay = 1000 * 60 * 60
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV !== "dev",
     signed: true,
     expires: new Date(Date.now() + oneDay),
   });
@@ -26,12 +27,13 @@ const attachAccessToken = ({ res, user }) => {
 
 const attachRefreshToken = ({ res, user, refreshToken }) => {
   const refreshTokenJWT = createJWT({ payload: { user: user, refreshToken } });
-
-  const longerExp = 1000 * 180;
+  console.log(refreshTokenJWT);
+  // 2592000
+  const longerExp = 1000 * 60 * 60 * 24 * 30
 
   res.cookie("refreshToken", refreshTokenJWT, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV !== "dev",
     signed: true,
     expires: new Date(Date.now() + longerExp),
   });

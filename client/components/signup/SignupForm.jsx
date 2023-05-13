@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useSignupUserMutation } from "@/store/userSlice";
 import { Box, Typography, Container, IconButton } from "@mui/material";
 import { CgFacebook } from "react-icons/cg";
@@ -33,7 +32,7 @@ const validationSchema = yup.object({
 });
 
 const SignupForm = () => {
-  const dispatch = useDispatch();
+ 
   const [signup, { isLoading, isError, isSuccess, isUninitialized, data, error }] =
     useSignupUserMutation();
   const initialsValues = {

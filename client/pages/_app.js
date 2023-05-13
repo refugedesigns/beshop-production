@@ -15,6 +15,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import { userApiSlice } from '@/store/userSlice';
 
+
 let persistor = persistStore(store);
 
 const progress = new ProgressBar({
@@ -28,7 +29,11 @@ Router.events.on("routeChangeStart", progress.start);
 Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
-store.dispatch(userApiSlice.endpoints.getCurrentUser.initiate())
+store.dispatch(
+  userApiSlice.endpoints.getCurrentUser.initiate(undefined, {
+    subscriptionOptions: { pollingInterval: 86400000 },
+  })
+);
 
 export default function App({ Component, pageProps }) {
   return (
@@ -36,11 +41,11 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </PersistGate>
+          <PersistGate loading={null} persistor={persistor}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </PersistGate>
         </Provider>
       </ThemeProvider>
     </StyledEngineProvider>

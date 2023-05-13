@@ -1,105 +1,186 @@
 const asyncHandler = require("express-async-handler")
-const Product = require("../models/product.model")
-const Order = require("../models/orders.model")
-const { StatusCodes } = require("http-status-codes")
-const { checkPermissions } = require("../utils")
-const stripe = require("stripe")(process.env.STRIPE_KEY)
-const { NotFoundError } = require("../errors")
+const buffer = require("../utils/buffer");
+const Product = require("../models/product.model");
+const Order = require("../models/orders.model");
+const { StatusCodes } = require("http-status-codes");
+const { checkPermissions } = require("../utils");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const endPointSecrete = process.env.STRIPE_SIGNING_KEY;
+const { NotFoundError } = require("../errors");
 
+const createOrder = asyncHandler(async (req, res) => {
+  let { items: cartItems, shippingFees, discount } = req.body;
 
-const createOrder = asyncHandler(async(req, res) => {
-    const { items: cartItems, shippingFees} = req.body
+  let orderItems = [];
+  let subtotal = 0;
 
-    let orderItems = [];
-    let subtotal = 0
-
-    for (const item of cartItems) {
-        const dbProduct = await Product.findOne({_id: item.product})
-        if(!dbProduct) { 
-            throw new NotFoundError(`No product with id: ${item.product}`)
-         }
-
-         const { name, price, image, _id } = dbProduct
-         const singleOrderItem = {
-            amount: item.amount,
-            name,
-            price,
-            image,
-            product: _id,
-            color: item.color
-         }
-
-         orderItems.push(singleOrderItem)
-         subtotal += item.amount * price 
+  for (const item of cartItems) {
+    const dbProduct = await Product.findOne({ _id: item.id });
+    if (!dbProduct) {
+      throw new NotFoundError(`No product with id: ${item.id}`);
     }
 
-    const total = shippingFees + subtotal
+    const { name, price, image, _id, description } = dbProduct;
+    const itemDescription = description.substring(0, 200);
+    const singleOrderItem = {
+      amount: item.amount,
+      name,
+      price,
+      image,
+      description: itemDescription,
+      product: _id,
+      color: item.colors,
+    };
 
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: total * 100,
-        currency: 'usd'
-    })
+    orderItems.push(singleOrderItem);
+    subtotal += item.amount * price;
+  }
 
-    const order = await Order.create({
-        orderItems,
-        total,
-        shippingFees,
-        subtotal,
-        clientSecret: paymentIntent.client_secret,
-        user: req.user._id 
-    })
+  subtotal = subtotal * ((100 - discount) / 100);
 
-    res.status(StatusCodes.CREATED).json({order})
-})
+  const total = shippingFees + subtotal;
 
+  const order = await Order.create({
+    orderItems,
+    total,
+    shippingFees,
+    subtotal,
+    user: req.user._id,
+    shippingDetails: {
+      address: {
+        city: "",
+        country: "",
+        line1: "",
+        line2: "",
+        state: "",
+        postalCode: "",
+      },
+      name: "",
+    },
+    paymentIntentId: "",
+  });
 
-const getAllOrders = asyncHandler(async(req, res) => {
+  const transformedItems = orderItems.map((item) => ({
+    quantity: item.amount,
+    price_data: {
+      currency: "usd",
+      unit_amount: item.price * 100,
+      product_data: {
+        name: item.name,
+        images: [item.image],
+        description: item.description,
+      },
+    },
+  }));
 
-    const orders = await Order.find({})
-    res.status(StatusCodes.OK).json({orders, nbHits: orders.length})
-})
+  let coupon;
+  if (discount === 0) {
+    discount = 0.01;
+    coupon = await stripe.coupons.create({
+      percent_off: discount,
+      duration: "once",
+    });
+  }
 
+  const stripeSession = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    shipping_options: [
+      {
+        shipping_rate: "shr_1N6X7qGYzBNrpdKH5AYq1v0t",
+      },
+    ],
+    shipping_address_collection: {
+      allowed_countries: ["GB", "US", "CA"],
+    },
+    line_items: transformedItems,
+    mode: "payment",
+    discounts: [
+      {
+        coupon: coupon.id,
+      },
+    ],
+    success_url: "http://localhost:3000/success",
+    cancel_url: "http://localhost:3000/cart",
+    metadata: {
+      user: JSON.stringify(req.user._id),
+      orderId: JSON.stringify(order._id),
+    },
+  });
 
-const getSingleOrder = asyncHandler(async(req, res) => {
-    const { id: orderId } = req.params
+  res.status(StatusCodes.CREATED).json({ id: stripeSession.id });
+});
 
-    const order = await Order.findOne({_id: orderId})
+const getAllOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({});
+  res.status(StatusCodes.OK).json({ orders, nbHits: orders.length });
+});
 
-    if(!order) {
-        throw new NotFoundError(`No order with id: ${orderId}`)
-    }
+const getSingleOrder = asyncHandler(async (req, res) => {
+  const { id: orderId } = req.params;
 
-    checkPermissions(req.user, order.user)
+  const order = await Order.findOne({ _id: orderId });
 
-    res.status(StatusCodes.OK).json({order})
-})
+  if (!order) {
+    throw new NotFoundError(`No order with id: ${orderId}`);
+  }
 
+  checkPermissions(req.user, order.user);
 
-const updateOrder = asyncHandler(async(req, res) => {
-    const {paymentIntent} = req.body
-    const { id: orderId } = req.params
+  res.status(StatusCodes.OK).json({ order });
+});
 
-    const order = await Order.findOne({_id: orderId})
+const updateOrder = asyncHandler(async (req, res) => {
+  //   const { paymentIntent } = req.body;
+  //   const { id: orderId } = req.params;
 
-    if(!order) {
-        throw new NotFoundError(`No order with id: ${orderId}`)
-    }
+  //   const order = await Order.findOne({ _id: orderId });
 
-    checkPermissions(req.user, order.user)
+  //   if (!order) {
+  //     throw new NotFoundError(`No order with id: ${orderId}`);
+  //   }
 
-    order.paymentIntent = paymentIntent
-    order.status = "paid"
+  //   checkPermissions(req.user, order.user);
 
-    await order.save();
+  //   order.paymentIntent = paymentIntent;
+  //   order.status = "paid";
 
-    res.status(StatusCodes.OK).json({order})
-})
+  //   await order.save();
+  //   const requestBuffer = await buffer(req);
+  //   const payload = requestBuffer.toString();
+  const sig = req.headers["stripe-signature"];
 
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.rawBody, sig, endPointSecrete);
+  } catch (error) {
+    console.log(error);
+  }
 
-const getCurrentUserOrders = asyncHandler(async(req, res) => {
-    const orders = await Order.find({user: req.user._id})
-    res.status(StatusCodes.OK).json({orders, nbHits: orders.length})
-})
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    const orderId = JSON.parse(session.metadata.orderId);
+    const userId = JSON.parse(session.metadata.user);
+    const order = await Order.findOneAndUpdate(
+      { _id: orderId, user: userId },
+      {
+        shippingDetails: session.shipping_details,
+        status: "paid",
+        paymentIntentId: session.payment_intent,
+      },
+      { new: true }
+    );
+    console.log(order);
+  }
+
+  res.status(StatusCodes.OK).json({ msg: "success" });
+});
+
+const getCurrentUserOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  const firstOrder = orders[0];
+  checkPermissions(req.user, firstOrder.user);
+  res.status(StatusCodes.OK).json({ orders, nbHits: orders.length });
+});
 
 module.exports = {
     createOrder,

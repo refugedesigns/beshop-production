@@ -1,11 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const { isValidToken, attachAccessToken } = require("../utils");
 const { UnauthenticatedError } = require("../errors");
-const Token = require("../models/token.model")
+const Token = require("../models/token.model");
+const createUserToken = require("../utils/createUserToken");
 
 const authenticateUser = asyncHandler(async(req, res, next) => {
     const { refreshToken, accessToken } = req.signedCookies;
-
 
     if(accessToken) {
         const payload = isValidToken(accessToken) 
@@ -15,21 +15,22 @@ const authenticateUser = asyncHandler(async(req, res, next) => {
         }
     }else if(refreshToken) {
       const payload = isValidToken(refreshToken);
-
       if (!payload) {
         throw new UnauthenticatedError("Authentication Invalid");
       }
 
       const existingToken = await Token.findOne({
         user: payload.user.id,
-        refreshToken: user.refreshToken,
+        refreshToken: payload.refreshToken,
       });
 
       if (!existingToken || !existingToken.isValid) {
         throw new UnauthenticatedError("Authentication Invalid");
       }
 
-      attachAccessToken({ res, user });
+      const userToken = createUserToken(payload.user)
+
+      attachAccessToken({ res, user: userToken });
 
       next();
     }else {

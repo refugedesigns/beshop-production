@@ -1,10 +1,30 @@
 import React from "react";
 import ProductDetail from "@/components/product-detail/ProductDetail";
 
+import { Container } from "@mui/material";
+import { Puff } from "react-loader-spinner";
+
 
 const ProdudctDetailPage = ({ product }) => {
+
   if (!product) {
-    return <p>Loading...</p>;
+    return (
+      <Container
+        maxWidth="lg"
+        className="min-h-screen flex justify-center items-center"
+      >
+        <Puff
+          height="80"
+          width="80"
+          radius={1}
+          color="#d05278"
+          ariaLabel="puff-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </Container>
+    );
   }
 
  return <ProductDetail product={product} />
@@ -12,14 +32,13 @@ const ProdudctDetailPage = ({ product }) => {
 
 export async function getStaticProps(context) {
   const { params } = context;
-  console.log(params)
 
   const response = await fetch(
     `http://localhost:8000/api/v1/products/${params.productId}`
   );
   const product = await response.json();
-
-  if (!product) {
+    console.log(product)
+  if (product.msg === "Invalid value for field: id") {
     return {
       notFound: true,
     };

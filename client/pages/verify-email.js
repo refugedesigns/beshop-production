@@ -64,7 +64,7 @@ const VerifyEmailPage = (verificationResult) => {
 export default VerifyEmailPage;
 
 export async function getServerSideProps(context) {
-  console.log(context.query);
+
   const userInfo = {
     email: context.query.email,
     verificationToken: context.query.token,

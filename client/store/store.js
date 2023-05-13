@@ -20,21 +20,25 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
+  debug: false,
 };
 
 const persistedReducers = persistReducer(persistConfig, rootReducer);
 
 const middlewares = [apiSlice.middleware]
 
-if(process.env.NODE_ENV !== 'production'){
-    middlewares.push(logger)
-}
+// if(process.env.NODE_ENV !== 'production'){
+//     middlewares.push(logger)
+// }
 
 
 export const store = configureStore({
-    reducer: persistedReducers,
-    devTools: process.env.NODE_ENV !== 'production',
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(middlewares)
-})
+  reducer: persistedReducers,
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(middlewares),
+});
 
 setupListeners(store.dispatch)

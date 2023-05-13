@@ -142,6 +142,22 @@ const validateVerifyEmail = [
   }
 ]
 
+const validateCreateOrder = [
+  body('items.*.name').isString(),
+  body('items.*.amount').isInt(),
+  body('items.*.price').isFloat(),
+  body('items.*.id').isMongoId(),
+  body('items.*.image').isURL(),
+  body('items.*.colors').isArray(),
+  body('items.*.subtotal').isFloat(),
+  body('shippingFees').isFloat(),
+  body('discount').isInt({min: 0, max: 50}),
+  (req, res, next) => {
+    validationResult(req).throw()
+    next()
+  }
+]
+
 module.exports = {
     validateCreateProduct,
     validateUpdateProduct,
@@ -149,5 +165,6 @@ module.exports = {
     validateCreateUser,
     validateLoginUser,
     validateCreateReview,
-    validateVerifyEmail
+    validateVerifyEmail,
+    validateCreateOrder,
 }

@@ -37,7 +37,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
           params: { ...searchFilters },
         };
       },
-      keepUnusedDataFor: 1,
       async onQueryStarted({}, { dispatch, queryFulfilled }) {
         console.log("Starting to fetch products")
         try {
@@ -47,7 +46,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         } catch {}
       },
       providesTags: (result, error, arg) => {
-  
         return [
           { type: "Product", id: "LIST" },
           ...result?.products?.map((product) => ({
@@ -56,13 +54,12 @@ export const productsApiSlice = apiSlice.injectEndpoints({
           })),
         ];
       },
-    }),
+    })
   }),
 });
 
 export const {
   useFetchProductsByFilterQuery,
-  useLazyFetchProductsByFilterQuery,
 } = productsApiSlice;
 
 export const selectProductsResult = (state) => state.products

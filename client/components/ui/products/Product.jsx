@@ -1,4 +1,5 @@
 import React, {useRef, useEffect} from "react";
+import { selectCurrentUser } from "@/store/userSlice";
 import { CardMedia, Box, Typography, Stack, IconButton } from "@mui/material";
 import {RiSearch2Line} from "react-icons/ri";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -28,6 +29,7 @@ const Product = ({
 }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const user = useSelector(selectCurrentUser)
   const currentNumOfItems = useRef()
   const numOfCartItems = useSelector(selectTotalItems);
   
@@ -35,6 +37,24 @@ const Product = ({
   useEffect(() => {
     currentNumOfItems.current = numOfCartItems
   }, [numOfCartItems])
+
+  const handleAddToWishlist = () => {
+    if(!user.firstName || !user._id) {
+      toast.error("Please login to add a product to wishlist", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+
+    console.log(user.firstName, user._id)
+  }
 
   const handleAddToCart = async () => {
     if (!inStock) {
@@ -119,7 +139,7 @@ const Product = ({
             direction="row"
             className="w-min absolute z-30 bottom-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           >
-            <IconButton size="large" className="z-50 bg-white">
+            <IconButton onClick={handleAddToWishlist} size="large" className="z-50 bg-white">
               <AiOutlineHeart />
             </IconButton>
             <IconButton
