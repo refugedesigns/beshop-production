@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link"
 import { useSpring, animated } from "@react-spring/web";
+import { useRouter } from "next/router";
 import {
   AppBar,
   Container,
@@ -23,6 +24,7 @@ import { BsCart4 } from "react-icons/bs";
 import { pages, settings } from "@/data/data.header";
 import { useSelector } from "react-redux";
 import { selectTotalItems } from "@/store/cartSlice";
+import { selectCurrentUser } from "@/store/userSlice";
 
 
 export default function Header() {
@@ -30,7 +32,10 @@ export default function Header() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [scrollOffset, setScrollOffset] = React.useState(0);
 
+  const router = useRouter()
+
   const totalCartItems = useSelector(selectTotalItems)
+  const user = useSelector(selectCurrentUser)
 
   const { backgroundColor } = useSpring({
     backgroundColor: scrollOffset > 10 ? "#FCECEB" : "transparent",
@@ -63,6 +68,14 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrollOffset]);
+
+  const handleProfilePageNav = () => {
+    if(user.firstName && user._id) {
+      router.push("/profile")
+    }else {
+      router.push("/login?redirect=profile")
+    }
+  }
 
   return (
     <AppBar className={`shadow-none bg-transparent z-50`}>
@@ -113,8 +126,7 @@ export default function Header() {
                 </IconButton>
                 <IconButton
                   aria-label="profile"
-                  LinkComponent={Link}
-                  href="/profile"
+                  onClick={handleProfilePageNav}
                 >
                   <AiOutlineUser />
                 </IconButton>

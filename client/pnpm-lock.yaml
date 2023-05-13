@@ -16,6 +16,9 @@ dependencies:
   '@reduxjs/toolkit':
     specifier: ^1.9.4
     version: 1.9.4(react-redux@8.0.5)(react@18.2.0)
+  '@stripe/stripe-js':
+    specifier: ^1.52.1
+    version: 1.52.1
   eslint:
     specifier: 8.35.0
     version: 8.35.0
@@ -2462,6 +2465,10 @@ packages:
     resolution: {integrity: sha512-SwUDyjWnah1AaNl7kxsa7cfLhlTYoiyhDAIgyh+El30YvXs/o7OLXpYH88Zdhyx9JExKrmHDJ+10bwIcY80Jmw==}
     dependencies:
       '@sinonjs/commons': 2.0.0
+    dev: false
+
+  /@stripe/stripe-js@1.52.1:
+    resolution: {integrity: sha512-fza40OPSpGQlFxc5TZWiYC/6Lk89Sep1fLuv9ss33YS6lCAF8UZbfA1E6W+lwO4c7WRKZIZumHIEbPJfP/O9uw==}
     dev: false
 
   /@swc/helpers@0.4.14:

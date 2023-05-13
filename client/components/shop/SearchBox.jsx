@@ -5,9 +5,14 @@ import { CiSearch } from "react-icons/ci";
 
 const SearchBox = ({queryFilter, setQueryFilter}) => {
   const [searchTerm, setSearchTerm] = useState("")
+  const [isFirstRender, setIsFirstRender] = useState(true)
   const [searchTermValue] = useDebounce(searchTerm, 1000)
   
   useEffect(() => {
+    if(isFirstRender) {
+      setIsFirstRender(false)
+      return
+    }
       const newFilter = {...queryFilter}
       newFilter.search = searchTermValue
       newFilter.page = 1

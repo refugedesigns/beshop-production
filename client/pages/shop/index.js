@@ -135,7 +135,7 @@ const ShopPage = () => {
       };
       setQueryFilter(newFilter);
     }
-  }, []);
+  }, [queryFilter]);
 
   const handleFetchSaleProducts = () => {
     if (checkedSaleProduct) {

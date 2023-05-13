@@ -47,7 +47,7 @@ app.use(mongoSanitize())
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:3000"],
     credentials: true,
   })
 );
@@ -66,7 +66,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(json());
+app.use(json({
+  verify: function(req, res, buf) {
+    req.rawBody = buf;
+  }
+}));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser(process.env.JWT_SECRET));
 

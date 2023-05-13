@@ -21,6 +21,8 @@ const getSingleUser = asyncHandler(async(req, res) => {
 
 
 const showCurrentUser = asyncHandler(async(req, res) => {
+    console.log(req.signedCookies);
+    console.log(req.user)
     res.status(StatusCodes.OK).json({user: req.user})
 })
 
