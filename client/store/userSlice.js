@@ -26,10 +26,13 @@ const userSlice = createSlice({
     removeUser: (state, action) => {
       return {...initialState}
     },
+    logTimeout: (state, action) => {
+      return { ...initialState, error: action.payload}
+    }
   },
 });
 
-export const { addUser, removeUser } = userSlice.actions
+export const { addUser, removeUser, logTimeout } = userSlice.actions
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -43,7 +46,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
           dispatch(addUser(data.data.user))
         } catch (err) {
           console.log(err);
-          dispatch(removeUser())
+          dispatch(logTimeout(err.error.data.msg))
         }
       },
     }),
@@ -91,10 +94,26 @@ export const userApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["User"],
       async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {},
     }),
+    updateViewedProducts: builder.mutation({
+      query: (viewedProducts) => ({
+        url: "/users/updateViewedProducts",
+        method: "PATCH",
+        body: {viewedProducts}
+      }),
+      invalidatesTags: ["User"],
+      async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
+        try {
+          const user = await queryFulfilled
+          console.log(user)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+    })
   }),
 });
 
-export const { useGetCurrentUserQuery, useSignupUserMutation, useSignInUserMutation, useVerifyEmailMutation } = userApiSlice
+export const { useGetCurrentUserQuery, useSignupUserMutation, useSignInUserMutation, useVerifyEmailMutation, useUpdateViewedProductsMutation } = userApiSlice
 
 export const selectCurrentUser = (state) => state.user
 

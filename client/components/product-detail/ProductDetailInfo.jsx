@@ -37,17 +37,12 @@ const ProductDetailInfo = ({
     }, {})
   );
   const [wishButtonHover, setWishButtonHover] = useState(false);
-  const [itemColors, setItemColors] = useState([]);
   const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
-
-  console.log(checkedColors);
 
   const colorsArray = Object.entries(checkedColors).map(([key, val], index) => {
     return val === true && key;
   });
-
-  console.log(colorsArray);
 
   const handleIncreasAmount = () => {
     setAmount((prevAmt) => prevAmt + 1);

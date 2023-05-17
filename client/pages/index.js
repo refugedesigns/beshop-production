@@ -44,10 +44,21 @@ export default function Home({makeupProducts}) {
 
 
 export async function getStaticProps(context) {
-  const response = await fetch("http://localhost:8000/api/v1/products?filterItems=makeup&limit=20");
-  const makeupProducts = await response.json();
-
-  const products = makeupProducts.products.map(product => ({...product, link: `/${product._id}`}))
+  let products
+  try {
+    
+    const response = await fetch("http://localhost:8000/api/v1/products?filterItems=makeup&limit=20");
+    const makeupProducts = await response.json();
+  
+    products = makeupProducts.products.map(product => ({...product, link: `/${product._id}`}))
+  } catch (error) {
+    return {
+      props: {
+        error: error.message,
+        makeupProducts: []
+      }
+    }
+  }
 
   return {
     props: {

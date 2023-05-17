@@ -58,7 +58,7 @@ const ShopPage = () => {
         />
       </Box>
     );
-  } else if (isError) {
+  } else if (isError) {    
     content = (
       <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
         <Typography variant="h3">
@@ -66,7 +66,7 @@ const ShopPage = () => {
         </Typography>
       </Box>
     );
-  } else if (isSuccess && data.products.length > 0) {
+  } else if (isSuccess && products.length > 0) {
     content = products?.map((product, index) => (
       <Grid item key={product._id} sm={4} flexShrink className="w-full mt-4">
         <Product
@@ -84,7 +84,7 @@ const ShopPage = () => {
         />
       </Grid>
     ));
-  } else if (data.products.length === 0) {
+  } else if (products.length === 0) {
     content = (
       <Box className="w-full h-[40%] ml-10 flex justify-center items-center">
         <Typography variant="h4">
