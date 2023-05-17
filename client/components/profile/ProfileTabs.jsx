@@ -42,13 +42,12 @@ const ProfileTabs = () => {
             bgcolor: "transparent",
           },
         }}
-        textColor="white"
         orientation={matches ? "horizontal" : "vertical"}
         className=""
       >
         <CustomTab label="My Info" {...a11yProps(0)} />
-        <CustomTab Tab label="My Orders" className="mx-2" {...a11yProps(1)} />
-        <CustomTab Tab label="Wishlist" {...a11yProps(2)} />
+        <CustomTab label="My Orders" className="mx-2" {...a11yProps(1)} />
+        <CustomTab label="Wishlist" {...a11yProps(2)} />
       </Tabs>
       <ProfileTabPanel value={value} index={0}>
         Item One

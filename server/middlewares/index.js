@@ -5,6 +5,8 @@ const authorizePermissions = require("./authorizePermissions")
 const {
   validateCreateProduct,
   validateUpdateProduct,
+  validateUpdateProductViewCount,
+  validateUpdateViewedProducts,
   validateParams,
   validateCreateUser,
   validateLoginUser,
@@ -20,6 +22,8 @@ module.exports = {
     authorizePermissions,
     validateCreateProduct,
     validateUpdateProduct,
+    validateUpdateProductViewCount,
+    validateUpdateViewedProducts,
     validateParams,
     validateCreateUser,
     validateLoginUser,

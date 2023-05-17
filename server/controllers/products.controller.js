@@ -282,7 +282,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   res.status(StatusCodes.OK).json({ product: savedProduct });
 });
 
-const addViewCount = asyncHandler(async(req, res) => {
+const updateProductViewCount = asyncHandler(async(req, res) => {
   const { productId } = req.body 
 
   const product = await Product.findOne({_id: productId})
@@ -293,9 +293,9 @@ const addViewCount = asyncHandler(async(req, res) => {
 
   product.viewCount += 1
 
-  await product.save();
+  const savedProduct = await product.save();
 
-  res.status(StatusCodes.OK).json({msg: "View count updated successfully"})
+  res.status(StatusCodes.OK).json({product: savedProduct})
 })
 
 const deleteProduct = asyncHandler(async (req, res) => {
@@ -317,6 +317,6 @@ module.exports = {
     getSingleProduct,
     createProduct,
     updateProduct,
-    addViewCount,
+    updateProductViewCount,
     deleteProduct
 }

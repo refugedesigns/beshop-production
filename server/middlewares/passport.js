@@ -73,7 +73,12 @@ passport.use(
     function (req, email, password, done) {
       process.nextTick(async () => {
         try {
-          let user = await User.findOne({ email });
+          let user = await User.findOne({ email })
+            .populate({ path: "viewedProducts", select: "name, price, image" })
+            .populate({
+              path: "wishlist",
+              select: "name, image, productNumber, price, isStocked",
+            });
 
           if (!user) {
             return done(new UnauthenticatedError("Invalid Credentials"));

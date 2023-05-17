@@ -8,12 +8,6 @@ const { UnauthenticatedError, NotFoundError } = require("../errors");
 
 const register = asyncHandler(async (req, res) => {
   if (req.user) {
-    // const protocol = req.headers.get('x-forwarded-proto')
-    // const host = req.headers.get('x-forwarded-host')
-    // const origin = `${protocol}://${host}`
-    // console.log(`protocol: ${protocol}`)
-    // console.log(`host: ${host}`)
-    console.log(req.headers)
     const origin = "http://localhost:3000"
     await sendVerificationEmail({origin, user: req.user})
     res.status(StatusCodes.CREATED).json({

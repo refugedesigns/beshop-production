@@ -90,7 +90,7 @@ const TotalAmount = () => {
       <Divider className="bg-black" />
       <Box className="flex items-center justify-between py-4">
         <Typography variant="bod2">Shipping Fees</Typography>
-        <Typography variant="body2">{shippingFees}</Typography>
+        <Typography variant="body2">{subtotalAmount > 0 ? shippingFees : 0}</Typography>
       </Box>
       <Divider className="bg-black" />
       <Box className="flex justify-between items-center mb-16 mt-6 whit">

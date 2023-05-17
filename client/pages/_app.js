@@ -30,8 +30,9 @@ Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
 store.dispatch(
-  userApiSlice.endpoints.getCurrentUser.initiate(undefined, {
-    subscriptionOptions: { pollingInterval: 86400000 },
+  userApiSlice.endpoints.getCurrentUser.initiate("", {
+    // TODO: 3600000
+    subscriptionOptions: { pollingInterval: 3600000 },
   })
 );
 

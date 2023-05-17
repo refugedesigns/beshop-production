@@ -17,7 +17,6 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     addProducts: (state, action) => {
-      console.log("Adding products to Products State");
       state.nbHits = action.payload.nbHits;
       state.numOfPages = action.payload.numOfPages;
       productsAdapter.setAll(state, action.payload.products);
@@ -31,35 +30,59 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchProductsByFilter: builder.query({
       query: (searchFilters) => {
-
         return {
           url: "/products",
           params: { ...searchFilters },
         };
       },
       async onQueryStarted({}, { dispatch, queryFulfilled }) {
-        console.log("Starting to fetch products")
+        console.log("Starting to fetch products");
         try {
           const { data } = await queryFulfilled;
 
-          const patchResult = dispatch(addProducts(data));
-        } catch {}
+          dispatch(addProducts(data));
+        } catch (error) {
+          console.log(error);
+          dispatch(addProducts({ nbHits: 0, numOfPages: 0, products: [] }));
+        }
       },
       providesTags: (result, error, arg) => {
-        return [
-          { type: "Product", id: "LIST" },
-          ...result?.products?.map((product) => ({
-            type: "Product",
-            id: product._id,
-          })),
-        ];
+        if (result !== undefined) {
+          return [
+            { type: "Product", id: "LIST" },
+            ...result?.products?.map((product) => ({
+              type: "Product",
+              id: product._id,
+            })),
+          ];
+        }
+        return [{ type: "Product", id: "LIST" }];
       },
+    }),
+    updateViewCount: builder.mutation({
+      query: (productId) => ({
+        url: "/products/updateViewCount",
+        method: "PATCH",
+        body: {productId}
+      }),
+      invalidateTags: ["Product"],
+      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+        console.log(args)
+        console.log(typeof(args))
+        try {
+          const data = await queryFulfilled
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
     })
   }),
 });
 
 export const {
   useFetchProductsByFilterQuery,
+  useUpdateViewCountMutation
 } = productsApiSlice;
 
 export const selectProductsResult = (state) => state.products
