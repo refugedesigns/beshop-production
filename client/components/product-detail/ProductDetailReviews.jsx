@@ -41,7 +41,7 @@ const ProductDetailReviews = ({ description, reviews }) => {
         <CustomTab label="Description" {...a11yProps(0)} />
         <CustomTab
           label="Reviews"
-          className="md:mx-2 mt-2 md:mt-0"
+          className="lg:mx-2 mt-2 md:mt-0"
           {...a11yProps(1)}
         />
       </Tabs>

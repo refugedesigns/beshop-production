@@ -67,8 +67,6 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidateTags: ["Product"],
       async onQueryStarted(args, {dispatch, queryFulfilled}) {
-        console.log(args)
-        console.log(typeof(args))
         try {
           const data = await queryFulfilled
           console.log(data)

@@ -11,7 +11,7 @@ const {
 const {
   validateCreateProduct,
   validateUpdateProduct,
-  validateUpdateProductViewCount,
+  validateProductViews,
   validateParams,
   authenticateUser,
   authorizePermissions,
@@ -37,7 +37,9 @@ router
     authorizePermissions("admin, manager"),
     createProduct
   );
-router.route("/updateViewCount").patch(validateUpdateProductViewCount, updateProductViewCount)
+router
+  .route("/updateViewCount")
+  .patch(validateProductViews, updateProductViewCount);
 router
   .route("/:id")
   .get(validateParams, getSingleProduct)

@@ -15,9 +15,12 @@ import { AiOutlineHeart, AiFillCheckSquare } from "react-icons/ai";
 import ContactSocial from "../ui/social/ContactSocial";
 import Button from "../ui/button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "@/store/cartSlice";
-import { selectCartItems } from "@/store/cartSlice";
+import { addToCart } from "@/store/cartSlice";
 import { toast } from "react-toastify";
+import {
+  selectCurrentUser,
+  useUpdateWishlistMutation,
+} from "@/store/userSlice";
 
 const ProductDetailInfo = ({
   title,
@@ -38,7 +41,40 @@ const ProductDetailInfo = ({
   );
   const [wishButtonHover, setWishButtonHover] = useState(false);
   const [amount, setAmount] = useState(0);
+  const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
+  const [updateWishlist, { data, isLoading, isError, isSuccess, error }] =
+    useUpdateWishlistMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(`${title} added to your wishlist!`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.data.msg, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }, [isError]);
 
   const colorsArray = Object.entries(checkedColors).map(([key, val], index) => {
     return val === true && key;
@@ -105,6 +141,23 @@ const ProductDetailInfo = ({
       };
 
       dispatch(addToCart(newCartItem));
+    }
+  };
+
+  const handleAddToWishlist = async () => {
+    if (!user._id) {
+      toast.error("Please login to add items to wishlist", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      await updateWishlist(productId);
     }
   };
   return (
@@ -232,6 +285,7 @@ const ProductDetailInfo = ({
               className={wishButtonHover ? "text-white" : "text-black"}
             />
           }
+          onClick={handleAddToWishlist}
           title="Wish"
           classes="w-full text-black bg-custom-gray border border-solid border-[#eee] font-semibold sm:w-max sm:px-14 hover:text-white hover:bg-black"
           onMouseOver={() => setWishButtonHover(true)}

@@ -1,4 +1,6 @@
 const { body, param, query, validationResult } = require("express-validator");
+const { BadRequestError } = require("../errors")
+const User = require("../models/user.model")
 
 const categories = ["nail", "skin", "makeup", "spa", "perfume", "hair"]
 
@@ -92,7 +94,7 @@ const validateUpdateProduct = [
   },
 ];
 
-const validateUpdateProductViewCount = [
+const validateProductViews = [
   body("productId").isMongoId(),
   (req, res, next) => {
     validationResult(req).throw();
@@ -100,14 +102,14 @@ const validateUpdateProductViewCount = [
   },
 ];
 
-const validateUpdateViewedProducts = [
-  body("viewedProducts.*").isMongoId(),
+const validateViewedProducts = [
+  body("productId")
+    .isMongoId(),
   (req, res, next) => {
-    console.log(req.body)
     validationResult(req).throw();
-    next()
-  }
-]
+    next();
+  },
+];
 
 const validateParams = [
   param("id").isMongoId(),
@@ -176,14 +178,14 @@ const validateCreateOrder = [
 ]
 
 module.exports = {
-    validateCreateProduct,
-    validateUpdateProduct,
-    validateUpdateProductViewCount,
-    validateUpdateViewedProducts,
-    validateParams,
-    validateCreateUser,
-    validateLoginUser,
-    validateCreateReview,
-    validateVerifyEmail,
-    validateCreateOrder,
-}
+  validateCreateProduct,
+  validateUpdateProduct,
+  validateViewedProducts,
+  validateProductViews,
+  validateParams,
+  validateCreateUser,
+  validateLoginUser,
+  validateCreateReview,
+  validateVerifyEmail,
+  validateCreateOrder,
+};

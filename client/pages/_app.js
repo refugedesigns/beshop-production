@@ -29,12 +29,12 @@ Router.events.on("routeChangeStart", progress.start);
 Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
-store.dispatch(
-  userApiSlice.endpoints.getCurrentUser.initiate("", {
-    // TODO: 3600000
-    subscriptionOptions: { pollingInterval: 3600000 },
-  })
-);
+// store.dispatch(
+//   userApiSlice.endpoints.getCurrentUser.initiate("", {
+//     // TODO: 3600000
+//     subscriptionOptions: { pollingInterval: 3600000 },
+//   })
+// );
 
 export default function App({ Component, pageProps }) {
   return (

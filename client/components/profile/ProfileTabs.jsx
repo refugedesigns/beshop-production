@@ -5,8 +5,10 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ProfileTabPanel from "../ui/tabs/CustomTabPannel";
 import CustomTab from "../ui/tabs/CustomTab";
-import AllOrders from "./AllOrders";
-import AllWishlistItems from "../wishlist/AllWishlistItems";
+import dynamic from "next/dynamic";
+const AllOrders = dynamic(() => import('./AllOrders'))
+const AllWishlistItems = dynamic(() => import('../wishlist/AllWishlistItems'))
+
 
 function a11yProps(index) {
   return {
