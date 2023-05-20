@@ -1,10 +1,16 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { CardMedia, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
 
-const ProductSmall = ({imageUrl, title, price}) => {
+const ProductSmall = ({imageUrl, title, price, link}) => {
+    const router = useRouter()
+  const handleProductSmallNav = () => {
+    if(!link) return
+    router.push(link)
+  }
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack onClick={handleProductSmallNav} direction="row" spacing={2} className='hover:cursor-pointer'>
         <CardMedia className='h-24 w-16'>
             <Image src={imageUrl} height="0" width="0" sizes="100vw" className="w-full h-auto object-contain" alt="product image" />
         </CardMedia>

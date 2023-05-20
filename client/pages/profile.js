@@ -62,7 +62,7 @@ const ProfilePage = () => {
             <Grid
               item
               lg={3}
-              className="md:w-full order-2 lg:w-2/6 space-y-6 md:space-y-12 lg:space-y-16 mt-4 lg:mt-0"
+              className="w-full order-2 lg:w-2/6 space-y-6 md:space-y-12 lg:space-y-16 mt-4 lg:mt-0"
             >
               <SubscribeSmall />
               <ViewedProducts />
