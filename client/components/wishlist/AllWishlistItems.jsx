@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   Table,
   TableHead,
@@ -6,11 +7,15 @@ import {
   TableCell,
   TableContainer,
   TableBody,
+  Typography,
 } from "@mui/material";
 import products from "@/data/product/product";
 import WishlistItem from "./WishlistItem";
+import StyledTableCell from "../profile/StyledTableCell";
+import { selectCurrentUser } from "@/store/userSlice";
 
 const AllWishlistItems = () => {
+  const user = useSelector(selectCurrentUser)
   return (
     <TableContainer className="mt-10">
       <Table
@@ -42,16 +47,24 @@ const AllWishlistItems = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.slice(0, 6).map((product) => (
-            <WishlistItem
-              key={product.id}
-              productImage={product.image}
-              productTitle={product.name}
-              productNumber={product.productNumber}
-              productPrice={product.price}
-              productStatus={product.isStocked}
-            />
-          ))}
+          {user.wishlist.length > 0 ? (
+            user.wishlist.map((product) => (
+                <WishlistItem
+                  key={product._id}
+                  productImage={product.image}
+                  productTitle={product.name}
+                  productNumber={product.productNumber}
+                  productPrice={product.price}
+                  productStatus={product.isStocked}
+                />
+              ))
+          ) : (
+            <TableRow>
+              <StyledTableCell>
+                <Typography variant="h4">No Item in your whishlist</Typography>
+              </StyledTableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

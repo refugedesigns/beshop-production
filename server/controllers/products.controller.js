@@ -284,18 +284,10 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 const updateProductViewCount = asyncHandler(async(req, res) => {
   const { productId } = req.body 
+  console.log(productId)
+ const product = await Product.findByIdAndUpdate(productId, {$inc: {"viewCount": 1}}, {new: true});
 
-  const product = await Product.findOne({_id: productId})
-
-  if(!product) {
-    throw new NotFoundError(`No product with id: ${productId}`);
-  }
-
-  product.viewCount += 1
-
-  const savedProduct = await product.save();
-
-  res.status(StatusCodes.OK).json({product: savedProduct})
+  res.status(StatusCodes.OK).json({product})
 })
 
 const deleteProduct = asyncHandler(async (req, res) => {

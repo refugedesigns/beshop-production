@@ -88,7 +88,7 @@ const SingleOrder = ({
               <StyledTableCell className="flex flex-1 md:justify-center md:border-solid md:border md:border-t-0 md:border-b-0 md:border-[#eee]">
                 <Typography
                   variant="body2"
-                  className="max-w-[15rem] text-left md:text-center"
+                  className="max-w-[15rem] text-left"
                 >
                   {orderAddress}
                 </Typography>
@@ -113,7 +113,7 @@ const SingleOrder = ({
                 </Typography>
               </Hidden>
               <StyledTableCell className="md:w-[20%] py-[.7rem] lg:py-[1.3rem] xl:py-[.7rem] flex md:justify-center md:border-solid md:border md:border-t-0 md:border-b-0 md:border-r-0 md:border-[#eee]">
-                {orderStatus.onWay ? (
+                {orderStatus === "on it's way" ? (
                   <Typography variant="body2" className='text-red-500 whitespace-nowrap'>ON IT&#39;S WAY</Typography>
                 ) : (
                   <Typography variant="body2" className='text-green-600 whitespace-nowrap'>DELIVERED</Typography>

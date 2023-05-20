@@ -12,7 +12,7 @@ const isValidToken = (token) => {
 
 const attachAccessToken = ({ res, user }) => {
   const accessToken = createJWT({ payload: { user } });
-  console.log(accessToken);
+
   // TODO: Expires in should be 1 day but for texting it will be 10sec
   //3600000 1000 * 60 * 60
   const oneDay = 3600000;
@@ -27,7 +27,7 @@ const attachAccessToken = ({ res, user }) => {
 
 const attachRefreshToken = ({ res, user, refreshToken }) => {
   const refreshTokenJWT = createJWT({ payload: { user: user, refreshToken } });
-  console.log(refreshTokenJWT);
+
   // 2592000000 1000 * 60 * 60 * 24 * 30
   const longerExp = 2592000000;
 

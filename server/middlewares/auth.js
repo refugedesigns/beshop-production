@@ -9,8 +9,12 @@ const authenticateUser = asyncHandler(async(req, res, next) => {
 
     if(accessToken) {
         const payload = isValidToken(accessToken) 
-
-        if(payload.user.id === req.user._id) {
+        if(payload.user.id) {
+            req.user = {
+              _id: payload.user.id,
+              role: payload.user.role,
+              email: payload.user.email
+            }
             return next();
         }
     }else if(refreshToken) {
@@ -31,7 +35,11 @@ const authenticateUser = asyncHandler(async(req, res, next) => {
       const userToken = createUserToken(payload.user)
 
       attachAccessToken({ res, user: userToken });
-
+      req.user = {
+        _id: payload.user.id,
+        role: payload.user.role,
+        email: payload.user.email,
+      };
       next();
     }else {
         throw new UnauthenticatedError("Session timeout, please login first");

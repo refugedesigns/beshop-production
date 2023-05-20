@@ -163,7 +163,7 @@ const SignupForm = () => {
                     <InputField
                       id="confirmPassword"
                       name="confirmPassword"
-                      type="confirmPassword"
+                      type="password"
                       aria-label="confirm password"
                       placeholder="Confirm password"
                       className="w-full lg:w-auto lg:flex-1"

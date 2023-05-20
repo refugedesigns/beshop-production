@@ -142,7 +142,6 @@ const cartApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (orderInfo) => {
-        console.log(orderInfo);
         return {
           url: "/orders",
           method: "POST",
@@ -151,7 +150,6 @@ const cartApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["Order"],
       async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
-        console.log(args);
         try {
           const orderData = await queryFulfilled;
           console.log(orderData);
@@ -160,10 +158,22 @@ const cartApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    getOrders: builder.query({
+      query: () => "/orders/getCurrentUserOrders",
+      providesTags: ["Order"],
+      async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
+        try {
+          const orderData = await queryFulfilled;
+          console.log(orderData);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    }),
   }),
 });
 
-export const { useCreateOrderMutation } = cartApiSlice;
+export const { useCreateOrderMutation, useGetOrdersQuery } = cartApiSlice;
 
 export const { addToCart, removeFromCart, clearCartItems, deleteFromCart, addDiscount, resetDiscount } = cartSlice.actions 
 

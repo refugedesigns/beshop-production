@@ -1,10 +1,10 @@
-import React, {Fragment, useEffect} from 'react'
+import React, { Fragment, useLayoutEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 import { Box } from "@mui/material";
 import { selectCurrentUser } from "@/store/userSlice";
-import { useUpdateViewCountMutation } from '@/store/productsSlice';
-import { useUpdateViewedProductsMutation } from '@/store/userSlice';
+import { useUpdateViewCountMutation } from "@/store/productsSlice";
+import { useUpdateViewedProductsMutation } from "@/store/userSlice";
 
 import PageDecor from "../ui/page-decor/PageDecor";
 import Banner from "../ui/banner/Banner";
@@ -15,15 +15,25 @@ import InstaPhotos from "../ui/insta-photos/InstaPhotos";
 
 const ProductDetail = ({ product }) => {
   const user = useSelector(selectCurrentUser);
-  const [updateProductViewCount, { data, isLoading, isError, isSuccess}] = useUpdateViewCountMutation()
-  const [updateViewedProducts, { data:userData, isLoading:isUserDataLoading, isError:isUserDataError, isSuccess:isUserDataSuccess}] = useUpdateViewedProductsMutation()
+  const [updateProductViewCount, { data, isLoading, isError, isSuccess }] =
+    useUpdateViewCountMutation();
+  const [
+    updateViewedProducts,
+    {
+      data: userData,
+      isLoading: isUserDataLoading,
+      isError: isUserDataError,
+      isSuccess: isUserDataSuccess,
+    },
+  ] = useUpdateViewedProductsMutation();
 
-  if(isSuccess) {
-    console.log(data)
-  }
+  const memoizedViewedProducts = useMemo(
+    () => user.viewedProducts,
+    [user.viewedProducts]
+  );
 
-  useEffect(() => {
-    const handleProductViewsCount = async() => {
+  useLayoutEffect(() => {
+    const handleProductViewsCount = async () => {
       if (!user._id) {
         let existingProducts = localStorage.getItem("viewedProducts");
         existingProducts = JSON.parse(existingProducts);
@@ -38,8 +48,7 @@ const ProductDetail = ({ product }) => {
               JSON.stringify(existingProducts)
             );
             // Make call to backend to update product view count
-            console.log(product._id)
-            updateProductViewCount(product._id)
+            await updateProductViewCount(product._id);
           }
         } else {
           const viewedProducts = [];
@@ -49,25 +58,38 @@ const ProductDetail = ({ product }) => {
             JSON.stringify(viewedProducts)
           );
           // Make call to backend to update product view count
-          updateProductViewCount(product._id)
-        }
-      }else {
-        // Case for logged in user
-        if(user.viewedProducts.length > 0 && !user.viewedProducts.includes(product._id)) {
-          const existingViewedProducts = user.viewedProducts.map(product => product._id);
-          const viewedProducts = [...existingViewedProducts, product._id];
-          updateViewedProducts(viewedProducts)
-          updateProductViewCount(product._id)
-        }else if(user.viewedProducts.length === 0) {
-          const viewedProducts = [product._id]
-          updateViewedProducts(viewedProducts)
-          updateProductViewCount(product._id)
+          await updateProductViewCount(product._id);
         }
       }
     };
 
     handleProductViewsCount();
-  }, [product._id]);
+  }, []);
+
+  useLayoutEffect(() => {
+    const loggedInUser = async () => {
+      if (user._id) {
+        if (memoizedViewedProducts.length > 0) {
+          const existingViewedProducts = memoizedViewedProducts.map(
+            (product) => product._id
+          );
+          if (!existingViewedProducts.includes(product._id)) {
+            console.log("Running twice");
+            try {
+              await updateViewedProducts(product._id).unwrap();
+              await updateProductViewCount(product._id).unwrap();
+            } catch (error) {}
+          }
+        } else if (memoizedViewedProducts.length === 0) {
+          try {
+            await updateViewedProducts(product._id).unwrap();
+            await updateProductViewCount(product._id).unwrap();
+          } catch (error) {}
+        }
+      }
+    };
+    loggedInUser();
+  }, []);
 
   return (
     <Fragment>
@@ -116,4 +138,4 @@ const ProductDetail = ({ product }) => {
   );
 };
 
-export default ProductDetail
+export default ProductDetail;
