@@ -162,6 +162,7 @@ const cartApiSlice = apiSlice.injectEndpoints({
       query: () => "/orders/getCurrentUserOrders",
       providesTags: ["Order"],
       async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
+        console.log("Starting order query")
         try {
           const orderData = await queryFulfilled;
           console.log(orderData);

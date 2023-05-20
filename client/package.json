@@ -15,6 +15,7 @@
     "@mui/material": "^5.11.15",
     "@reduxjs/toolkit": "^1.9.4",
     "@stripe/stripe-js": "^1.52.1",
+    "axios": "^1.4.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "formik": "^2.2.9",

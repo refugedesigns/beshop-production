@@ -157,7 +157,7 @@ const ProductDetailInfo = ({
         theme: "colored",
       });
     } else {
-      await updateWishlist(productId);
+      await updateWishlist(productId).unwrap();
     }
   };
   return (

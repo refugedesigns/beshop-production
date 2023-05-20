@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     [apiSlice.reducerPath]: apiSlice.reducer ,
     products: productsReducer,
-    user: userReducer 
+    user: userReducer, 
 })
 
 

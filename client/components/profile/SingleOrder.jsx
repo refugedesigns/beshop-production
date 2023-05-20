@@ -28,7 +28,7 @@ const SingleOrder = ({
   expanded,
   onChange
 }) => {
-  console.log(orderItems);
+
   return (
     <Accordion
       className="shadow-none"

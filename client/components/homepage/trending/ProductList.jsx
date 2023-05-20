@@ -86,12 +86,12 @@ const ProductList = ({ products, loading }) => {
                 />
               </Box>
             ))
-        : products?.map((product) => (
+        : products?.map((product, index) => (
             <Product
               title={product.name}
               salePrice={product.oldPrice}
               realPrice={product.price}
-              key={product._id}
+              key={product._id ?? index}
               productImage={product.image}
               productId={product._id}
               isNew={product.new}

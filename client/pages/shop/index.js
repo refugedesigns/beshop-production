@@ -23,6 +23,7 @@ import {
   useFetchProductsByFilterQuery,
   selectNumOfPages
 } from "@/store/productsSlice";
+import { selectCurrentUser } from "@/store/userSlice";
 
 const ShopPage = () => {
   const [queryFilter, setQueryFilter] = useState({
@@ -33,6 +34,7 @@ const ShopPage = () => {
   const router = useRouter();
   const products = useSelector(selectAllProducts);
   const numOfPages = useSelector(selectNumOfPages);
+  const user = useSelector(selectCurrentUser)
   const [isFirstRender, setIsFirstRender] = useState(true)
   const [checkedNewProduct, setCheckedNewProducts] = useState(false);
   const [checkedSaleProduct, setCheckedSaleProducts] = useState(false);
@@ -189,7 +191,7 @@ const ShopPage = () => {
               setQueryFilter={setQueryFilter}
               queryFilter={queryFilter}
             />
-            <ViewedProducts />
+            {user.viewedProducts.length > 0 && <ViewedProducts products={user.viewedProducts} />}
             <TopProducts />
           </Grid>
           <Grid className="mt-10 sm:mt-0 sm:w-full h-max" item container sm={9}>

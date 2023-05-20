@@ -21,7 +21,7 @@ const ProfileTabs = () => {
   const [value, setValue] = useState(0);
   const router = useRouter();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -48,7 +48,7 @@ const ProfileTabs = () => {
         className=""
       >
         <CustomTab label="My Info" {...a11yProps(0)} />
-        <CustomTab label="My Orders" className="mx-2" {...a11yProps(1)} />
+        <CustomTab label="My Orders" className="md:mx-2" {...a11yProps(1)} />
         <CustomTab label="Wishlist" {...a11yProps(2)} />
       </Tabs>
       <ProfileTabPanel value={value} index={0}>
