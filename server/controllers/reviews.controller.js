@@ -15,7 +15,6 @@ const createReview = asyncHandler(async(req, res) => {
     throw new NotFoundError(`No product with id: ${productId}`);
   }
 
-  console.log(req.user)
 
   const alreadySubmitted = await Review.findOne({
     user: req.user._id,
@@ -83,9 +82,9 @@ const deleteReview = asyncHandler(async(req, res) => {
     throw new NotFoundError(`No review with id: ${reviewId}`);
   }
 
-  checkPermissions(req.user._id, review.user);
+  checkPermissions(req.user, review.user);
 
-  await review.remove();
+  await Review.deleteOne({_id: reviewId})
   res.status(StatusCodes.OK).json({ msg: "Success! Review has been removed" });
 });
 

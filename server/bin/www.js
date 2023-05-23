@@ -22,6 +22,8 @@ app.set("port", port);
 
 let server = require("../app").server;
 
+server.timeout = 120000
+
 /**
  * Listen on provided port, on all network interfaces
  */

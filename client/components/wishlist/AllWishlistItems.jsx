@@ -47,7 +47,7 @@ const AllWishlistItems = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {user.wishlist.length > 0 ? (
+          {user?.wishlist?.length > 0 ? (
             user.wishlist.map((product) => (
                 <WishlistItem
                   key={product._id}

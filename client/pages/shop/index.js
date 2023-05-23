@@ -191,7 +191,7 @@ const ShopPage = () => {
               setQueryFilter={setQueryFilter}
               queryFilter={queryFilter}
             />
-            {user.viewedProducts.length > 0 && <ViewedProducts products={user.viewedProducts} />}
+            {user?.viewedProducts?.length > 0 && <ViewedProducts products={user.viewedProducts} />}
             <TopProducts />
           </Grid>
           <Grid className="mt-10 sm:mt-0 sm:w-full h-max" item container sm={9}>
