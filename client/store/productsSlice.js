@@ -49,7 +49,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       providesTags: (result, error, arg) => {
         if (result !== undefined) {
           return [
-            { type: "Product", id: "LIST" },
+            "Product",
             ...result?.products?.map((product) => ({
               type: "Product",
               id: product._id,
@@ -63,24 +63,44 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       query: (productId) => ({
         url: "/products/updateViewCount",
         method: "PATCH",
-        body: {productId}
+        body: { productId },
       }),
       invalidateTags: ["Product"],
-      async onQueryStarted(args, {dispatch, queryFulfilled}) {
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        console.log(args);
         try {
-          const data = await queryFulfilled
-          console.log(data)
+          const data = await queryFulfilled;
+          console.log(data);
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
-      }
-    })
+      },
+    }),
+    createProductReview: builder.mutation({
+      query: (reviewInfo) => ({
+        url: "/reviews",
+        method: "POST",
+        body: reviewInfo,
+      }),
+      invalidateTags: ["Product"],
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        console.log("Starting to create a review");
+        console.log(args);
+        try {
+          const data = await queryFulfilled;
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
 export const {
   useFetchProductsByFilterQuery,
-  useUpdateViewCountMutation
+  useUpdateViewCountMutation,
+  useCreateProductReviewMutation,
 } = productsApiSlice;
 
 export const selectProductsResult = (state) => state.products

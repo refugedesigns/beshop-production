@@ -93,10 +93,9 @@ const AllOrders = () => {
                 const date = moment(createdAt).format("LL");
                 const deliveryAddress =
                   shippingDetails.address.line1 +
-                  " " +
-                  shippingDetails.address.city;
+                  " " + shippingDetails.address.city;
                 const amount = total.toFixed(2);
-
+                	  console.log(deliveryAddress)
                 return (
                   <SingleOrder
                     key={index}

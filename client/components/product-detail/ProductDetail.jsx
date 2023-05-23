@@ -74,10 +74,12 @@ const ProductDetail = ({ product }) => {
             (product) => product._id
           );
           if (!existingViewedProducts.includes(product._id)) {
-            console.log("Running twice");
+
             try {
-              await updateViewedProducts(product._id).unwrap();
-              await updateProductViewCount(product._id).unwrap();
+              const viewedPayload = await updateViewedProducts(product._id).unwrap();
+              const viewCountPayload = await updateProductViewCount(product._id).unwrap();
+              console.log(viewedPayload)
+              console.log(viewCountPayload)
             } catch (error) {}
           }
         } else if (memoizedViewedProducts.length === 0) {
@@ -125,6 +127,7 @@ const ProductDetail = ({ product }) => {
         <ProductDetailReviews
           description={product.description}
           reviews={product?.reviews}
+          productId={product._id}
         />
       </Box>
       {/* <ProductSlick

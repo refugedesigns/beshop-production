@@ -179,7 +179,9 @@ const updateOrder = asyncHandler(async (req, res) => {
 const getCurrentUserOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({ user: req.user._id });
   const firstOrder = orders[0];
-  checkPermissions(req.user, firstOrder.user);
+  if (firstOrder) {
+    checkPermissions(req.user, firstOrder.user);
+  }
   res.status(StatusCodes.OK).json({ orders, nbHits: orders.length });
 });
 

@@ -3,6 +3,7 @@ import { Box, Button, Divider, Tabs, Typography } from "@mui/material";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import moment from 'moment';
 
 import CustomTab from "../ui/tabs/CustomTab";
 import ReviewsTabPannel from "../ui/tabs/CustomTabPannel";
@@ -16,7 +17,7 @@ function a11yProps(index) {
   };
 }
 
-const ProductDetailReviews = ({ description, reviews }) => {
+const ProductDetailReviews = ({ description, reviews, productId }) => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
@@ -54,16 +55,16 @@ const ProductDetailReviews = ({ description, reviews }) => {
             {reviews?.map((review, index) => (
               <ReviewCard
                 key={index}
-                profileImage={review.author?.image}
-                username={review.author?.name}
-                date={review.reviewDate}
+                profileImage={review.user?.profileImage}
+                username={review.user?.firstName}
+                date={moment(review.createdAt).format("LL")}
                 rating={review.rating}
-                text={review.content}
+                text={review.comment}
               />
             ))}
             <Button endIcon={<HiOutlineArrowLongRight />}>Show More</Button>
           </Box>
-          <ReviewForm />
+          <ReviewForm productId={productId} />
         </Box>
       </ReviewsTabPannel>
       <Divider />

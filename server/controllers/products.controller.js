@@ -4,8 +4,6 @@ const { uploadBufferImage } = require("../utils");
 const Product  = require("../models/product.model");
 const {
   BadRequestError,
-  UnauthorizedError,
-  UnauthenticatedError,
   NotFoundError,
 } = require("../errors");
 
@@ -24,8 +22,6 @@ const getAllProducts = asyncHandler(async (req, res) => {
     numericFilters,
   } = req.query;
   const queryObject = {};
-
-  console.log(req.query)
 
   if (isNew) {
     queryObject.new = isNew === "true" ? true : false;
@@ -94,7 +90,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
   result = result.skip(skip).limit(limit);
 
-  const products = await result;
+  const products = await result.populate({path: "reviews", populate: {path: "user", select: "firstName lastName email profileImage"}});
 
   const totalProducts = await Product.countDocuments(queryObject)
   const numOfPages = Math.ceil(totalProducts / limit);
@@ -284,7 +280,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 const updateProductViewCount = asyncHandler(async(req, res) => {
   const { productId } = req.body 
-  console.log(productId)
+
  const product = await Product.findByIdAndUpdate(productId, {$inc: {"viewCount": 1}}, {new: true});
 
   res.status(StatusCodes.OK).json({product})
