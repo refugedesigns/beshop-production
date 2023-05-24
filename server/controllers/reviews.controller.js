@@ -25,13 +25,15 @@ const createReview = asyncHandler(async(req, res) => {
     throw new BadRequestError("Already submitted review for this product.");
   }
 
-  const review = await Review.create({
+  let review = await Review.create({
     rating,
     title,
     comment,
     user: req.user._id,
     product: productId,
   });
+
+  review = await review.populate({path: "user", select: "firstName lastName profileImage email"})
 
   res.status(StatusCodes.CREATED).json({ review });
 });

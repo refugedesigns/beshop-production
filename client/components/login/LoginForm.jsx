@@ -69,7 +69,7 @@ const LoginForm = () => {
           component="section"
           className="bg-[url('/assets/img/login-form__bg.png')] bg-no-repeat bg-cover border border-solid border-[#eee] my-20 py-16 px-4 sm:px-12 z-10"
         >
-          {isError && <Typography className="text-center my-5 bg-red-200 text-xl text-red-500 py-3 px-6 rounded-lg">{error.data.msg}</Typography> }
+          {isError && <Typography className="text-center my-5 bg-red-200 text-xl text-red-500 py-3 px-6 rounded-lg">{error?.data?.msg}</Typography> }
           <Typography
             variant="h3"
             className="text-center font-elegant text-3xl md:text-5xl"

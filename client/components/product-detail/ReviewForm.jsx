@@ -88,11 +88,11 @@ const ReviewForm = ({productId}) => {
               user: user._id,
               product: productId,
             };
-            console.log(review);
+
             try {
-              const payload = await createReview(review).unwrap();
-              console.log(payload);
+              await createReview(review).unwrap();
               setSubmitting(false);
+              resetForm()
             } catch (error) {
               console.log(error);
             }

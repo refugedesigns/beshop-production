@@ -11,7 +11,8 @@ const {
   updateUser,
   showCurrentUser,
   updateViewedProducts,
-  updateWishlist
+  updateWishlist,
+  clearWishlistItems
 } = require("../controllers");
 
 const router = Router();
@@ -26,6 +27,7 @@ router.patch(
   updateViewedProducts
 );
 router.patch("/updateWishlist", authenticateUser, updateWishlist);
+router.patch("/clearWishlist", authenticateUser, clearWishlistItems);
 router.patch("/updateUserPassword", updateUserPassword);
 router.get("/:id", getSingleUser);
 

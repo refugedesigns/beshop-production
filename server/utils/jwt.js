@@ -15,7 +15,7 @@ const attachAccessToken = ({ res, user }) => {
 
   // TODO: Expires in should be 1 day but for texting it will be 10sec
   //3600000 1000 * 60 * 60
-  const oneDay = 3600000;
+  const oneDay = 10000;
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,

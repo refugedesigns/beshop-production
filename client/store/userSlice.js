@@ -42,7 +42,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
         try {
           const data = await queryFulfilled;
-          console.log(data);
           dispatch(addUser(data.data.user));
         } catch (err) {
           console.log(err);
@@ -61,7 +60,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         console.log(args);
         try {
           const data = await queryFulfilled;
-          console.log(data.data.user);
         } catch (error) {
           console.error(error);
         }
@@ -78,7 +76,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         console.log(args);
         try {
           const data = await queryFulfilled;
-          console.log(data);
           dispatch(addUser(data.data.user));
         } catch (error) {
           console.error(error);
@@ -125,6 +122,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    clearWishlist: builder.mutation({
+      query: () => ({
+        url: "/users/clearWishlist",
+        method: "PATCH",
+        body: {}
+      }),
+      invalidatesTags: ["User"],
+      async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
+        try {
+          const result = await queryFulfilled
+          console.log(result)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    })
   }),
 });
 
@@ -135,6 +148,7 @@ export const {
   useVerifyEmailMutation,
   useUpdateViewedProductsMutation,
   useUpdateWishlistMutation,
+  useClearWishlistMutation
 } = userApiSlice;
 
 export const selectCurrentUser = (state) => state.user

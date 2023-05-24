@@ -19,7 +19,8 @@ const {
   updateUser,
   showCurrentUser,
   updateViewedProducts,
-  updateWishlist
+  updateWishlist,
+  clearWishlistItems
 } = require("./user.controller");
 
 const {
@@ -57,6 +58,7 @@ module.exports = {
   updateUserPassword,
   updateUser,
   showCurrentUser,
+  clearWishlistItems,
   createReview,
   getAllReviews,
   updateReview,
