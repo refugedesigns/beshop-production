@@ -21,10 +21,13 @@ const productsSlice = createSlice({
       state.numOfPages = action.payload.numOfPages;
       productsAdapter.setAll(state, action.payload.products);
     },
+    addReview: (state, action) => {
+      state.entities[action.payload.productId].reviews.push(action.payload.review)
+    }
   },
 });
 
-export const { addProducts } = productsSlice.actions;
+export const { addProducts, addReview } = productsSlice.actions;
 
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -87,10 +90,12 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         console.log("Starting to create a review");
         console.log(args);
         try {
-          const data = await queryFulfilled;
-          console.log(data);
+          const result = await queryFulfilled;
+          console.log(result);
+          dispatch(addReview({productId: result.data.review.product, review:result.data.review}))
         } catch (error) {
           console.log(error);
+          apiSlice.util.invalidateTags(["User"])
         }
       },
     }),

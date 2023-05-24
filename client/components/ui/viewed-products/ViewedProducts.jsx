@@ -11,7 +11,7 @@ const ViewedProducts = ({ products }) => {
       </Typography>
       <Divider className="mt-2 bg-black h-[0.1rem]" />
       <Stack className="mt-6 space-y-4">
-        {products?.map((product) => (
+        {products?.slice(0, 3).map((product) => (
           <ProductSmall
             key={product._id}
             title={product.name}
@@ -20,7 +20,6 @@ const ViewedProducts = ({ products }) => {
             link={`/shop/${product._id}`}
           />
         ))}
-        Typograpy
       </Stack>
     </Box>
   );

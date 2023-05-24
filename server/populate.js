@@ -5,11 +5,12 @@ const { connectDB } = require("./utils");
 const Product = require("./models/product.model");
 const Order = require("./models/orders.model");
 const User = require("./models/user.model");
+const Review = require("./models/reviews.model");
 
 const populateDB = async function () {
   try {
     connectDB(process.env.MONGO_URL)
-    await User.deleteMany({})
+    await Review.deleteMany({})
     process.exit(0)
   } catch (error) {
     console.log(error)

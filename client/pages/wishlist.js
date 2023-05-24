@@ -11,12 +11,22 @@ import ProductSlick from "@/components/ui/products-slick/ProductSlick";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
 import products from "@/data/product/product";
-import { selectCurrentUser } from "@/store/userSlice";
+import { selectCurrentUser, useClearWishlistMutation } from "@/store/userSlice";
 
 const WishlistPage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [clearWishlist, {data, isLoading:loading, isSuccess}] = useClearWishlistMutation()
   const user = useSelector(selectCurrentUser);
   const router = useRouter();
+
+  const handleClearWishlist = async() =>  {
+    try {
+      const payload = await clearWishlist().unwrap()
+      console.log(payload)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
     if (user._id) {
@@ -57,6 +67,7 @@ const WishlistPage = () => {
         <Box className="mt-8 w-full space-y-4 md:flex md:space-y-0 md:space-x-2">
           {user?.wishlist?.length > 0 && (
             <Button
+            onClick={handleClearWishlist}
               title="Clear Wishlist"
               classes="w-full md:w-[20%] whitespace-nowrap bg-custom-gray text-gray-900 tracking-wide h-16 md:h-auto border-solid border-[1px] border-[#eee] hover:bg-black hover:text-white"
             />

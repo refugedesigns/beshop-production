@@ -76,10 +76,8 @@ const ProductDetail = ({ product }) => {
           if (!existingViewedProducts.includes(product._id)) {
 
             try {
-              const viewedPayload = await updateViewedProducts(product._id).unwrap();
-              const viewCountPayload = await updateProductViewCount(product._id).unwrap();
-              console.log(viewedPayload)
-              console.log(viewCountPayload)
+              await updateViewedProducts(product._id).unwrap();
+              await updateProductViewCount(product._id).unwrap();
             } catch (error) {}
           }
         } else if (memoizedViewedProducts.length === 0) {

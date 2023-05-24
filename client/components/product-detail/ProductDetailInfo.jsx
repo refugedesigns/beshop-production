@@ -63,7 +63,7 @@ const ProductDetailInfo = ({
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.data.msg, {
+      toast.error(error?.data?.msg, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

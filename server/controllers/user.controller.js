@@ -107,6 +107,12 @@ const updateWishlist = asyncHandler(async (req, res) => {
   res.status(StatusCodes.OK).json({ user });
 });
 
+const clearWishlistItems = asyncHandler(async(req, res) => {
+  const user = await User.findByIdAndUpdate(req.user._id, {wishlist: []}, {new: true})
+
+  res.status(StatusCodes.OK).json({user})
+})
+
 const updateUserPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
@@ -132,5 +138,6 @@ module.exports = {
   updateUser,
   showCurrentUser,
   updateViewedProducts,
-  updateWishlist
+  updateWishlist,
+  clearWishlistItems
 };
