@@ -6,6 +6,7 @@ import Banner from '@/components/ui/banner/Banner'
 import Button from '@/components/ui/button/Button';
 import PageDecor from '@/components/ui/page-decor/PageDecor'
 import { Box, Container, Typography } from '@mui/material';
+import NextHead from '@/components/ui/Head/Head';
 
 const SuccessPage = () => {
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const SuccessPage = () => {
     }
   return (
     <Fragment>
+      <NextHead title="GoShop - Order Success" description="GoShop Order Success Page" />
       <PageDecor />
       <Banner
         pageTitle="Order Completed"

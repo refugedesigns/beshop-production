@@ -4,8 +4,12 @@ import { Box, Modal, Typography } from "@mui/material";
 import Portal from "./Portal";
 import Button from "../button/Button";
 
-const WishlistModal = ({ open }) => {
+const WishlistModal = ({ open, setOpenModal }) => {
   const router = useRouter();
+
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
   return (
     <Portal>
       <Modal
@@ -25,7 +29,7 @@ const WishlistModal = ({ open }) => {
               classes=""
             />
             <Button
-              onClick={() => router.push("/shop")}
+              onClick={handleCloseModal}
               title="Close"
               classes=""
             />

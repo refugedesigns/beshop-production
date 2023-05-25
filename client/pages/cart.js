@@ -17,6 +17,7 @@ const CartPage = () => {
   const router = useRouter();
   return (
     <Fragment>
+      <NextHead title="GoShop - Cart" description="GoShop Cart Page" />
       <PageDecor />
       <Banner
         pageTitle="Cart"

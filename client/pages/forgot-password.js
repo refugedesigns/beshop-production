@@ -8,6 +8,7 @@ import * as yup from "yup";
 import InputField from "@/components/ui/inpu-field/InputField";
 import Button from "@/components/ui/button/Button";
 import Link from "next/link";
+import NextHead from "@/components/ui/Head/Head";
 
 const validationSchema = yup.object({
   email: yup
@@ -91,6 +92,7 @@ const ForgortPasswordPage = () => {
   }
   return (
     <Fragment>
+      <NextHead title="GoShop - Forgot Password" description="GoShop Forgo Password" />
       <Banner
         pageTitle="Forgot Password"
         breadcrumbs={[

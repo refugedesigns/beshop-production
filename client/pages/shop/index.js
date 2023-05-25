@@ -25,6 +25,7 @@ import {
 } from "@/store/productsSlice";
 import { selectCurrentUser } from "@/store/userSlice";
 import WishlistModal from "@/components/ui/modals/WishlistModal";
+import NextHead from "@/components/ui/Head/Head";
 
 const ShopPage = () => {
   const [queryFilter, setQueryFilter] = useState({
@@ -170,6 +171,7 @@ const ShopPage = () => {
   };
   return (
     <Fragment>
+      <NextHead title="GoShop - Shop Page" description="This is the main shop page" />
       <WishlistModal />
       <Banner
         pageTitle="Shop"

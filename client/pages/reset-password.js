@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { Puff } from "react-loader-spinner";
 import InputField from "@/components/ui/inpu-field/InputField";
 import Button from "@/components/ui/button/Button";
+import NextHead from "@/components/ui/Head/Head";
 
 const validationSchema = yup.object({
   password: yup
@@ -130,6 +131,7 @@ const ResetPasswordPage = () => {
   }
   return (
     <Fragment>
+      <NextHead title="GoShop - Reset Password" description="GoShop Reset Password Page" />
       <Banner
         pageTitle="Forgot Password"
         breadcrumbs={[

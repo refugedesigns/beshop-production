@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import {
   selectCurrentUser,
   useUpdateWishlistMutation,
@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addToCart, selectTotalItems } from "@/store/cartSlice";
+import WishlistModal from "../modals/WishlistModal";
 
 const Product = ({
   title,
@@ -31,6 +32,7 @@ const Product = ({
   const user = useSelector(selectCurrentUser);
   const currentNumOfItems = useRef();
   const numOfCartItems = useSelector(selectTotalItems);
+  const [openModal, setOpenModal] = useState(false)
   const [updateWishlist, { data, isLoading, isSuccess, isError, error }] =
     useUpdateWishlistMutation();
 
@@ -80,10 +82,11 @@ const Product = ({
         progress: undefined,
         theme: "colored",
       });
+      setOpenModal(true);
       return;
-    } else {
-      await updateWishlist(productId);
     }
+    await updateWishlist(productId);
+    
   };
 
   const handleAddToCart = async () => {
@@ -98,6 +101,7 @@ const Product = ({
         progress: undefined,
         theme: "colored",
       });
+      
       return;
     }
     const item = {
@@ -132,6 +136,7 @@ const Product = ({
   };
   return (
     <Box className="mx-auto lg:mx- hover:cursor-pointer relative ">
+      <WishlistModal open={openModal} setOpenModal={setOpenModal} />
       <Stack className="absolute z-30 top-0 right-0 font-body">
         {isNew && (
           <Typography

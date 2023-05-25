@@ -12,6 +12,7 @@ import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
 
 import products from "@/data/product/product";
 import { selectCurrentUser, useClearWishlistMutation } from "@/store/userSlice";
+import NextHead from '@/components/ui/Head/Head';
 
 const WishlistPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +59,7 @@ const WishlistPage = () => {
 
   return (
     <Fragment>
+      <NextHead title="GoShop - Wishlist" description="GoShop Wishlist Page" />
       <Banner
         pageTitle="Wishlist"
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "Wishlist" }]}

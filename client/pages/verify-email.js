@@ -6,6 +6,7 @@ import Button from "@/components/ui/button/Button";
 import PageDecor from "@/components/ui/page-decor/PageDecor";
 import { Container, Typography, Box } from "@mui/material";
 import { verifyUserEmail } from "@/lib/verifyUserEmail";
+import NextHead from "@/components/ui/Head/Head";
 
 const VerifyEmailPage = (verificationResult) => {
   const router = useRouter()
@@ -52,6 +53,7 @@ const VerifyEmailPage = (verificationResult) => {
   }
   return (
     <Fragment>
+      <NextHead title="GoShop - Verify Email" description="GoShop Verify Email Page" />
       <PageDecor />
       <Banner pageTitle="Email Verification" />
       <Container maxWidth="lg" className="flex-1 h-[300px] my-10">

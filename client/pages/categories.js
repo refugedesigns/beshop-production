@@ -6,10 +6,12 @@ import Banner from "@/components/ui/banner/Banner";
 import categories from "@/data/category/category";
 import CategoryCard from "@/components/ui/category-item/CategoryCard";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos"
+import NextHead from '@/components/ui/Head/Head';
 
 const CategoriesPage = () => {
   return (
     <Fragment>
+      <NextHead title="GoShop - Product Categories" description="GoShop Product Categories Page" />
       <Banner
         pageTitle="Categories"
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "Categories" }]}

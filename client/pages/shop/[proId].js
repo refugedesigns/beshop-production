@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { selectProductById } from '@/store/productsSlice';
 
 import ProductDetail from '@/components/product-detail/ProductDetail';
+import NextHead from '@/components/ui/Head/Head';
 
 const ShopProductDetailPage = () => {
     const router = useRouter()
@@ -15,7 +16,12 @@ const ShopProductDetailPage = () => {
         return <p>loading</p>
     }
 
-   return <ProductDetail product={product} />
+   return (
+     <Fragment>
+        <NextHead title={`GoShop - ${product.name}`} description={product.description} />
+       <ProductDetail product={product} />
+     </Fragment>
+   );
 }
 
 export default ShopProductDetailPage

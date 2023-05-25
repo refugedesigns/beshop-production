@@ -10,6 +10,7 @@ import DiscountSmall from "@/components/profile/DiscountSmall";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import SessionModal from "@/components/ui/modals/SessionModal";
 import { selectCurrentUser } from "@/store/userSlice";
+import NextHead from "@/components/ui/Head/Head";
 
 const ProfilePage = () => {
   const [isSessionTimeout, setIsSessionTimeout] = useState(false);
@@ -52,6 +53,7 @@ const ProfilePage = () => {
   } else if (!isLoading) {
     content = (
       <Fragment>
+        <NextHead title="GoShop - Profile" description="GoShop Profile Page" />
         {isSessionTimeout && <SessionModal open={isSessionTimeout} />}
         <Banner
           pageTitle="My Profile"

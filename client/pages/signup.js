@@ -8,6 +8,7 @@ import React, { Fragment } from 'react'
 const signup = () => {
   return (
     <Fragment>
+      <NextHead title="GoShop - Signup" description="GoShop Signup Page" />
         <PageDecor />
         <Banner pageTitle="Registration" breadcrumbs={[{title:"Home", link: "/"}, {title: "Signup"}]} />
         <SignupForm />
