@@ -20,19 +20,18 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      console.log(action.payload)
-      return { ...action.payload }
+      return { ...action.payload };
     },
     removeUser: (state, action) => {
-      return {...initialState}
+      return { ...initialState };
     },
     logTimeout: (state, action) => {
-      return { ...initialState, error: action.payload}
-    }
+      return { ...initialState, error: action.payload };
+    },
   },
 });
 
-export const { addUser, removeUser, logTimeout } = userSlice.actions
+export const { addUser, removeUser, logTimeout } = userSlice.actions;
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -126,18 +125,38 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: "/users/clearWishlist",
         method: "PATCH",
-        body: {}
+        body: {},
       }),
       invalidatesTags: ["User"],
       async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {
         try {
-          const result = await queryFulfilled
-          console.log(result)
+          const result = await queryFulfilled;
+          dispatch(addUser(result.data.user));
         } catch (error) {
-          console.error(error)
+          console.error(error);
         }
-      }
-    })
+      },
+    }),
+    forgotPassword: builder.mutation({
+      query: (email) => ({
+        url: "/auth/forgot-password",
+        method: "POST",
+        body: { email },
+      }),
+      async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {},
+    }),
+    resetPassword: builder.mutation({
+      query: ({ token, email, password }) => ({
+        url: "/auth/reset-password",
+        method: "POST",
+        body: {
+          token,
+          email,
+          password,
+        },
+      }),
+      async onQueryStarted (args, {dispatch, getState, queryFulfilled}) {}
+    }),
   }),
 });
 
@@ -148,7 +167,9 @@ export const {
   useVerifyEmailMutation,
   useUpdateViewedProductsMutation,
   useUpdateWishlistMutation,
-  useClearWishlistMutation
+  useClearWishlistMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation
 } = userApiSlice;
 
 export const selectCurrentUser = (state) => state.user

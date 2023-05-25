@@ -9,10 +9,12 @@ import WideCard from "@/components/ui/wide-card/WideCard";
 import ContactForm from "@/components/contact/ContactForm";
 import Location from "@/components/contact/Location";
 import InstaPhotos from "@/components/ui/insta-photos/InstaPhotos";
+import NextHead from "@/components/ui/Head/Head";
 
 const ContactPage = () => {
   return (
     <Fragment>
+      <NextHead title="GoShop - Contact" description="GoShop Contact Page" />
       <Banner
         pageTitle="Contact"
         breadcrumbs={[{ title: "Home", link: "/" }, { title: "Contact" }]}

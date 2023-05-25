@@ -11,7 +11,7 @@ const sendEmail = async({subject, url, user, templateId}) => {
         "subject": subject,
         "templateId": templateId,
         "params": {
-            "name": "Erasmus Antwi",
+            "name": user.firstName,
             "url": url 
         },
         messageVersions: [

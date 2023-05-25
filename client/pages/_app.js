@@ -13,8 +13,6 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
-import { userApiSlice } from '@/store/userSlice';
-
 
 let persistor = persistStore(store);
 
@@ -28,13 +26,6 @@ const progress = new ProgressBar({
 Router.events.on("routeChangeStart", progress.start);
 Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
-
-// store.dispatch(
-//   userApiSlice.endpoints.getCurrentUser.initiate("", {
-//     // TODO: 3600000
-//     subscriptionOptions: { pollingInterval: 3600000 },
-//   })
-// );
 
 export default function App({ Component, pageProps }) {
   return (

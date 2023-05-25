@@ -24,6 +24,8 @@ import {
   selectNumOfPages
 } from "@/store/productsSlice";
 import { selectCurrentUser } from "@/store/userSlice";
+import WishlistModal from "@/components/ui/modals/WishlistModal";
+import NextHead from "@/components/ui/Head/Head";
 
 const ShopPage = () => {
   const [queryFilter, setQueryFilter] = useState({
@@ -38,6 +40,7 @@ const ShopPage = () => {
   const [isFirstRender, setIsFirstRender] = useState(true)
   const [checkedNewProduct, setCheckedNewProducts] = useState(false);
   const [checkedSaleProduct, setCheckedSaleProducts] = useState(false);
+  const [openModal, setOpenModal] = useState(false)
   const { data, isLoading, isError, isSuccess, isFetching } =
     useFetchProductsByFilterQuery(queryFilter, {
       refetchOnMountOrArgChange: true,
@@ -168,6 +171,8 @@ const ShopPage = () => {
   };
   return (
     <Fragment>
+      <NextHead title="GoShop - Shop Page" description="This is the main shop page" />
+      <WishlistModal />
       <Banner
         pageTitle="Shop"
         breadcrumbs={[{ link: "/", title: "Home" }, { title: "Shop" }]}

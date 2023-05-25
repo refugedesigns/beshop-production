@@ -22,6 +22,7 @@ const AboutPage = () => {
   }
   return (
     <Fragment>
+      <NextHead title="GoShop - About" description="GoShop About Page" />
       <PageDecor />
       <Banner
         pageTitle="About"

@@ -167,7 +167,7 @@ const LoginForm = () => {
             </Typography>
             <Link
               className="no-underline text-style-color hover:opacity-80"
-              href="/recover-password"
+              href="/forgot-password"
             >
               <Typography variant="body2">Lost your password?</Typography>
             </Link>

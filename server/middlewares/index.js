@@ -5,13 +5,15 @@ const authorizePermissions = require("./authorizePermissions")
 const {
   validateCreateProduct,
   validateUpdateProduct,
-  validateViewedProducts,
+  validateProduct,
   validateProductViews,
   validateParams,
   validateCreateUser,
   validateLoginUser,
   validateCreateReview,
   validateVerifyEmail,
+  validateResetPassword,
+  validateForgotPassword,
   validateCreateOrder,
 } = require("./validation");
 
@@ -22,12 +24,14 @@ module.exports = {
   authorizePermissions,
   validateCreateProduct,
   validateUpdateProduct,
-  validateViewedProducts,
+  validateProduct,
   validateProductViews,
   validateParams,
   validateCreateUser,
   validateLoginUser,
   validateCreateReview,
   validateVerifyEmail,
+  validateResetPassword,
+  validateForgotPassword,
   validateCreateOrder,
 };

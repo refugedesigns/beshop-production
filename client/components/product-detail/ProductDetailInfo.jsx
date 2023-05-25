@@ -21,6 +21,7 @@ import {
   selectCurrentUser,
   useUpdateWishlistMutation,
 } from "@/store/userSlice";
+import WishlistModal from "../ui/modals/WishlistModal";
 
 const ProductDetailInfo = ({
   title,
@@ -39,6 +40,7 @@ const ProductDetailInfo = ({
       return acc;
     }, {})
   );
+  const [openModal, setOpenModal] = useState(false);
   const [wishButtonHover, setWishButtonHover] = useState(false);
   const [amount, setAmount] = useState(0);
   const user = useSelector(selectCurrentUser);
@@ -156,12 +158,14 @@ const ProductDetailInfo = ({
         progress: undefined,
         theme: "colored",
       });
+      setOpenModal(true)
     } else {
       await updateWishlist(productId).unwrap();
     }
   };
   return (
     <Box className="my-10 lg:my-20 lg:w-1/2" component="section">
+      <WishlistModal open={openModal} setOpenModal={setOpenModal} />
       <Typography variant="h3" className="font-elegant text-4xl">
         {title}
       </Typography>

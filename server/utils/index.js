@@ -1,6 +1,7 @@
 const uploadBufferImage = require("./cloudinary");
 const connectDB = require("./db");
 const checkPermissions= require('./checkPermissions')
+const createHash = require("./createHash")
 const {
   createJWT,
   isValidToken,
@@ -16,4 +17,5 @@ module.exports = {
   isValidToken,
   attachAccessToken,
   attachRefreshToken,
+  createHash,
 };
