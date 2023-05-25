@@ -1,7 +1,13 @@
 const { Router } = require("express")
 const passport = require("passport");
-const { validateCreateUser, validateLoginUser, validateVerifyEmail } = require("../middlewares");
-const { register, login, verifyEmail } = require("../controllers");
+const {
+  validateCreateUser,
+  validateLoginUser,
+  validateVerifyEmail,
+  validateForgotPassword,
+  validateResetPassword,
+} = require("../middlewares");
+const { register, login, verifyEmail, forgotPassword, resetPassword } = require("../controllers");
 
 const router = Router();
 
@@ -13,5 +19,7 @@ router
   .post(validateLoginUser, passport.authenticate("local-login", {failWithError: true, failureMessage: true}), login);
 
 router.route("/verify-email").post(validateVerifyEmail, verifyEmail)
+router.route("/forgot-password").post(validateForgotPassword, forgotPassword);
+router.route("/reset-password").post(validateResetPassword,resetPassword);
 
 module.exports = router

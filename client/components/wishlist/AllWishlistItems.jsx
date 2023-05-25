@@ -61,7 +61,7 @@ const AllWishlistItems = () => {
           ) : (
             <TableRow>
               <StyledTableCell>
-                <Typography variant="h4">No Item in your whishlist</Typography>
+                <Typography variant="h4">No Item on your whishlist</Typography>
               </StyledTableCell>
             </TableRow>
           )}

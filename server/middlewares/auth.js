@@ -8,7 +8,7 @@ const authenticateUser = asyncHandler(async(req, res, next) => {
     const { refreshToken, accessToken } = req.signedCookies;
     if(accessToken) {
         const payload = isValidToken(accessToken) 
-        console.log(payload)
+
         if(payload.user.id) {
             req.user = {
               _id: payload.user.id,
@@ -22,7 +22,7 @@ const authenticateUser = asyncHandler(async(req, res, next) => {
       if (!payload) {
         throw new UnauthenticatedError("Authentication Invalid");
       }
-      console.log("Refresh Token:", payload)
+
       const existingToken = await Token.findOne({
         user: payload.user.id,
         refreshToken: payload.refreshToken,

@@ -4,9 +4,8 @@ import { Box, Modal, Typography } from "@mui/material";
 import Portal from "./Portal";
 import Button from "../button/Button";
 
-
-const SessionModal = ({ open}) => {
-    const router = useRouter()
+const WishlistModal = ({ open }) => {
+  const router = useRouter();
   return (
     <Portal>
       <Modal
@@ -17,11 +16,19 @@ const SessionModal = ({ open}) => {
       >
         <Box className="absolute top-[50%] left-[50%] bg-white translate-x-[-50%] translate-y-[-50%] w-[90%] h-[90%] flex flex-col items-center justify-center space-y-6">
           <Typography id="modal-modal-title" variant="h5" component="h2">
-            Session timeout, please log in to continue.
+            You must login first to add items to wishlist
           </Typography>
           <Box className="space-x-3 w-full flex justify-center">
-            <Button onClick={() => router.push("/login?redirect=profile")} title="Login to continue" classes="" />
-            <Button onClick={() => router.push("/shop")} title="Go Shopping" classes="" />
+            <Button
+              onClick={() => router.push("/login?redirect=shop")}
+              title="Login to continue"
+              classes=""
+            />
+            <Button
+              onClick={() => router.push("/shop")}
+              title="Close"
+              classes=""
+            />
           </Box>
         </Box>
       </Modal>
@@ -29,4 +36,4 @@ const SessionModal = ({ open}) => {
   );
 };
 
-export default SessionModal;
+export default WishlistModal;

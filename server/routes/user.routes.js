@@ -2,7 +2,7 @@ const { Router } = require("express");
 const {
   authorizePermissions,
   authenticateUser,
-  validateViewedProducts,
+  validateProduct,
 } = require("../middlewares");
 const {
   getAllUsers,
@@ -23,10 +23,10 @@ router.patch("/updateUser", updateUser);
 router.patch(
   "/updateViewedProducts",
   authenticateUser,
-  validateViewedProducts,
+  validateProduct,
   updateViewedProducts
 );
-router.patch("/updateWishlist", authenticateUser, updateWishlist);
+router.patch("/updateWishlist", authenticateUser, validateProduct, updateWishlist);
 router.patch("/clearWishlist", authenticateUser, clearWishlistItems);
 router.patch("/updateUserPassword", updateUserPassword);
 router.get("/:id", getSingleUser);

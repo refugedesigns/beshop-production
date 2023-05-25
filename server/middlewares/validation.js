@@ -102,7 +102,7 @@ const validateProductViews = [
   },
 ];
 
-const validateViewedProducts = [
+const validateProduct = [
   body("productId")
     .isMongoId(),
   (req, res, next) => {
@@ -161,6 +161,24 @@ const validateVerifyEmail = [
   }
 ]
 
+const validateForgotPassword = [
+  body("email").isEmail(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next();
+  }
+]
+
+const validateResetPassword = [
+  body("email").isEmail(),
+  body("token").isString(),
+  body("password").isString(),
+  (req, res, next) => {
+    validationResult(req).throw();
+    next();
+  }
+]
+
 const validateCreateOrder = [
   body('items.*.name').isString(),
   body('items.*.amount').isInt(),
@@ -180,12 +198,14 @@ const validateCreateOrder = [
 module.exports = {
   validateCreateProduct,
   validateUpdateProduct,
-  validateViewedProducts,
+  validateProduct,
   validateProductViews,
   validateParams,
   validateCreateUser,
   validateLoginUser,
   validateCreateReview,
   validateVerifyEmail,
+  validateForgotPassword,
+  validateResetPassword,
   validateCreateOrder,
 };
