@@ -1,0 +1,770 @@
+openapi: 3.0.0
+info:
+  title: GOSHOP-ECOMMERCE-API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://goshop-vercel.vercel.app/api/v1
+  variables: {}
+paths:
+  /products:
+    get:
+      tags:
+      - Product
+      summary: Get All Products
+      operationId: GetAllProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    post:
+      tags:
+      - Product
+      summary: Create Product
+      operationId: CreateProduct
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - name
+              - oldPrice
+              - price
+              - description
+              - content
+              - category
+              - isStocked
+              - productNumber
+              - isSale
+              - isNew
+              - image
+              - imageGallery
+              - filterItems
+              - colors
+              - shippingFees
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Detox body Cream
+                oldPrice:
+                  type: number
+                  format: double
+                  example: 149.95
+                price:
+                  type: number
+                  format: double
+                  example: 99.95
+                description:
+                  type: string
+                  example: Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi beatae provident ipsum omnis dolor sapiente maiores reiciendis exercitationem earum deleniti, reprehenderit iste ipsa saepe. Consectetur non et excepturi molestias esse
+                content:
+                  type: string
+                  example: Universal foundation masks skin imperfections and gives it a matte finish, remaining completely invisible on the face. The foundation is suitable for any skin type. Thanks to a unique combination of pigments, the foundation adapts perfectly to even the smallest features of skin tone, creating an even and natural tone
+                category:
+                  type: string
+                  example: skin
+                isStocked:
+                  type: boolean
+                  example: true
+                productNumber:
+                  type: string
+                  example: IN1203
+                isSale:
+                  type: boolean
+                  example: false
+                isNew:
+                  type: boolean
+                  example: true
+                image:
+                  type: string
+                  format: binary
+                imageGallery:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: ''
+                filterItems:
+                  type: array
+                  items:
+                    type: string
+                  description: ''
+                colors:
+                  type: array
+                  items:
+                    type: string
+                  description: ''
+                shippingFees:
+                  type: number
+                  format: double
+                  example: 10.99
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /products/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The product ID
+    get:
+      tags:
+      - Product
+      summary: Get Product
+      operationId: GetProduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    patch:
+      tags:
+      - Product
+      summary: Update Product
+      operationId: UpdateProduct
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - name
+              - oldPrice
+              - price
+              - description
+              - content
+              - category
+              - isStocked
+              - productNumber
+              - isSale
+              - isNew
+              - filterItems
+              - colors
+              - image
+              - imageGallery
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Detox body Cream
+                oldPrice:
+                  type: number
+                  format: double
+                  example: 149.95
+                price:
+                  type: number
+                  format: double
+                  example: 99.99
+                description:
+                  type: string
+                  example: Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi beatae provident ipsum omnis dolor sapiente maiores reiciendis exercitationem earum deleniti, reprehenderit iste ipsa saepe. Consectetur non et excepturi molestias esse
+                content:
+                  type: string
+                  example: Universal foundation masks skin imperfections and gives it a matte finish, remaining completely invisible on the face. The foundation is suitable for any skin type. Thanks to a unique combination of pigments, the foundation adapts perfectly to even the smallest features of skin tone, creating an even and natural tone
+                category:
+                  type: string
+                  example: skin
+                isStocked:
+                  type: boolean
+                  example: true
+                productNumber:
+                  type: string
+                  example: IN1203
+                isSale:
+                  type: boolean
+                  example: false
+                isNew:
+                  type: boolean
+                  example: false
+                filterItems:
+                  type: array
+                  items:
+                    type: string
+                  description: ''
+                colors:
+                  type: array
+                  items:
+                    type: string
+                  description: ''
+                image:
+                  type: string
+                  format: binary
+                imageGallery:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: ''
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Product
+      summary: Delete Product
+      operationId: DeleteProduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  firstName: Philomina
+                  lastName: Yeboah
+                  phoneNumber: '+233551211037'
+                  password: '123456'
+                  email: minaobaapa@gmail.com
+            example:
+              firstName: Philomina
+              lastName: Yeboah
+              phoneNumber: '+233551211037'
+              password: '123456'
+              email: minaobaapa@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: testuser@gmail.com
+                  password: '12345678'
+            example:
+              email: testuser@gmail.com
+              password: '12345678'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/verify-email:
+    post:
+      tags:
+      - Auth
+      summary: Verfiy Email
+      operationId: VerfiyEmail
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/VerfiyEmailRequest'
+              - example:
+                  verificationToken: kajdlfjalfjdkfjafdajfdkljdf
+                  email: testuser@gmail.com
+            example:
+              verificationToken: kajdlfjalfjdkfjafdajfdkljdf
+              email: testuser@gmail.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/forgot-password:
+    post:
+      tags:
+      - Auth
+      summary: Forgot Password
+      operationId: ForgotPassword
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/reset-password:
+    post:
+      tags:
+      - Auth
+      summary: Reset Password
+      operationId: ResetPassword
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/logout:
+    delete:
+      tags:
+      - Auth
+      summary: Logout User
+      operationId: LogoutUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users:
+    get:
+      tags:
+      - User
+      summary: Get All Users
+      operationId: GetAllUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - User
+      summary: Get Single User
+      operationId: GetSingleUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/updateUser:
+    patch:
+      tags:
+      - User
+      summary: Update User
+      operationId: UpdateUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/clearWishlist:
+    patch:
+      tags:
+      - User
+      summary: Remove User Wishlist
+      operationId: RemoveUserWishlist
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/showCurrentUser:
+    get:
+      tags:
+      - User
+      summary: Show Current User
+      operationId: ShowCurrentUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/updateUserPassword:
+    patch:
+      tags:
+      - User
+      summary: Update User Password
+      operationId: UpdateUserPassword
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/updateWishlist:
+    patch:
+      tags:
+      - User
+      summary: Update Wishlist
+      operationId: UpdateWishlist
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /users/updateViewedProducts:
+    patch:
+      tags:
+      - User
+      summary: Update Viewed Products
+      operationId: UpdateViewedProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /reviews:
+    get:
+      tags:
+      - Reviews
+      summary: Get All Reviews
+      operationId: GetAllReviews
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    post:
+      tags:
+      - Reviews
+      summary: Create Review
+      operationId: CreateReview
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateReviewRequest'
+              - example:
+                  title: Good Product
+                  rating: 4
+                  comment: This is just what I need. thanks you for the best customer support and fast shipping
+                  user: 64363fd7358253c2d0b03a69
+                  product: 643b1d67896a6e693e7c8823
+            example:
+              title: Good Product
+              rating: 4
+              comment: This is just what I need. thanks you for the best customer support and fast shipping
+              user: 64363fd7358253c2d0b03a69
+              product: 643b1d67896a6e693e7c8823
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /reviews/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The review ID
+    get:
+      tags:
+      - Reviews
+      summary: Get Single Review
+      operationId: GetSingleReview
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+    patch:
+      tags:
+      - Reviews
+      summary: Update Review
+      operationId: UpdateReview
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateReviewRequest'
+              - example:
+                  title: Good Product
+                  rating: 5
+                  comment: This is just what I need. thanks you for the best customer support and fast shipping
+                  user: 64363fd7358253c2d0b03a69
+                  product: 643b1d67896a6e693e7c8823
+            example:
+              title: Good Product
+              rating: 5
+              comment: This is just what I need. thanks you for the best customer support and fast shipping
+              user: 64363fd7358253c2d0b03a69
+              product: 643b1d67896a6e693e7c8823
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  
+    delete:
+      tags:
+      - Reviews
+      summary: Delete Review
+      operationId: DeleteReview
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /reviews/getSingleProductReview/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The review ID
+    get:
+      tags:
+      - Reviews
+      summary: Get Single Product Reviews
+      operationId: GetSingleProductReviews
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /orders:
+    get:
+      tags:
+      - Orders
+      summary: Get All Orders
+      operationId: GetAllOrders
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Orders
+      summary: Create Order
+      operationId: CreateOrder
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /orders/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The order ID
+    get:
+      tags:
+      - Orders
+      summary: Get Single Order
+      operationId: GetSingleOrder
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+      - Orders
+      summary: Update Order
+      operationId: UpdateOrder
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /orders/getCurrentUserOrders:
+    get:
+      tags:
+      - Orders
+      summary: Get Single User Orders
+      operationId: GetSingleUserOrders
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - firstName
+      - lastName
+      - phoneNumber
+      - password
+      - email
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        firstName: Philomina
+        lastName: Yeboah
+        phoneNumber: '+233551411037'
+        password: '123456'
+        email: minaobaapa@gmail.com
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: refugedesigns17@gmail.com
+        password: '12345678'
+    VerfiyEmailRequest:
+      title: VerfiyEmailRequest
+      required:
+      - verificationToken
+      - email
+      type: object
+      properties:
+        verificationToken:
+          type: string
+        email:
+          type: string
+      example:
+        verificationToken: kajdlfjalfjdkfjafdajfdkljdf
+        email: refugedesigns17@gmail.com
+    UpdateReviewRequest:
+      title: UpdateReviewRequest
+      required:
+      - title
+      - rating
+      - comment
+      - user
+      - product
+      type: object
+      properties:
+        title:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        comment:
+          type: string
+        user:
+          type: string
+        product:
+          type: string
+      example:
+        title: Good Product
+        rating: 5
+        comment: This is just what I need. thanks you for the best customer support and fast shipping
+        user: 64363fd7358253c2d0b03a69
+        product: 643b1d67896a6e693e7c8823
+    CreateReviewRequest:
+      title: CreateReviewRequest
+      required:
+      - title
+      - rating
+      - comment
+      - user
+      - product
+      type: object
+      properties:
+        title:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        comment:
+          type: string
+        user:
+          type: string
+        product:
+          type: string
+      example:
+        title: Good Product
+        rating: 4
+        comment: This is just what I need. thanks you for the best customer support and fast shipping
+        user: 64363fd7358253c2d0b03a69
+        product: 643b1d67896a6e693e7c8823
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Product
+- name: Auth
+- name: User
+- name: Reviews
+- name: Orders

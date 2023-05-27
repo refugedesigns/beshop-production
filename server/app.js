@@ -13,6 +13,8 @@ const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const xxsClean = require("xss-clean");
 const passport = require("passport");
+const swaggerUI = require("swagger-ui-express")
+const YAML = require("yamljs");
 const { v2: cloudinary } = require("cloudinary");
 const { json, urlencoded } = express;
 const { join } = path;
@@ -75,6 +77,9 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser(process.env.JWT_SECRET));
 
 //Swagger documentation
+const swaggerDocument = YAML.load("./swagger.yaml")
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+
 //Add api routes here
 app.use("/api/v1", apiRoutes);
 
