@@ -10,6 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "install-server": "npm install --prefix server",
     "install-client": "npm install --prefix client",
+    "install": "npm run install-client && npm install-server",
     "deploy": "npm run build --prefix client && npm run dev --prefix server"
   },
   "keywords": [],
