@@ -42,7 +42,39 @@ const apiLimiter = rateLimit({
 });
 
 //Security settings
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "default-src": ["'self'"],
+      "img-src": ["'self'", "https: data:"],
+      "script-src": [
+        "'self'",
+        "'unsafe-inline'",
+        "js.stripe.com",
+        "www.youtube.com",
+        "api.mapbox.com",
+      ],
+      "frame-src": [
+        "'self'",
+        "'unsafe-inline'",
+        "js.stripe.com",
+        "www.youtube.com",
+      ],
+      "connect-src": [
+        "'self'",
+        "'unsafe-inline'",
+        "api.mapbox.com",
+        "www.youtube.com",
+        "js.stripe.com",
+        "events.mapbox.com",
+        "goshop-vercel.vercel.app",
+      ],
+      "worker-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "blob:"],
+    },
+  })
+);
+
 app.use(xxsClean());
 app.use(mongoSanitize())
 // app.use(apiLimiter);

@@ -85,7 +85,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (verificationInfo) => ({
         url: "/auth/verify-email",
         method: "POST",
-        body: verificationInfo,
+        body: {...verificationInfo},
       }),
       invalidatesTags: ["User"],
       async onQueryStarted(args, { dispatch, getState, queryFulfilled }) {},

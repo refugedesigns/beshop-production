@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useVerifyEmailMutation } from "@/store/userSlice";
 import { BallTriangle } from "react-loader-spinner";
 import Banner from "@/components/ui/banner/Banner";
 import Button from "@/components/ui/button/Button";
@@ -8,10 +9,34 @@ import { Container, Typography, Box } from "@mui/material";
 import { verifyUserEmail } from "@/lib/verifyUserEmail";
 import NextHead from "@/components/ui/Head/Head";
 
-const VerifyEmailPage = (verificationResult) => {
+const VerifyEmailPage = () => {
   const router = useRouter()
+  const [loading, setLoading] = useState(true)
+  const [verifyUserEmail, {data, isLoading, isSuccess, isError}] = useVerifyEmailMutation()
+  
+  useEffect(() => {
+    if(router.query.token && router.query.email) {
+      setLoading(false)
+    }else {
+      router.replace("/signup")
+    }
+  }, [router.query])
+
+  useEffect(() => {
+    const verifyEmail = async () => {
+      const userInfo = {
+        email: router.query.email,
+        verificationToken: router.query.token
+      }
+
+      return verifyUserEmail(userInfo)
+    }
+
+    verifyEmail()
+  }, [router.query])
+  
   let content;
-  if (verificationResult.message === "Email verified successfully!") {
+  if (isSuccess) {
     content = (
       <Box className="flex flex-col items-center space-y-10">
         <Typography
@@ -23,7 +48,7 @@ const VerifyEmailPage = (verificationResult) => {
         <Button onClick={() => router.replace("/login")} title="Please login" />
       </Box>
     );
-  } else if (verificationResult.message === "Verification Failed") {
+  } else if (isError) {
     content = (
       <Box className="flex flex-col items-center space-y-10">
         <Typography
@@ -35,7 +60,7 @@ const VerifyEmailPage = (verificationResult) => {
         <Button onClick={() => router.replace("/signup")} title="Signup" />
       </Box>
     );
-  } else if (!verificationResult.message) {
+  } else if (loading || isLoading) {
     content = (
       <Box className="flex flex-col items-center space-y-10">
         <BallTriangle
@@ -65,36 +90,4 @@ const VerifyEmailPage = (verificationResult) => {
 
 export default VerifyEmailPage;
 
-export async function getServerSideProps(context) {
 
-  const userInfo = {
-    email: context.query.email,
-    verificationToken: context.query.token,
-  };
-
-  if (!context.query.token && !context.query.email) {
-    return {
-      redirect: {
-        destination: "/signup",
-        permanent: true,
-      },
-    };
-  }
-
-  try {
-    const res = await verifyUserEmail(userInfo);
-    console.log(res);
-    return {
-      props: {
-        message: res.msg,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        message: error.msg,
-      },
-    };
-  }
-}
