@@ -112,7 +112,7 @@ app.use(express.static(join(__dirname, "public")));
 app.use(cookieParser(process.env.JWT_SECRET));
 
 //Swagger documentation
-const swaggerDocument = YAML.load("./swagger.yaml");
+const swaggerDocument = YAML.load(join(__dirname, "swagger.yaml"));
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 //Add api routes here
