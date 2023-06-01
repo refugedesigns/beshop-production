@@ -2,6 +2,10 @@
   "name": "goshop_server",
   "version": "1.0.0",
   "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "18.16.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=dev nodemon index.js",
