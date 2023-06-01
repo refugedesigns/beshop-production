@@ -69,6 +69,7 @@ app.use(
         "js.stripe.com",
         "events.mapbox.com",
         "goshop-vercel.vercel.app",
+        "localhost:8000"
       ],
       "worker-src": ["'self'", "'unsafe-inline'", "'unsafe-eval'", "blob:"],
     },
