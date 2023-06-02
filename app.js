@@ -139,13 +139,12 @@ const pathObject = {
   "forgot-password": true,
   "profile": true,
   "verify-email": true,
-  "wishlist": true
+  "wishlist": true,
+  "success": true,
 }
 
 app.use((req, res) =>{
   const path = req.originalUrl.split("/")[1];
-  console.log(pathObject[path])
-  console.log(path)
   if(pathObject[path]) {
     res.sendFile(join(__dirname, "public", `${path}.html`));
   }else {
