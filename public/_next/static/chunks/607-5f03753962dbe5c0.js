@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[607],{779:function(e,n,r){var c=r(5893);r(7294);var o=r(8102),t=r(9755);let s=e=>{let{children:n,...r}=e;return(0,c.jsx)(o.Z,{sx:{["&.".concat(t.Z.head)]:{border:"none",py:0},["&.".concat(t.Z.body)]:{border:"none"}},...r,children:n})};n.Z=s},1890:function(e){e.exports=[]}}]);
