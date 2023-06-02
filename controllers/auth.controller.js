@@ -14,7 +14,7 @@ const sendResetPasswordEmail = require("../utils/sendResetPasswordEmails");
 
 const register = asyncHandler(async (req, res) => {
   if (req.user) {
-    const origin = "http://localhost:3000";
+    const origin = "https://goshop-vercel.vercel.app";
     await sendVerificationEmail({ origin, user: req.user });
     res.status(StatusCodes.CREATED).json({
       msg: "Success! Please check your email and verify your account.",
@@ -68,7 +68,7 @@ const forgotPassword = async (req, res) => {
 
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString("hex");
-    const origin = "http://localhost:3000";
+    const origin = "https://goshop-vercel.vercel.app";
     await sendResetPasswordEmail({ origin, user, passwordToken });
     const tenMinutes = 1000 * 60 * 10;
     const passworkTokenExpiration = new Date(Date.now() + tenMinutes);

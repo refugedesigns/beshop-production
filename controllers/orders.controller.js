@@ -99,8 +99,8 @@ const createOrder = asyncHandler(async (req, res) => {
         coupon: coupon.id,
       },
     ],
-    success_url: "http://localhost:3000/success",
-    cancel_url: "http://localhost:3000/cart",
+    success_url: "https://goshop-vercel.vercel.app/success",
+    cancel_url: "https://goshop-vercel.vercel.app/cart",
     metadata: {
       user: JSON.stringify(req.user._id),
       orderId: JSON.stringify(order._id),
@@ -130,23 +130,7 @@ const getSingleOrder = asyncHandler(async (req, res) => {
 });
 
 const updateOrder = asyncHandler(async (req, res) => {
-  //   const { paymentIntent } = req.body;
-  //   const { id: orderId } = req.params;
 
-  //   const order = await Order.findOne({ _id: orderId });
-
-  //   if (!order) {
-  //     throw new NotFoundError(`No order with id: ${orderId}`);
-  //   }
-
-  //   checkPermissions(req.user, order.user);
-
-  //   order.paymentIntent = paymentIntent;
-  //   order.status = "paid";
-
-  //   await order.save();
-  //   const requestBuffer = await buffer(req);
-  //   const payload = requestBuffer.toString();
   const sig = req.headers["stripe-signature"];
 
   let event;
