@@ -31,8 +31,9 @@ server.on("listening", onListening);
 
 async function startServer() {
   try {
-    await connectDB(process.env.MONGO_URL);
-    server.listen(app.get("port"));
+    await connectDB(process.env.MONGO_URL).then(() => {
+      server.listen(app.get("port"));
+    });
   } catch (error) {
     console.error(error);
   }
